@@ -1,46 +1,14 @@
-#include "mainwindow.h"
-//#include "ui_mainwindow.h"
-#include "console.h"
-#include "settingsdialog.h"
-#include "robot_uart.h"
+#include "FenServeur.h"
 
-#include <QMessageBox>
-#include <QLabel>
-#include <QtSerialPort/QSerialPort>
-
-MainWindow::MainWindow()
+FenServeur::FenServeur()
 {
-    //QMainWindow(parent),
-
-    serial = new QSerialPort(this);
-
-    settings = new SettingsDialog;
-
     // Création et disposition des widgets de la fenêtre
     etatServeur = new QLabel;
     boutonQuitter = new QPushButton(tr("Quitter"));
-    buttonUartConnect = new QPushButton(tr("Open Uart"));
-    buttonUartDisconnect = new QPushButton(tr("Close Uart"));
-    buttonSettings = new QPushButton(tr("Uart Settings"));
-    buttona = new QPushButton(tr("1"));
-
-
-    connect(buttona, SIGNAL(clicked()), this, SLOT(open1()));
-
-
-    connect(buttonUartConnect, SIGNAL(clicked()), this, SLOT(openSerialPort()));
-    connect(buttonUartDisconnect, SIGNAL(clicked()), this, SLOT(closeSerialPort()));
     connect(boutonQuitter, SIGNAL(clicked()), qApp, SLOT(quit()));
-    connect(buttonSettings, SIGNAL(clicked()), settings, SLOT(show()));
-
-    connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(etatServeur);
-    layout->addWidget(buttona);
-    layout->addWidget(buttonSettings);
-    layout->addWidget(buttonUartConnect);
-    layout->addWidget(buttonUartDisconnect);
     layout->addWidget(boutonQuitter);
     setLayout(layout);
 
@@ -62,7 +30,7 @@ MainWindow::MainWindow()
     tailleMessage = 0;
 }
 
-void MainWindow::nouvelleConnexion()
+void FenServeur::nouvelleConnexion()
 {
     envoyerATous(tr("<em>Un nouveau client vient de se connecter</em>"));
 
@@ -73,7 +41,7 @@ void MainWindow::nouvelleConnexion()
     connect(nouveauClient, SIGNAL(disconnected()), this, SLOT(deconnexionClient()));
 }
 
-void MainWindow::donneesRecues()
+void FenServeur::donneesRecues()
 {
     // 1 : on reçoit un paquet (ou un sous-paquet) d'un des clients
     // On détermine quel client envoie le message (recherche du QTcpSocket du client)
@@ -102,30 +70,13 @@ void MainWindow::donneesRecues()
     in >> message;
 
     // 2 : on renvoie le message à tous les clients
-    QString mess = message;
-    envoyerATous(mess);
-
-    // Et sur la liaison serie
-    QString tmp = message;
-    QByteArray text = tmp.toLocal8Bit();
-    char *data = new char[text.size() + 1];
-    strcpy(data, text.data());
-    delete [] data;
-
-    serial->write(text);
-
-
-
-
-
-
+    envoyerATous(message);
 
     // 3 : remise de la taille du message à 0 pour permettre la réception des futurs messages
     tailleMessage = 0;
-
 }
 
-void MainWindow::deconnexionClient()
+void FenServeur::deconnexionClient()
 {
     envoyerATous(tr("<em>Un client vient de se déconnecter</em>"));
 
@@ -140,7 +91,7 @@ void MainWindow::deconnexionClient()
 }
 
 
-void MainWindow::envoyerATous(const QString &message)
+void FenServeur::envoyerATous(const QString &message)
 {
     // Préparation du paquet
     QByteArray paquet;
@@ -157,77 +108,3 @@ void MainWindow::envoyerATous(const QString &message)
         clients[i]->write(paquet);
     }
 }
-
-void MainWindow::openSerialPort()
-{
-    if (serial->isOpen())
-        serial->close();
-    SettingsDialog::Settings p = settings->settings();
-    serial->setPortName(p.name);
-    serial->setBaudRate(p.baudRate);
-    serial->setDataBits(p.dataBits);
-    serial->setParity(p.parity);
-    serial->setStopBits(p.stopBits);
-    serial->setFlowControl(p.flowControl);
-    if (serial->open(QIODevice::ReadWrite)) {
-//      console->setEnabled(true);
-//      console->setLocalEchoEnabled(p.localEchoEnabled);
-    //  ui->actionConnect->setEnabled(false);
-    //  ui->actionDisconnect->setEnabled(true);
-    //  ui->actionConfigure->setEnabled(false);
-//      showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
-//                      .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
-//                      .arg(p.stringParity).arg(p.stringStopBits).arg(p.stringFlowControl));
-        } else {
-//          QMessageBox::critical(this, tr("Error"), serial->errorString());
-
-            showStatusMessage(tr("Open error"));
-        }
-    QByteArray datas = "mw2020";
-    serial->write(datas);
-}
-
-void MainWindow::closeSerialPort()
-{
-    QByteArray datas = "mw0000";
-    serial->write(datas);
-    if (serial->isOpen())
-        serial->close();
-
-//    console->setEnabled(false);
-//    ui->actionConnect->setEnabled(true);
-//    ui->actionDisconnect->setEnabled(false);
-//    ui->actionConfigure->setEnabled(true);
-//    showStatusMessage(tr("Disconnected"));
-}
-
-void MainWindow::showStatusMessage(const QString &message)
-{
-    status->setText(message);
-}
-
-void MainWindow::open1()
-{
-    QByteArray datas = "mw0000";
-    serial->write(datas);
-}
-
-
-
-
-
-void MainWindow::readData()
-{
-    QByteArray datass = serial->readAll();
-    char *data = datass.data();
-    envoyerATous(data);
-}
-
-
-
-
-
-
-
-
-

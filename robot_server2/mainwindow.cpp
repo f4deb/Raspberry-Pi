@@ -33,8 +33,6 @@ MainWindow::MainWindow()
     connect(boutonQuitter, SIGNAL(clicked()), qApp, SLOT(quit()));
     connect(buttonSettings, SIGNAL(clicked()), settings, SLOT(show()));
 
-    connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
-
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(etatServeur);
     layout->addWidget(buttona);
@@ -158,10 +156,13 @@ void MainWindow::envoyerATous(const QString &message)
     }
 }
 
+
+
+
+
+
 void MainWindow::openSerialPort()
 {
-    if (serial->isOpen())
-        serial->close();
     SettingsDialog::Settings p = settings->settings();
     serial->setPortName(p.name);
     serial->setBaudRate(p.baudRate);
@@ -206,21 +207,13 @@ void MainWindow::showStatusMessage(const QString &message)
     status->setText(message);
 }
 
+
+
+
 void MainWindow::open1()
 {
     QByteArray datas = "mw0000";
     serial->write(datas);
-}
-
-
-
-
-
-void MainWindow::readData()
-{
-    QByteArray datass = serial->readAll();
-    char *data = datass.data();
-    envoyerATous(data);
 }
 
 

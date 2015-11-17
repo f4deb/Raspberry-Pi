@@ -35,7 +35,6 @@ class MainWindow : public QWidget
         void openSerialPort();
         void closeSerialPort();
         void open1();
-        void readData();
 
     private:
         QLabel *etatServeur;
