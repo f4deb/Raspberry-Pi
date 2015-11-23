@@ -5,6 +5,8 @@
 #include <QtNetwork>
 #include <QtCore/QtGlobal>
 #include <QMainWindow>
+#include <QTimer>
+#include <QThread>
 #include <QtSerialPort/QSerialPort>
 
 QT_BEGIN_NAMESPACE
@@ -27,6 +29,8 @@ class MainWindow : public QWidget
     public:
         MainWindow();
         void envoyerATous(const QString &message);
+        char *messages;
+        bool first;
 
     private slots:
         void nouvelleConnexion();
@@ -36,6 +40,7 @@ class MainWindow : public QWidget
         void closeSerialPort();
         void open1();
         void readData();
+        QByteArray reaAlldData();
 
     private:
         QLabel *etatServeur;
@@ -50,11 +55,15 @@ class MainWindow : public QWidget
 
         void showStatusMessage(const QString &message);
 
+
         Ui::MainWindow *ui;
         QLabel *status;
         Console *console;
         SettingsDialog *settings;
         QSerialPort *serial;
+        QTimer      m_timer;
+        QThread     m_tempo;
+
 };
 
 #endif // MAINWINDOW_H

@@ -8,10 +8,17 @@
 #include <QLabel>
 #include <QtSerialPort/QSerialPort>
 
+
 MainWindow::MainWindow()
 {
     //QMainWindow(parent),
 
+    messages = new char;
+    //free(messages),messages = NULL;
+    //messages[0] = '1';
+
+    first = new bool;
+    first = true;
     serial = new QSerialPort(this);
 
     settings = new SettingsDialog;
@@ -116,10 +123,6 @@ void MainWindow::donneesRecues()
 
 
 
-
-
-
-
     // 3 : remise de la taille du message à 0 pour permettre la réception des futurs messages
     tailleMessage = 0;
 
@@ -150,12 +153,14 @@ void MainWindow::envoyerATous(const QString &message)
     out << message; // On ajoute le message à la suite
     out.device()->seek(0); // On se replace au début du paquet
     out << (quint16) (paquet.size() - sizeof(quint16)); // On écrase le 0 qu'on avait réservé par la longueur du message
+    while (serial->waitForReadyRead(1));
 
     // Envoi du paquet préparé à tous les clients connectés au serveur
     for (int i = 0; i < clients.size(); i++)
     {
         clients[i]->write(paquet);
     }
+
 }
 
 void MainWindow::openSerialPort()
@@ -183,8 +188,6 @@ void MainWindow::openSerialPort()
 
             showStatusMessage(tr("Open error"));
         }
-    QByteArray datas = "mw2020";
-    serial->write(datas);
 }
 
 void MainWindow::closeSerialPort()
@@ -208,22 +211,46 @@ void MainWindow::showStatusMessage(const QString &message)
 
 void MainWindow::open1()
 {
-    QByteArray datas = "mw0000";
+    QByteArray datas = "SN";
     serial->write(datas);
 }
 
 
-
-
-
 void MainWindow::readData()
 {
-    QByteArray datass = serial->readAll();
-    char *data = datass.data();
-    envoyerATous(data);
+    QByteArray datass = 0;
+    char *data;
+    char *datas;
+    bool ok = false;
+
+    datass = serial->readAll();
+    //data = datass.data();
+    if (first){
+        messages = strdup(datass.data());
+        first = false;
+    }
+    else {
+        strcat(messages, strdup(datass.data()));
+    }
+    if (strstr(messages,"aSN")){
+        envoyerATous(messages);
+        first = true;
+    }
 }
 
 
+
+
+
+
+
+
+QByteArray MainWindow::reaAlldData()
+{
+    QByteArray data = serial->readAll();
+    data=data;
+    console->putData(data);
+}
 
 
 
