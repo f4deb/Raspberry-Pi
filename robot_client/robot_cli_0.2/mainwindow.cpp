@@ -4,15 +4,23 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+#include "server.h"
 #include "mainwindow.h"
 
 
+
 MainWindow::MainWindow(){
+
+
     createActions();
     createMenus();
     createToolBars();
     createCentral();
     createStatus();
+
+    initServer();
+    setWindowTitle(tr("Titan Control Center"));
+
 }
 
 void MainWindow::createActions(){
@@ -49,8 +57,7 @@ void MainWindow::createToolBars(){
 }
 
 void MainWindow::createCentral(){
-    onglets();
-
+    zoneCentralCenter();
 }
 
 void MainWindow::createControls(const QString &title){
@@ -59,4 +66,26 @@ void MainWindow::createControls(const QString &title){
 
 void MainWindow::createStatus(){
     statusBar()->showMessage(tr("Ready"));
+}
+
+
+int MainWindow::getServeurPort(){
+    return serveurPort->value();
+}
+
+QString MainWindow::getServeurIp(){
+    return serveurIP->text();
+}
+
+
+
+void MainWindow::initServer(){
+    Server *servv = new Server;
+    servv->serverInitialisation();
+
+    serveurPort->setMaximum(1024);
+    serveurPort->setMaximum(65535);
+    serveurPort->setValue(50885);
+
+    serveurIP->setText("127.0.0.1");
 }

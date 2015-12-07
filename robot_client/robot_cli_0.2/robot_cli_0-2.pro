@@ -10,11 +10,13 @@ HEADERS += \
     setup.h \
     server.h \
     serialsettings.h \
-    central.h
+    central.h \
+    terminal.h
 
 SOURCES += main.cpp \
     mainwindow.cpp \
     apropos.cpp \
     server.cpp \
     serialsettings.cpp \
-    central.cpp
+    central.cpp \
+    terminal.cpp

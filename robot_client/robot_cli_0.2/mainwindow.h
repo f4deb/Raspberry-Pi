@@ -8,6 +8,8 @@
 
 #include "apropos.h"
 #include "central.h"
+#include "server.h"
+#include "terminal.h"
 
 
 class MainWindow : public QMainWindow
@@ -16,6 +18,12 @@ class MainWindow : public QMainWindow
 
     public:
     MainWindow();
+
+    QLineEdit *serveurIP;
+    QSpinBox *serveurPort;
+
+    int getServeurPort();
+    QString getServeurIp();
 
     public slots:
     void aPropos();
@@ -28,8 +36,9 @@ class MainWindow : public QMainWindow
     void createToolBars();
     void createControls(const QString &title);
 
-    void onglets();
+    void zoneCentralCenter();
 
+    void initServer();
 
     QWidget *zoneCentrale;
     QMenu *menuConfiguration;
@@ -41,8 +50,7 @@ class MainWindow : public QMainWindow
     QMenu *menuAide;
     QAction *actionAPropos;
 
-
-
+    Terminal *terminal;
 };
 
 #endif // MAINWINDOW_H

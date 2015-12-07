@@ -1,95 +1,142 @@
 #include "central.h"
+#include "terminal.h"
 
-void MainWindow::onglets(void){
+void MainWindow::zoneCentralCenter(void){
 
+// -----------------Zone Central Widget ----------------//
+QWidget *zoneCentrale = new QWidget;
 
+    // ------------ Left Widget -------------------//
+    QWidget *leftZoneWidget = new QWidget();
 
-    QWidget *zoneCentrale = new QWidget;
+        QGroupBox *verticalGroupBox= new QGroupBox(tr("Commande Terminal"));
+        QVBoxLayout *layout = new QVBoxLayout;
 
+        QPushButton *buttons= new QPushButton(tr("Button %1"));
+            layout->addWidget(buttons);
 
-        QLineEdit *nom = new QLineEdit;
-        QLineEdit *prenom = new QLineEdit;
+        verticalGroupBox->setLayout(layout);
 
-        QFormLayout *layout = new QFormLayout;
-        layout->addRow("Votre nom", nom);
-        layout->addRow("Votre prénom", prenom);
+        // -----------
 
-        QVBoxLayout *vbox = new QVBoxLayout;
-        vbox->addLayout(layout);
+        QGroupBox *serveurGroupBox= new QGroupBox(tr("Serveur"));
 
-        QLineEdit *age = new QLineEdit;
-
-        QFormLayout *layout1 = new QFormLayout;
-        layout1->addRow("Votre âge", age);
-
-        vbox->addLayout(layout1);
-
-        QVBoxLayout *layoutPrincipal = new QVBoxLayout;
-
-        layoutPrincipal->addLayout(vbox);
+            serveurIP = new QLineEdit;
+            serveurPort = new QSpinBox;
+            QPushButton *serveurConnect = new QPushButton("Connexion");
 
 
+            QFormLayout *layoutLeft1 = new QFormLayout;
+
+            layoutLeft1->addRow("IP", serveurIP);
+            layoutLeft1->addRow("Port", serveurPort);
+            layoutLeft1->addWidget(serveurConnect);
+
+        serveurGroupBox->setLayout(layoutLeft1);
+        serveurGroupBox->setMaximumHeight(120);
 
 
+        //------------
+        QGroupBox *serialGroupBox= new QGroupBox(tr("Port Serie"));
+            QLineEdit *age = new QLineEdit;
+
+            QFormLayout *layoutLeft2 = new QFormLayout;
+            layoutLeft2->addRow("Serial Port", age);
+
+            QPushButton *SNButton = new QPushButton;
+            SNButton = new QPushButton(tr("Connexion"));
+            layoutLeft2->addWidget(SNButton);
+
+        serialGroupBox->setLayout(layoutLeft2);
+
+    //-------------
+    QVBoxLayout *vbox = new QVBoxLayout;
+    vbox->addWidget(serveurGroupBox);
+    vbox->addWidget(serialGroupBox);
+    vbox->addWidget(verticalGroupBox);
+
+    leftZoneWidget->setLayout(vbox);
+    leftZoneWidget->setMaximumWidth(200);
 
 
+    // --------------Onglets Widget ------------------//
+    QTabWidget *onglets = new QTabWidget(this);
 
+        // Créer les pages, en utilisant un widget parent pour contenir chacune des pages
+        QWidget *layoutTitanCenter = new QWidget;
+        QWidget *layoutTerminal = new QWidget;
+        QLabel *layoutElectronicalMainBoard = new QLabel; // Comme un QLabel est aussi un QWidget (il en hérite), on peut aussi s'en servir de page
+        QWidget *layoutElectronicalMotorBoard = new QWidget;
+        QWidget *layoutBeaconReceiver = new QWidget;
+        QWidget *layoutMechanicalMainBoard1 = new QWidget;
+        QWidget *layoutMechanicalMainBoard2 = new QWidget;
 
-
-        QTabWidget *onglets = new QTabWidget(this);
-//        onglets->setGeometry(100, 100, 440, 460);
-
-        // 2 : Créer les pages, en utilisant un widget parent pour contenir chacune des pages
-        QWidget *page1 = new QWidget;
-        QWidget *page2 = new QWidget;
-        QLabel *page3 = new QLabel; // Comme un QLabel est aussi un QWidget (il en hérite), on peut aussi s'en servir de page
-
-        // 3 : Créer le contenu des pages de widgets
-
-            // Page 1
+        // Créer le contenu des pages de widgets
+            // Titan Center
             QLineEdit *lineEdit = new QLineEdit("Entrez votre nom");
             QPushButton *bouton1 = new QPushButton("Cliquez ici");
             QPushButton *bouton2 = new QPushButton("Ou là…");
 
-            QVBoxLayout *vbox1 = new QVBoxLayout;
-            vbox1->addWidget(lineEdit);
-            vbox1->addWidget(bouton1);
-            vbox1->addWidget(bouton2);
+            QVBoxLayout *vboxTitanCenter = new QVBoxLayout;
+            vboxTitanCenter->addWidget(lineEdit);
+            vboxTitanCenter->addWidget(bouton1);
+            vboxTitanCenter->addWidget(bouton2);
 
-            page1->setLayout(vbox1);
+            layoutTitanCenter->setLayout(vboxTitanCenter);
 
-            // Page 2
-            QProgressBar *progress = new QProgressBar;
-            progress->setValue(50);
-            QSlider *slider = new QSlider(Qt::Horizontal);
-            QPushButton *bouton3 = new QPushButton("Valider");
+            // Terminal
 
-            QVBoxLayout *vbox2 = new QVBoxLayout;
-            vbox2->addWidget(progress);
-            vbox2->addWidget(slider);
-            vbox2->addWidget(bouton3);
 
-            page2->setLayout(vbox2);
+
+            QGroupBox *commandeTerminalGroupBox= new QGroupBox(tr("Commande Terminal"));
+            QVBoxLayout *layouta = new QVBoxLayout;
+
+            QPushButton *buttonas= new QPushButton(tr("Button 1"));
+            QPushButton *buttonbs= new QPushButton(tr("Button 2"));
+                layouta->addWidget(buttonas);
+                layouta->addWidget(buttonbs);
+
+            commandeTerminalGroupBox->setLayout(layouta);
+
+            Terminal *terminal;
+
+            terminal= new Terminal;
+            terminal->setEnabled(false);
+
+            QHBoxLayout *hboxTerminal = new QHBoxLayout;
+            hboxTerminal->addWidget(commandeTerminalGroupBox);
+            hboxTerminal->addWidget(terminal);
+
+            layoutTerminal->setLayout(hboxTerminal);
 
             // Page 3 (je ne vais afficher qu'une image ici, pas besoin de layout)
 
-            //page3->setPixmap(QPixmap("icone.png"));
-            //page3->setAlignment(Qt::AlignCenter);
+            layoutElectronicalMainBoard->setPixmap(QPixmap("icone.png"));
+            layoutElectronicalMainBoard->setAlignment(Qt::AlignCenter);
 
-        // 4 : ajouter les onglets au QTabWidget, en indiquant la page qu'ils contiennent
-        onglets->addTab(page1, "Coordonnées");
-        onglets->addTab(page2, "Progression");
-        onglets->addTab(page3, "Image");
+            // Page 4
 
 
+            // Page 5
 
 
-        layoutPrincipal->addWidget(onglets);
+            // Page 6
 
 
+                // 4 : ajouter les onglets au QTabWidget, en indiquant la page qu'ils contiennent
+                onglets->addTab(layoutTitanCenter, "Titan Center");
+                onglets->addTab(layoutTerminal, "Terminal");
+                onglets->addTab(layoutElectronicalMainBoard, "Electronical Main Board");
+                onglets->addTab(layoutElectronicalMotorBoard, "Electronical Motor Board");
+                onglets->addTab(layoutBeaconReceiver, "Beacon Receiver");
+                onglets->addTab(layoutMechanicalMainBoard1, "Mechanical Main Board 1");
+                onglets->addTab(layoutMechanicalMainBoard2, "Mechanical Main Board 2");
 
-        zoneCentrale->setLayout(layoutPrincipal);
-        setCentralWidget(zoneCentrale);
+    QHBoxLayout *layoutPrincipal = new QHBoxLayout;
 
+    layoutPrincipal->addWidget(leftZoneWidget);
+    layoutPrincipal->addWidget(onglets);
 
+    zoneCentrale->setLayout(layoutPrincipal);
+    setCentralWidget(zoneCentrale);
 }
