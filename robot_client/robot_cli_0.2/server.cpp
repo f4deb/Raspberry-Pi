@@ -1,6 +1,7 @@
 #include "server.h"
+#include "mainwindow.h"
 
-Server::Server(){
+Server::Server(QWidget *parent) : QWidget(parent){
 
 }
 
@@ -18,12 +19,12 @@ void Server::serverInitialisation(){
 // Tentative de connexion au serveur
 void Server::on_boutonConnexion_clicked(){
     // On annonce sur la fenêtre qu'on est en train de se connecter
-    listeMessages->append(tr("<em>Tentative de connexion en cours...</em>"));
-    boutonConnexion->setEnabled(false);
-
+  //  listeMessages->append(tr("<em>Tentative de connexion en cours...</em>"));
+    //boutonConnexion->setEnabled(false);
+    //MainWindow::serveurConnect->setEnabled(false);
 
     socket->abort(); // On désactive les connexions précédentes s'il y en a
- //   socket->connectToHost(getserveurIP(), getServeurPort()); // On se connecte au serveur demandé
+    socket->connectToHost(getServeurIP(), getServeurPort()); // On se connecte au serveur demandé
 }
 
 // Envoi d'un message au serveur
@@ -87,14 +88,14 @@ void Server::donneesRecues()
 // Ce slot est appelé lorsque la connexion au serveur a réussi
 void Server::connecte()
 {
-    listeMessages->append(tr("<em>Connexion réussie !</em>"));
-    boutonConnexion->setEnabled(true);
+  //  listeMessages->append(tr("<em>Connexion réussie !</em>"));
+  //  boutonConnexion->setEnabled(true);
 }
 
 // Ce slot est appelé lorsqu'on est déconnecté du serveur
 void Server::deconnecte()
 {
-    listeMessages->append(tr("<em>Déconnecté du serveur</em>"));
+    //listeMessages->append(tr("<em>Déconnecté du serveur</em>"));
 }
 
 // Ce slot est appelé lorsqu'il y a une erreur
@@ -116,4 +117,12 @@ void Server::erreurSocket(QAbstractSocket::SocketError erreur)
     }
 
     boutonConnexion->setEnabled(true);
+}
+
+ const char *Server::getServeurIP(void){
+    return ("127.0.0.1");
+}
+
+int Server::getServeurPort(void){
+    return (50885);
 }

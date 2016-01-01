@@ -3,7 +3,7 @@
 
 #include <QtWidgets>
 #include <QtNetwork>
-//#include "ui_FenClient.h"
+
 #include "mainwindow.h"
 
 class Server : public QWidget
@@ -11,10 +11,8 @@ class Server : public QWidget
     Q_OBJECT
 
     public:
-        Server();
+        Server(QWidget *parent = 0);
         void serverInitialisation();
-
-
 
     private slots:
         void on_boutonConnexion_clicked();
@@ -25,6 +23,7 @@ class Server : public QWidget
         void deconnecte();
         void erreurSocket(QAbstractSocket::SocketError erreur);
 
+
     private:
         QTcpSocket *socket; // Représente le serveur
         quint16 tailleMessage;
@@ -34,6 +33,9 @@ class Server : public QWidget
         QTextEdit *listeMessages;
         QLineEdit *message;
         QPushButton *boutonConnexion;
+
+        const char *getServeurIP();
+        int getServeurPort();
 
 };
 

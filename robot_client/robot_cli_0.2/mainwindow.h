@@ -25,6 +25,8 @@ class MainWindow : public QMainWindow
     int getServeurPort();
     QString getServeurIp();
 
+
+
     public slots:
     void aPropos();
 
@@ -39,6 +41,9 @@ class MainWindow : public QMainWindow
     void zoneCentralCenter();
 
     void initServer();
+
+    QPushButton *serveurConnect;
+    //Server *servv;
 
     QWidget *zoneCentrale;
     QMenu *menuConfiguration;

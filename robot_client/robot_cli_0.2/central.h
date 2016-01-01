@@ -6,6 +6,7 @@
 #include <QPlainTextEdit>
 
 #include "mainwindow.h"
+#include "server.h"
 #include "terminal.h"
 
 

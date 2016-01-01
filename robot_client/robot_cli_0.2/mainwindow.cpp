@@ -58,6 +58,7 @@ void MainWindow::createToolBars(){
 
 void MainWindow::createCentral(){
     zoneCentralCenter();
+
 }
 
 void MainWindow::createControls(const QString &title){
@@ -81,11 +82,14 @@ QString MainWindow::getServeurIp(){
 
 void MainWindow::initServer(){
     Server *servv = new Server;
+    //servv = new Server;
     servv->serverInitialisation();
-
     serveurPort->setMaximum(1024);
     serveurPort->setMaximum(65535);
     serveurPort->setValue(50885);
 
     serveurIP->setText("127.0.0.1");
+
+    QObject::connect(serveurConnect, SIGNAL(clicked()), servv, SLOT(on_boutonConnexion_clicked()));
+
 }

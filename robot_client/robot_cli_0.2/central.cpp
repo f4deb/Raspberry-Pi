@@ -1,4 +1,5 @@
 #include "central.h"
+#include "server.h"
 #include "terminal.h"
 
 void MainWindow::zoneCentralCenter(void){
@@ -23,8 +24,8 @@ QWidget *zoneCentrale = new QWidget;
 
             serveurIP = new QLineEdit;
             serveurPort = new QSpinBox;
-            QPushButton *serveurConnect = new QPushButton("Connexion");
-
+            //QPushButton *serveurConnect = new QPushButton("Connexion");
+            serveurConnect = new QPushButton("Connexion");
 
             QFormLayout *layoutLeft1 = new QFormLayout;
 
@@ -139,4 +140,5 @@ QWidget *zoneCentrale = new QWidget;
 
     zoneCentrale->setLayout(layoutPrincipal);
     setCentralWidget(zoneCentrale);
+
 }
