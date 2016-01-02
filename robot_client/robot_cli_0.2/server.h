@@ -12,7 +12,17 @@ class Server : public QWidget
 
     public:
         Server(QWidget *parent = 0);
+        bool etat_connexion;
         void serverInitialisation();
+
+        //singleton
+        static Server *instances();
+        int  GetValue();
+        void SetValue(int value);
+
+    signals:
+        void on_connect(char *mess_con, bool etat_connexion);
+        void on_error_connect();
 
     private slots:
         void on_boutonConnexion_clicked();
@@ -28,14 +38,15 @@ class Server : public QWidget
         QTcpSocket *socket; // Représente le serveur
         quint16 tailleMessage;
 
-
-
         QTextEdit *listeMessages;
         QLineEdit *message;
         QPushButton *boutonConnexion;
 
         const char *getServeurIP();
         int getServeurPort();
+
+        int p_value;//singleton
+
 
 };
 

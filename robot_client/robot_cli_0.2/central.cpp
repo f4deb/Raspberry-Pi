@@ -1,3 +1,5 @@
+#include <QSlider>
+
 #include "central.h"
 #include "server.h"
 #include "terminal.h"
@@ -10,11 +12,20 @@ QWidget *zoneCentrale = new QWidget;
     // ------------ Left Widget -------------------//
     QWidget *leftZoneWidget = new QWidget();
 
-        QGroupBox *verticalGroupBox= new QGroupBox(tr("Commande Terminal"));
+        QGroupBox *verticalGroupBox= new QGroupBox(tr("Commandes Terminal"));
         QVBoxLayout *layout = new QVBoxLayout;
 
-        QPushButton *buttons= new QPushButton(tr("Button %1"));
-            layout->addWidget(buttons);
+        buttons_SN = new QPushButton(tr("SN"));
+        buttons_mw0000 = new QPushButton(tr("mw0000"));
+        buttons_mw2020 = new QPushButton(tr("mw2020"));
+        buttons_mw4040 = new QPushButton(tr("mw4040"));
+        buttons_mw6060 = new QPushButton(tr("mw6060"));
+
+            layout->addWidget(buttons_SN);
+            layout->addWidget(buttons_mw0000);
+            layout->addWidget(buttons_mw2020);
+            layout->addWidget(buttons_mw4040);
+            layout->addWidget(buttons_mw6060);
 
         verticalGroupBox->setLayout(layout);
 
@@ -24,7 +35,6 @@ QWidget *zoneCentrale = new QWidget;
 
             serveurIP = new QLineEdit;
             serveurPort = new QSpinBox;
-            //QPushButton *serveurConnect = new QPushButton("Connexion");
             serveurConnect = new QPushButton("Connexion");
 
             QFormLayout *layoutLeft1 = new QFormLayout;
@@ -35,7 +45,6 @@ QWidget *zoneCentrale = new QWidget;
 
         serveurGroupBox->setLayout(layoutLeft1);
         serveurGroupBox->setMaximumHeight(120);
-
 
         //------------
         QGroupBox *serialGroupBox= new QGroupBox(tr("Port Serie"));

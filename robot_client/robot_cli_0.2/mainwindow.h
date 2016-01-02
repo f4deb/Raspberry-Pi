@@ -11,6 +11,7 @@
 #include "server.h"
 #include "terminal.h"
 
+extern int fy;
 
 class MainWindow : public QMainWindow
 {
@@ -25,10 +26,15 @@ class MainWindow : public QMainWindow
     int getServeurPort();
     QString getServeurIp();
 
+    QStatusBar *barreEtat1;
+    QLabel *statusLabel;
 
 
     public slots:
     void aPropos();
+    void status_en_cours();
+    void status_connecte(char *toto, bool etat_connection);
+    void status_erreur_connection();
 
     private:
     void createActions();
@@ -54,6 +60,12 @@ class MainWindow : public QMainWindow
 
     QMenu *menuAide;
     QAction *actionAPropos;
+
+    QPushButton *buttons_SN;
+    QPushButton *buttons_mw0000;
+    QPushButton *buttons_mw2020;
+    QPushButton *buttons_mw4040;
+    QPushButton *buttons_mw6060;
 
     Terminal *terminal;
 };

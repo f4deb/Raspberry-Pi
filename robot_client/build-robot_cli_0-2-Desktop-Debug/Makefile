@@ -54,7 +54,8 @@ SOURCES       = ../robot_cli_0.2/main.cpp \
 		../robot_cli_0.2/server.cpp \
 		../robot_cli_0.2/serialsettings.cpp \
 		../robot_cli_0.2/central.cpp \
-		../robot_cli_0.2/terminal.cpp moc_mainwindow.cpp \
+		../robot_cli_0.2/terminal.cpp \
+		../robot_cli_0.2/singleton.cpp moc_mainwindow.cpp \
 		moc_server.cpp \
 		moc_terminal.cpp
 OBJECTS       = main.o \
@@ -64,6 +65,7 @@ OBJECTS       = main.o \
 		serialsettings.o \
 		central.o \
 		terminal.o \
+		singleton.o \
 		moc_mainwindow.o \
 		moc_server.o \
 		moc_terminal.o
@@ -132,13 +134,15 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../robot_cli_0.2/server.h \
 		../robot_cli_0.2/serialsettings.h \
 		../robot_cli_0.2/central.h \
-		../robot_cli_0.2/terminal.h ../robot_cli_0.2/main.cpp \
+		../robot_cli_0.2/terminal.h \
+		../robot_cli_0.2/singleton.h ../robot_cli_0.2/main.cpp \
 		../robot_cli_0.2/mainwindow.cpp \
 		../robot_cli_0.2/apropos.cpp \
 		../robot_cli_0.2/server.cpp \
 		../robot_cli_0.2/serialsettings.cpp \
 		../robot_cli_0.2/central.cpp \
-		../robot_cli_0.2/terminal.cpp
+		../robot_cli_0.2/terminal.cpp \
+		../robot_cli_0.2/singleton.cpp
 QMAKE_TARGET  = robot_cli_0-2
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = robot_cli_0-2
@@ -312,8 +316,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../robot_cli_0.2/mainwindow.h ../robot_cli_0.2/apropos.h ../robot_cli_0.2/setup.h ../robot_cli_0.2/server.h ../robot_cli_0.2/serialsettings.h ../robot_cli_0.2/central.h ../robot_cli_0.2/terminal.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../robot_cli_0.2/main.cpp ../robot_cli_0.2/mainwindow.cpp ../robot_cli_0.2/apropos.cpp ../robot_cli_0.2/server.cpp ../robot_cli_0.2/serialsettings.cpp ../robot_cli_0.2/central.cpp ../robot_cli_0.2/terminal.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../robot_cli_0.2/mainwindow.h ../robot_cli_0.2/apropos.h ../robot_cli_0.2/setup.h ../robot_cli_0.2/server.h ../robot_cli_0.2/serialsettings.h ../robot_cli_0.2/central.h ../robot_cli_0.2/terminal.h ../robot_cli_0.2/singleton.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../robot_cli_0.2/main.cpp ../robot_cli_0.2/mainwindow.cpp ../robot_cli_0.2/apropos.cpp ../robot_cli_0.2/server.cpp ../robot_cli_0.2/serialsettings.cpp ../robot_cli_0.2/central.cpp ../robot_cli_0.2/terminal.cpp ../robot_cli_0.2/singleton.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -413,6 +417,9 @@ central.o: ../robot_cli_0.2/central.cpp ../robot_cli_0.2/central.h \
 
 terminal.o: ../robot_cli_0.2/terminal.cpp ../robot_cli_0.2/terminal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o terminal.o ../robot_cli_0.2/terminal.cpp
+
+singleton.o: ../robot_cli_0.2/singleton.cpp ../robot_cli_0.2/singleton.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o singleton.o ../robot_cli_0.2/singleton.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

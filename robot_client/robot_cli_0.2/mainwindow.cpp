@@ -5,12 +5,12 @@
 #include <QWidget>
 
 #include "server.h"
+#include "singleton.h"
 #include "mainwindow.h"
 
 
 
 MainWindow::MainWindow(){
-
 
     createActions();
     createMenus();
@@ -20,7 +20,6 @@ MainWindow::MainWindow(){
 
     initServer();
     setWindowTitle(tr("Titan Control Center"));
-
 }
 
 void MainWindow::createActions(){
@@ -66,11 +65,51 @@ void MainWindow::createControls(const QString &title){
 }
 
 void MainWindow::createStatus(){
-    statusBar()->showMessage(tr("Ready"));
+
+    statusLabel = new QLabel(this);
+    statusLabel->setText("Status Label");
+    statusBar()->addPermanentWidget(statusLabel);
+    statusBar()->showMessage("Status");
+    statusLabel->setText("totoLabel");
 }
 
+void MainWindow::initServer(){
+    Server *servv = new Server;
+    //servv = new Server;
+    servv->serverInitialisation();
+
+    serveurPort->setMaximum(1024);
+    serveurPort->setMaximum(65535);
+    serveurPort->setValue(50885);
+
+    serveurIP->setText("127.0.0.1");
+    QObject::connect(serveurConnect, SIGNAL(clicked()), this, SLOT(status_en_cours()));
+    QObject::connect(serveurConnect, SIGNAL(clicked()), servv, SLOT(on_boutonConnexion_clicked()));
+    QObject::connect(servv,SIGNAL(on_connect(char *,bool)),this,SLOT(status_connecte(char *,bool)));
+    QObject::connect(servv,SIGNAL(on_error_connect()),this,SLOT(status_erreur_connection()));
+}
+
+void MainWindow::status_en_cours(){
+    statusBar()->showMessage(tr("Tentative de connexion en cours..."));
+    getServeurPort();
+}
+
+void MainWindow::status_connecte(char *toto, bool etat_connection){
+    statusBar()->showMessage(tr(toto));
+    if (etat_connection){
+        serveurConnect->setText("Connected");
+        }
+    else{
+        serveurConnect->setText("Disconnected");
+    }
+}
+
+void MainWindow::status_erreur_connection(){
+    statusBar()->showMessage(tr("Erreur Serveur!!!"));
+}
 
 int MainWindow::getServeurPort(){
+    Server::instances()->SetValue(serveurPort->value());
     return serveurPort->value();
 }
 
@@ -78,18 +117,14 @@ QString MainWindow::getServeurIp(){
     return serveurIP->text();
 }
 
+/*
+//and use it in one place
+singleton::instance()->SetValue(1);
+// in other place
+int value = singleton::instance()->GetValue();
+ */
 
 
-void MainWindow::initServer(){
-    Server *servv = new Server;
-    //servv = new Server;
-    servv->serverInitialisation();
-    serveurPort->setMaximum(1024);
-    serveurPort->setMaximum(65535);
-    serveurPort->setValue(50885);
 
-    serveurIP->setText("127.0.0.1");
 
-    QObject::connect(serveurConnect, SIGNAL(clicked()), servv, SLOT(on_boutonConnexion_clicked()));
 
-}

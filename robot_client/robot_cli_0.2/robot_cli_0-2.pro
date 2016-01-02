@@ -11,7 +11,8 @@ HEADERS += \
     server.h \
     serialsettings.h \
     central.h \
-    terminal.h
+    terminal.h \
+    singleton.h
 
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -19,4 +20,5 @@ SOURCES += main.cpp \
     server.cpp \
     serialsettings.cpp \
     central.cpp \
-    terminal.cpp
+    terminal.cpp \
+    singleton.cpp

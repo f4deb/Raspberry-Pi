@@ -1,30 +1,37 @@
+#include <QtWidgets>
+#include <QMainWindow>
+
 #include "server.h"
+#include "singleton.h"
 #include "mainwindow.h"
 
+Server *p_instances = 0;
+
 Server::Server(QWidget *parent) : QWidget(parent){
-
-}
-
-void Server::serverInitialisation(){
-
     socket = new QTcpSocket(this);
     connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
     connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(deconnecte()));
     connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(erreurSocket(QAbstractSocket::SocketError)));
-
+    etat_connexion  = false;
     tailleMessage = 0;
 }
 
-// Tentative de connexion au serveur
-void Server::on_boutonConnexion_clicked(){
-    // On annonce sur la fenêtre qu'on est en train de se connecter
-  //  listeMessages->append(tr("<em>Tentative de connexion en cours...</em>"));
-    //boutonConnexion->setEnabled(false);
-    //MainWindow::serveurConnect->setEnabled(false);
+void Server::serverInitialisation(){
 
-    socket->abort(); // On désactive les connexions précédentes s'il y en a
-    socket->connectToHost(getServeurIP(), getServeurPort()); // On se connecte au serveur demandé
+}
+
+// Tentative de connexion/deconnexion au serveur
+void Server::on_boutonConnexion_clicked(){
+
+    if (etat_connexion == false)
+    {
+        socket->abort(); // On désactive les connexions précédentes s'il y en a
+        socket->connectToHost(getServeurIP(), getServeurPort()); // On se connecte au serveur demandé
+    }
+    else{
+        socket->disconnectFromHost();
+    }
 }
 
 // Envoi d'un message au serveur
@@ -73,13 +80,12 @@ void Server::donneesRecues()
     if (socket->bytesAvailable() < tailleMessage)
         return;
 
-
     // Si on arrive jusqu'à cette ligne, on peut récupérer le message entier
     QString messageRecu;
     in >> messageRecu;
 
     // On affiche le message sur la zone de Chat
-    listeMessages->append(messageRecu);
+//    listeMessages->append(messageRecu);
 
     // On remet la taille du message à 0 pour pouvoir recevoir de futurs messages
     tailleMessage = 0;
@@ -88,14 +94,15 @@ void Server::donneesRecues()
 // Ce slot est appelé lorsque la connexion au serveur a réussi
 void Server::connecte()
 {
-  //  listeMessages->append(tr("<em>Connexion réussie !</em>"));
-  //  boutonConnexion->setEnabled(true);
+    etat_connexion = true;
+    emit on_connect("Connexion réussie !", etat_connexion);
 }
 
 // Ce slot est appelé lorsqu'on est déconnecté du serveur
 void Server::deconnecte()
 {
-    //listeMessages->append(tr("<em>Déconnecté du serveur</em>"));
+    etat_connexion = false;
+    emit on_connect("Déconnexion réussie !", etat_connexion);
 }
 
 // Ce slot est appelé lorsqu'il y a une erreur
@@ -107,7 +114,7 @@ void Server::erreurSocket(QAbstractSocket::SocketError erreur)
             listeMessages->append(tr("<em>ERREUR : le serveur n'a pas pu être trouvé. Vérifiez l'IP et le port.</em>"));
             break;
         case QAbstractSocket::ConnectionRefusedError:
-            listeMessages->append(tr("<em>ERREUR : le serveur a refusé la connexion. Vérifiez si le programme \"serveur\" a bien été lancé. Vérifiez aussi l'IP et le port.</em>"));
+    //        listeMessages->append(tr("<em>ERREUR : le serveur a refusé la connexion. Vérifiez si le programme \"serveur\" a bien été lancé. Vérifiez aussi l'IP et le port.</em>"));
             break;
         case QAbstractSocket::RemoteHostClosedError:
             listeMessages->append(tr("<em>ERREUR : le serveur a coupé la connexion.</em>"));
@@ -116,13 +123,31 @@ void Server::erreurSocket(QAbstractSocket::SocketError erreur)
             listeMessages->append(tr("<em>ERREUR : ") + socket->errorString() + tr("</em>"));
     }
 
-    boutonConnexion->setEnabled(true);
+  //  boutonConnexion->setEnabled(true);
 }
 
  const char *Server::getServeurIP(void){
+     //serveurIP->text() = "127.0.0.1";
+
     return ("127.0.0.1");
 }
 
 int Server::getServeurPort(void){
-    return (50885);
+    int value = Server::instances()->GetValue();
+    return (value);
+}
+
+Server *Server::instances()
+{
+    if(!p_instances) p_instances = new Server();
+    return p_instances;
+}
+
+int Server::GetValue()
+{
+    return p_value;
+}
+void Server::SetValue(int value)
+{
+    p_value = value;
 }
