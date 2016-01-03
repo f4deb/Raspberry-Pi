@@ -5,6 +5,7 @@
 #include <QWidget>
 
 #include "server.h"
+//#include "settingsdialog.h"
 #include "singleton.h"
 #include "mainwindow.h"
 
@@ -19,6 +20,7 @@ MainWindow::MainWindow(){
     createStatus();
 
     initServer();
+
     setWindowTitle(tr("Titan Control Center"));
 }
 
@@ -73,9 +75,10 @@ void MainWindow::createStatus(){
     statusLabel->setText("totoLabel");
 }
 
+// *************** SERVER PORT ****************
+
 void MainWindow::initServer(){
     Server *servv = new Server;
-    //servv = new Server;
     servv->serverInitialisation();
 
     serveurPort->setMaximum(1024);
@@ -117,14 +120,7 @@ QString MainWindow::getServeurIp(){
     return serveurIP->text();
 }
 
-/*
-//and use it in one place
-singleton::instance()->SetValue(1);
-// in other place
-int value = singleton::instance()->GetValue();
- */
-
-
+//************************ SERIEAL PORT ****************
 
 
 

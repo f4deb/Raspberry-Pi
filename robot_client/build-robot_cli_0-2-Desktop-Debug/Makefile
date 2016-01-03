@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -m64 -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I../robot_cli_0.2 -I. -I../robot_cli_0.2 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
+INCPATH       = -I../robot_cli_0.2 -I. -I../robot_cli_0.2 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtSerialPort -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = robot_cli_0-21.0.0
 DISTDIR = /media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2/.tmp/robot_cli_0-21.0.0
 LINK          = g++
 LFLAGS        = -m64
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -lQt5Gui -lQt5Network -lQt5SerialPort -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -52,23 +52,25 @@ SOURCES       = ../robot_cli_0.2/main.cpp \
 		../robot_cli_0.2/mainwindow.cpp \
 		../robot_cli_0.2/apropos.cpp \
 		../robot_cli_0.2/server.cpp \
-		../robot_cli_0.2/serialsettings.cpp \
 		../robot_cli_0.2/central.cpp \
 		../robot_cli_0.2/terminal.cpp \
-		../robot_cli_0.2/singleton.cpp moc_mainwindow.cpp \
+		../robot_cli_0.2/singleton.cpp \
+		../robot_cli_0.2/settingsdialog.cpp moc_mainwindow.cpp \
 		moc_server.cpp \
-		moc_terminal.cpp
+		moc_terminal.cpp \
+		moc_settingsdialog.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		apropos.o \
 		server.o \
-		serialsettings.o \
 		central.o \
 		terminal.o \
 		singleton.o \
+		settingsdialog.o \
 		moc_mainwindow.o \
 		moc_server.o \
-		moc_terminal.o
+		moc_terminal.o \
+		moc_settingsdialog.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -132,17 +134,17 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../robot_cli_0.2/apropos.h \
 		../robot_cli_0.2/setup.h \
 		../robot_cli_0.2/server.h \
-		../robot_cli_0.2/serialsettings.h \
 		../robot_cli_0.2/central.h \
 		../robot_cli_0.2/terminal.h \
-		../robot_cli_0.2/singleton.h ../robot_cli_0.2/main.cpp \
+		../robot_cli_0.2/singleton.h \
+		../robot_cli_0.2/settingsdialog.h ../robot_cli_0.2/main.cpp \
 		../robot_cli_0.2/mainwindow.cpp \
 		../robot_cli_0.2/apropos.cpp \
 		../robot_cli_0.2/server.cpp \
-		../robot_cli_0.2/serialsettings.cpp \
 		../robot_cli_0.2/central.cpp \
 		../robot_cli_0.2/terminal.cpp \
-		../robot_cli_0.2/singleton.cpp
+		../robot_cli_0.2/singleton.cpp \
+		../robot_cli_0.2/settingsdialog.cpp
 QMAKE_TARGET  = robot_cli_0-2
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = robot_cli_0-2
@@ -170,7 +172,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET):  $(OBJECTS)  
+$(TARGET): ui_settingsdialog.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../robot_cli_0.2/robot_cli_0-2.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -236,7 +238,8 @@ Makefile: ../robot_cli_0.2/robot_cli_0-2.pro /usr/lib/x86_64-linux-gnu/qt5/mkspe
 		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Core.prl \
-		/usr/lib/x86_64-linux-gnu/libQt5Network.prl
+		/usr/lib/x86_64-linux-gnu/libQt5Network.prl \
+		/usr/lib/x86_64-linux-gnu/libQt5SerialPort.prl
 	$(QMAKE) -spec linux-g++-64 CONFIG+=debug -o Makefile ../robot_cli_0.2/robot_cli_0-2.pro
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf:
@@ -302,6 +305,7 @@ Makefile: ../robot_cli_0.2/robot_cli_0-2.pro /usr/lib/x86_64-linux-gnu/qt5/mkspe
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Network.prl:
+/usr/lib/x86_64-linux-gnu/libQt5SerialPort.prl:
 qmake: FORCE
 	@$(QMAKE) -spec linux-g++-64 CONFIG+=debug -o Makefile ../robot_cli_0.2/robot_cli_0-2.pro
 
@@ -316,8 +320,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../robot_cli_0.2/mainwindow.h ../robot_cli_0.2/apropos.h ../robot_cli_0.2/setup.h ../robot_cli_0.2/server.h ../robot_cli_0.2/serialsettings.h ../robot_cli_0.2/central.h ../robot_cli_0.2/terminal.h ../robot_cli_0.2/singleton.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../robot_cli_0.2/main.cpp ../robot_cli_0.2/mainwindow.cpp ../robot_cli_0.2/apropos.cpp ../robot_cli_0.2/server.cpp ../robot_cli_0.2/serialsettings.cpp ../robot_cli_0.2/central.cpp ../robot_cli_0.2/terminal.cpp ../robot_cli_0.2/singleton.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../robot_cli_0.2/mainwindow.h ../robot_cli_0.2/apropos.h ../robot_cli_0.2/setup.h ../robot_cli_0.2/server.h ../robot_cli_0.2/central.h ../robot_cli_0.2/terminal.h ../robot_cli_0.2/singleton.h ../robot_cli_0.2/settingsdialog.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../robot_cli_0.2/main.cpp ../robot_cli_0.2/mainwindow.cpp ../robot_cli_0.2/apropos.cpp ../robot_cli_0.2/server.cpp ../robot_cli_0.2/central.cpp ../robot_cli_0.2/terminal.cpp ../robot_cli_0.2/singleton.cpp ../robot_cli_0.2/settingsdialog.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../robot_cli_0.2/settingsdialog.ui $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -340,39 +345,48 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_server.cpp moc_terminal.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_server.cpp moc_terminal.cpp moc_settingsdialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_server.cpp moc_terminal.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_server.cpp moc_terminal.cpp moc_settingsdialog.cpp
 moc_mainwindow.cpp: ../robot_cli_0.2/apropos.h \
 		../robot_cli_0.2/mainwindow.h \
 		../robot_cli_0.2/central.h \
 		../robot_cli_0.2/server.h \
 		../robot_cli_0.2/terminal.h \
+		../robot_cli_0.2/settingsdialog.h \
 		../robot_cli_0.2/mainwindow.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../robot_cli_0.2/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../robot_cli_0.2/mainwindow.h -o moc_mainwindow.cpp
 
 moc_server.cpp: ../robot_cli_0.2/mainwindow.h \
 		../robot_cli_0.2/apropos.h \
 		../robot_cli_0.2/central.h \
 		../robot_cli_0.2/server.h \
 		../robot_cli_0.2/terminal.h \
+		../robot_cli_0.2/settingsdialog.h \
 		../robot_cli_0.2/server.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../robot_cli_0.2/server.h -o moc_server.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../robot_cli_0.2/server.h -o moc_server.cpp
 
 moc_terminal.cpp: ../robot_cli_0.2/terminal.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../robot_cli_0.2/terminal.h -o moc_terminal.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../robot_cli_0.2/terminal.h -o moc_terminal.cpp
+
+moc_settingsdialog.cpp: ../robot_cli_0.2/settingsdialog.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/media/f4deb/travail/electronique/git-f4deb/robot/robot_client/robot_cli_0.2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../robot_cli_0.2/settingsdialog.h -o moc_settingsdialog.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all:
+compiler_uic_make_all: ui_settingsdialog.h
 compiler_uic_clean:
+	-$(DEL_FILE) ui_settingsdialog.h
+ui_settingsdialog.h: ../robot_cli_0.2/settingsdialog.ui
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../robot_cli_0.2/settingsdialog.ui -o ui_settingsdialog.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean 
+compiler_clean: compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -380,14 +394,17 @@ main.o: ../robot_cli_0.2/main.cpp ../robot_cli_0.2/mainwindow.h \
 		../robot_cli_0.2/apropos.h \
 		../robot_cli_0.2/central.h \
 		../robot_cli_0.2/server.h \
-		../robot_cli_0.2/terminal.h
+		../robot_cli_0.2/terminal.h \
+		../robot_cli_0.2/settingsdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../robot_cli_0.2/main.cpp
 
 mainwindow.o: ../robot_cli_0.2/mainwindow.cpp ../robot_cli_0.2/server.h \
 		../robot_cli_0.2/mainwindow.h \
 		../robot_cli_0.2/apropos.h \
 		../robot_cli_0.2/central.h \
-		../robot_cli_0.2/terminal.h
+		../robot_cli_0.2/terminal.h \
+		../robot_cli_0.2/settingsdialog.h \
+		../robot_cli_0.2/singleton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../robot_cli_0.2/mainwindow.cpp
 
 apropos.o: ../robot_cli_0.2/apropos.cpp ../robot_cli_0.2/apropos.h \
@@ -395,6 +412,7 @@ apropos.o: ../robot_cli_0.2/apropos.cpp ../robot_cli_0.2/apropos.h \
 		../robot_cli_0.2/central.h \
 		../robot_cli_0.2/server.h \
 		../robot_cli_0.2/terminal.h \
+		../robot_cli_0.2/settingsdialog.h \
 		../robot_cli_0.2/setup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o apropos.o ../robot_cli_0.2/apropos.cpp
 
@@ -402,16 +420,16 @@ server.o: ../robot_cli_0.2/server.cpp ../robot_cli_0.2/server.h \
 		../robot_cli_0.2/mainwindow.h \
 		../robot_cli_0.2/apropos.h \
 		../robot_cli_0.2/central.h \
-		../robot_cli_0.2/terminal.h
+		../robot_cli_0.2/terminal.h \
+		../robot_cli_0.2/settingsdialog.h \
+		../robot_cli_0.2/singleton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o ../robot_cli_0.2/server.cpp
-
-serialsettings.o: ../robot_cli_0.2/serialsettings.cpp ../robot_cli_0.2/serialsettings.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o serialsettings.o ../robot_cli_0.2/serialsettings.cpp
 
 central.o: ../robot_cli_0.2/central.cpp ../robot_cli_0.2/central.h \
 		../robot_cli_0.2/mainwindow.h \
 		../robot_cli_0.2/apropos.h \
 		../robot_cli_0.2/server.h \
+		../robot_cli_0.2/settingsdialog.h \
 		../robot_cli_0.2/terminal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o central.o ../robot_cli_0.2/central.cpp
 
@@ -421,6 +439,10 @@ terminal.o: ../robot_cli_0.2/terminal.cpp ../robot_cli_0.2/terminal.h
 singleton.o: ../robot_cli_0.2/singleton.cpp ../robot_cli_0.2/singleton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o singleton.o ../robot_cli_0.2/singleton.cpp
 
+settingsdialog.o: ../robot_cli_0.2/settingsdialog.cpp ../robot_cli_0.2/settingsdialog.h \
+		ui_settingsdialog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o settingsdialog.o ../robot_cli_0.2/settingsdialog.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
@@ -429,6 +451,9 @@ moc_server.o: moc_server.cpp
 
 moc_terminal.o: moc_terminal.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_terminal.o moc_terminal.cpp
+
+moc_settingsdialog.o: moc_settingsdialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_settingsdialog.o moc_settingsdialog.cpp
 
 ####### Install
 

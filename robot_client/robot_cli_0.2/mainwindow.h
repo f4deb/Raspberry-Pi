@@ -9,9 +9,20 @@
 #include "apropos.h"
 #include "central.h"
 #include "server.h"
+#include "settingsdialog.h"
 #include "terminal.h"
 
-extern int fy;
+QT_BEGIN_NAMESPACE
+
+class QLabel;
+
+namespace Ui {
+class MainWindow;
+}
+
+QT_END_NAMESPACE
+
+
 
 class MainWindow : public QMainWindow
 {
@@ -28,6 +39,16 @@ class MainWindow : public QMainWindow
 
     QStatusBar *barreEtat1;
     QLabel *statusLabel;
+
+    QComboBox *serialPortInfoListBox;
+    QComboBox *baudRateBox;
+    QComboBox *dataBitsBox;
+    QComboBox *parityBox;
+    QComboBox *stopBitsBox;
+    QComboBox *flowControlBox;
+
+    void openSerialPort();
+    void closeSerialPort();
 
 
     public slots:
@@ -48,6 +69,9 @@ class MainWindow : public QMainWindow
 
     void initServer();
 
+    void fillPortsParameters();
+    void fillPortsInfo();
+
     QPushButton *serveurConnect;
     //Server *servv;
 
@@ -67,7 +91,15 @@ class MainWindow : public QMainWindow
     QPushButton *buttons_mw4040;
     QPushButton *buttons_mw6060;
 
+    Ui::MainWindow *ui;
+    QLabel *status;
     Terminal *terminal;
+    SettingsDialog *settings;
+    QSerialPort *serial;
+    QTimer      m_timer;
+    QThread     m_tempo;
+
+
 };
 
 #endif // MAINWINDOW_H

@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT += widgets network
+QT += widgets network serialport
 DEPENDPATH += .
 INCLUDEPATH += .
 
@@ -9,16 +9,19 @@ HEADERS += \
     apropos.h \
     setup.h \
     server.h \
-    serialsettings.h \
     central.h \
     terminal.h \
-    singleton.h
+    singleton.h \
+    settingsdialog.h
 
 SOURCES += main.cpp \
     mainwindow.cpp \
     apropos.cpp \
     server.cpp \
-    serialsettings.cpp \
     central.cpp \
     terminal.cpp \
-    singleton.cpp
+    singleton.cpp \
+    settingsdialog.cpp
+
+FORMS += \
+    settingsdialog.ui

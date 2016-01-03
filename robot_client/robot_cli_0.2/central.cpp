@@ -1,8 +1,16 @@
 #include <QSlider>
+#include <QtSerialPort/QSerialPortInfo>
+#include <QIntValidator>
+#include <QLineEdit>
 
 #include "central.h"
 #include "server.h"
 #include "terminal.h"
+
+QT_USE_NAMESPACE
+
+static const char blankString[] = QT_TRANSLATE_NOOP("SettingsDialog", "N/A");
+
 
 void MainWindow::zoneCentralCenter(void){
 
@@ -48,16 +56,28 @@ QWidget *zoneCentrale = new QWidget;
 
         //------------
         QGroupBox *serialGroupBox= new QGroupBox(tr("Port Serie"));
-            QLineEdit *age = new QLineEdit;
+            serialPortInfoListBox = new QComboBox;
+            baudRateBox = new QComboBox;
+            dataBitsBox = new QComboBox;
+            parityBox = new QComboBox;
+            stopBitsBox = new QComboBox;
+            flowControlBox = new QComboBox;
 
             QFormLayout *layoutLeft2 = new QFormLayout;
-            layoutLeft2->addRow("Serial Port", age);
+            layoutLeft2->addRow("Serial Port",serialPortInfoListBox);
+            layoutLeft2->addRow("BaudRate",baudRateBox);
+            layoutLeft2->addRow("Data bits",dataBitsBox);
+            layoutLeft2->addRow("Parity",parityBox);
+            layoutLeft2->addRow("Stop bits",stopBitsBox);
+            layoutLeft2->addRow("Flow control",flowControlBox);
 
             QPushButton *SNButton = new QPushButton;
-            SNButton = new QPushButton(tr("Connexion"));
+            SNButton = new QPushButton(tr("Close"));
             layoutLeft2->addWidget(SNButton);
 
         serialGroupBox->setLayout(layoutLeft2);
+        fillPortsParameters();
+        fillPortsInfo();
 
     //-------------
     QVBoxLayout *vbox = new QVBoxLayout;
@@ -66,7 +86,7 @@ QWidget *zoneCentrale = new QWidget;
     vbox->addWidget(verticalGroupBox);
 
     leftZoneWidget->setLayout(vbox);
-    leftZoneWidget->setMaximumWidth(200);
+    leftZoneWidget->setMaximumWidth(240);
 
 
     // --------------Onglets Widget ------------------//
@@ -119,6 +139,7 @@ QWidget *zoneCentrale = new QWidget;
 
             layoutTerminal->setLayout(hboxTerminal);
 
+
             // Page 3 (je ne vais afficher qu'une image ici, pas besoin de layout)
 
             layoutElectronicalMainBoard->setPixmap(QPixmap("icone.png"));
@@ -150,4 +171,60 @@ QWidget *zoneCentrale = new QWidget;
     zoneCentrale->setLayout(layoutPrincipal);
     setCentralWidget(zoneCentrale);
 
+}
+
+
+void MainWindow::fillPortsParameters(){
+    baudRateBox->addItem(QStringLiteral("9600"), QSerialPort::Baud9600);
+    baudRateBox->addItem(QStringLiteral("19200"), QSerialPort::Baud19200);
+    baudRateBox->addItem(QStringLiteral("38400"), QSerialPort::Baud38400);
+    baudRateBox->addItem(QStringLiteral("115200"), QSerialPort::Baud115200);
+    baudRateBox->setCurrentIndex(3);
+
+    dataBitsBox->addItem(QStringLiteral("5"), QSerialPort::Data5);
+    dataBitsBox->addItem(QStringLiteral("6"), QSerialPort::Data6);
+    dataBitsBox->addItem(QStringLiteral("7"), QSerialPort::Data7);
+    dataBitsBox->addItem(QStringLiteral("8"), QSerialPort::Data8);
+    dataBitsBox->setCurrentIndex(3);
+
+    parityBox->addItem(tr("None"), QSerialPort::NoParity);
+    parityBox->addItem(tr("Even"), QSerialPort::EvenParity);
+    parityBox->addItem(tr("Odd"), QSerialPort::OddParity);
+    parityBox->addItem(tr("Mark"), QSerialPort::MarkParity);
+    parityBox->addItem(tr("Space"), QSerialPort::SpaceParity);
+
+    stopBitsBox->addItem(QStringLiteral("1"), QSerialPort::OneStop);
+#ifdef Q_OS_WIN
+    stopBitsBox->addItem(tr("1.5"), QSerialPort::OneAndHalfStop);
+#endif
+    stopBitsBox->addItem(QStringLiteral("2"), QSerialPort::TwoStop);
+
+    flowControlBox->addItem(tr("None"), QSerialPort::NoFlowControl);
+    flowControlBox->addItem(tr("RTS/CTS"), QSerialPort::HardwareControl);
+    flowControlBox->addItem(tr("XON/XOFF"), QSerialPort::SoftwareControl);
+}
+
+void MainWindow::fillPortsInfo()
+{
+    serialPortInfoListBox->clear();
+    QString description;
+    QString manufacturer;
+    QString serialNumber;
+    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
+        QStringList list;
+        description = info.description();
+        manufacturer = info.manufacturer();
+        serialNumber = info.serialNumber();
+        list << info.portName()
+             << (!description.isEmpty() ? description : blankString)
+             << (!manufacturer.isEmpty() ? manufacturer : blankString)
+             << (!serialNumber.isEmpty() ? serialNumber : blankString)
+             << info.systemLocation()
+             << (info.vendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : blankString)
+             << (info.productIdentifier() ? QString::number(info.productIdentifier(), 16) : blankString);
+
+        serialPortInfoListBox->addItem(list.first(), list);
+    }
+
+    serialPortInfoListBox->addItem(tr("Custom"));
 }
