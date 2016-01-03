@@ -1,6 +1,0 @@
-#ifndef SERIALSETTINGS_H
-#define SERIALSETTINGS_H
-
-
-
-#endif // SERIALSETTINGS_H
