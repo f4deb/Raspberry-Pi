@@ -9,7 +9,6 @@
 #include "apropos.h"
 #include "central.h"
 #include "server.h"
-#include "settingsdialog.h"
 #include "terminal.h"
 
 QT_BEGIN_NAMESPACE
@@ -47,15 +46,13 @@ class MainWindow : public QMainWindow
     QComboBox *stopBitsBox;
     QComboBox *flowControlBox;
 
-    void openSerialPort();
-    void closeSerialPort();
-
-
     public slots:
     void aPropos();
     void status_en_cours();
     void status_connecte(char *toto, bool etat_connection);
     void status_erreur_connection();
+    void openSerialPort();
+    void closeSerialPort();
 
     private:
     void createActions();
@@ -91,13 +88,18 @@ class MainWindow : public QMainWindow
     QPushButton *buttons_mw4040;
     QPushButton *buttons_mw6060;
 
+    QPushButton *SerialConnectButton;
+
     Ui::MainWindow *ui;
     QLabel *status;
     Terminal *terminal;
-    SettingsDialog *settings;
+    Terminal *settings;
+
     QSerialPort *serial;
     QTimer      m_timer;
     QThread     m_tempo;
+
+
 
 
 };

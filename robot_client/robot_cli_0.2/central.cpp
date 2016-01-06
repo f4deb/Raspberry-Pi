@@ -43,7 +43,7 @@ QWidget *zoneCentrale = new QWidget;
 
             serveurIP = new QLineEdit;
             serveurPort = new QSpinBox;
-            serveurConnect = new QPushButton("Connexion");
+            serveurConnect = new QPushButton("Connect");
 
             QFormLayout *layoutLeft1 = new QFormLayout;
 
@@ -71,9 +71,8 @@ QWidget *zoneCentrale = new QWidget;
             layoutLeft2->addRow("Stop bits",stopBitsBox);
             layoutLeft2->addRow("Flow control",flowControlBox);
 
-            QPushButton *SNButton = new QPushButton;
-            SNButton = new QPushButton(tr("Close"));
-            layoutLeft2->addWidget(SNButton);
+            SerialConnectButton = new QPushButton(tr("Connect"));
+            layoutLeft2->addWidget(SerialConnectButton);
 
         serialGroupBox->setLayout(layoutLeft2);
         fillPortsParameters();

@@ -251,10 +251,3 @@ QByteArray MainWindow::reaAlldData()
     data=data;
     console->putData(data);
 }
-
-
-
-
-
-
-

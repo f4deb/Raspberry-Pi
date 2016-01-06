@@ -1,6 +1,7 @@
 #include <QScrollBar>
 #include <QtCore/QDebug>
 
+#include "mainwindow.h"
 #include "terminal.h"
 
 Terminal::Terminal(QWidget *parent)
@@ -12,6 +13,7 @@ Terminal::Terminal(QWidget *parent)
     p.setColor(QPalette::Base, Qt::black);
     p.setColor(QPalette::Text, Qt::green);
     setPalette(p);
+    etat_connexion_serial = false;
 }
 
 void Terminal::putData(const QByteArray &data)
@@ -58,3 +60,29 @@ void Terminal::contextMenuEvent(QContextMenuEvent *e)
 {
     Q_UNUSED(e)
 }
+
+void Terminal::terminalInitialisation(){
+
+}
+
+void Terminal::on_bouton_serial_connexion_clicked(){
+    if (etat_connexion_serial == false)
+    {
+        emit openSerialPortTerminal();
+        etat_connexion_serial = true;
+    }
+    else{
+        emit closeSerialPortTerminal();
+        etat_connexion_serial = false;
+    }
+}
+
+
+Terminal::Settings Terminal::settings() const
+{
+    return currentSettings;
+}
+
+
+
+

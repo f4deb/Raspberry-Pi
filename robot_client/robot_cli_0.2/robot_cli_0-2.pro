@@ -11,8 +11,7 @@ HEADERS += \
     server.h \
     central.h \
     terminal.h \
-    singleton.h \
-    settingsdialog.h
+    singleton.h
 
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -20,8 +19,6 @@ SOURCES += main.cpp \
     server.cpp \
     central.cpp \
     terminal.cpp \
-    singleton.cpp \
-    settingsdialog.cpp
+    singleton.cpp
 
-FORMS += \
-    settingsdialog.ui
+FORMS +=
