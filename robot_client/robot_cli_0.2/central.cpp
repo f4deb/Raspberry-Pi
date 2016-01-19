@@ -39,8 +39,7 @@ QWidget *zoneCentrale = new QWidget;
 
         // -----------
 
-        QGroupBox *serveurGroupBox= new QGroupBox(tr("Serveur"));
-
+        serveurGroupBox= new QGroupBox(tr("Serveur"));
             serveurIP = new QLineEdit;
             serveurPort = new QSpinBox;
             serveurConnect = new QPushButton("Connect");
@@ -55,7 +54,7 @@ QWidget *zoneCentrale = new QWidget;
         serveurGroupBox->setMaximumHeight(120);
 
         //------------
-        QGroupBox *serialGroupBox= new QGroupBox(tr("Port Serie"));
+        serialGroupBox= new QGroupBox(tr("Port Serie"));
             serialPortInfoListBox = new QComboBox;
             baudRateBox = new QComboBox;
             dataBitsBox = new QComboBox;
@@ -114,20 +113,69 @@ QWidget *zoneCentrale = new QWidget;
             layoutTitanCenter->setLayout(vboxTitanCenter);
 
             // Terminal
-
-
-
             QGroupBox *commandeTerminalGroupBox= new QGroupBox(tr("Commande Terminal"));
-            QVBoxLayout *layouta = new QVBoxLayout;
+            QVBoxLayout *layoutTerminal1 = new QVBoxLayout;
+            QHBoxLayout *layoutTerminal11 = new QHBoxLayout;
+            QHBoxLayout *layoutTerminal12 = new QHBoxLayout;
+            QHBoxLayout *layoutTerminal13 = new QHBoxLayout;
+            QHBoxLayout *layoutTerminal14 = new QHBoxLayout;
+            QHBoxLayout *layoutTerminal15 = new QHBoxLayout;
+            QHBoxLayout *layoutTerminal16 = new QHBoxLayout;
+            QHBoxLayout *layoutTerminal17 = new QHBoxLayout;
+            terminalText1 = new QLineEdit;
+            button_terminal_text1 = new QPushButton(textButtonSendTerminal);
+            button_terminal_text1->setMaximumWidth(60);
+            terminalText2 = new QLineEdit;
+            button_terminal_text2 = new QPushButton(textButtonSendTerminal);
+            button_terminal_text2->setMaximumWidth(60);
+            terminalText3 = new QLineEdit;
+            button_terminal_text3 = new QPushButton(textButtonSendTerminal);
+            button_terminal_text3->setMaximumWidth(60);
+            terminalText4 = new QLineEdit;
+            button_terminal_text4 = new QPushButton(textButtonSendTerminal);
+            button_terminal_text4->setMaximumWidth(60);
+            terminalText5 = new QLineEdit;
+            button_terminal_text5 = new QPushButton(textButtonSendTerminal);
+            button_terminal_text5->setMaximumWidth(60);
+            terminalText6 = new QLineEdit;
+            button_terminal_text6 = new QPushButton(textButtonSendTerminal);
+            button_terminal_text6->setMaximumWidth(60);
+            terminalText7 = new QLineEdit;
+            button_terminal_text7 = new QPushButton(textButtonSendTerminal);
+            button_terminal_text7->setMaximumWidth(60);
+            button_terminal_1= new QPushButton(tr(messageButtonTerminal1));
+            button_terminal_2= new QPushButton(tr(messageButtonTerminal2));
+            button_terminal_3= new QPushButton(tr(messageButtonTerminal3));
+            button_terminal_4= new QPushButton(tr(messageButtonTerminal4));
+                layoutTerminal11->addWidget(terminalText1);
+                layoutTerminal11->addWidget(button_terminal_text1);
+                layoutTerminal12->addWidget(terminalText2);
+                layoutTerminal12->addWidget(button_terminal_text2);
+                layoutTerminal13->addWidget(terminalText3);
+                layoutTerminal13->addWidget(button_terminal_text3);
+                layoutTerminal14->addWidget(terminalText4);
+                layoutTerminal14->addWidget(button_terminal_text4);
+                layoutTerminal15->addWidget(terminalText5);
+                layoutTerminal15->addWidget(button_terminal_text5);
+                layoutTerminal16->addWidget(terminalText6);
+                layoutTerminal16->addWidget(button_terminal_text6);
+                layoutTerminal17->addWidget(terminalText7);
+                layoutTerminal17->addWidget(button_terminal_text7);
 
-            QPushButton *buttonas= new QPushButton(tr("Button 1"));
-            QPushButton *buttonbs= new QPushButton(tr("Button 2"));
-                layouta->addWidget(buttonas);
-                layouta->addWidget(buttonbs);
+                layoutTerminal1->addLayout(layoutTerminal11);
+                layoutTerminal1->addLayout(layoutTerminal12);
+                layoutTerminal1->addLayout(layoutTerminal13);
+                layoutTerminal1->addLayout(layoutTerminal14);
+                layoutTerminal1->addLayout(layoutTerminal15);
+                layoutTerminal1->addLayout(layoutTerminal16);
+                layoutTerminal1->addLayout(layoutTerminal17);
+                layoutTerminal1->addWidget(button_terminal_1);
+                layoutTerminal1->addWidget(button_terminal_2);
+                layoutTerminal1->addWidget(button_terminal_3);
+                layoutTerminal1->addWidget(button_terminal_4);
 
-            commandeTerminalGroupBox->setLayout(layouta);
-
-            Terminal *terminal;
+            commandeTerminalGroupBox->setLayout(layoutTerminal1);
+            commandeTerminalGroupBox->setMaximumWidth(180);
 
             terminal= new Terminal;
             terminal->setEnabled(false);
@@ -137,7 +185,6 @@ QWidget *zoneCentrale = new QWidget;
             hboxTerminal->addWidget(terminal);
 
             layoutTerminal->setLayout(hboxTerminal);
-
 
             // Page 3 (je ne vais afficher qu'une image ici, pas besoin de layout)
 

@@ -4,22 +4,36 @@
 #include "mainwindow.h"
 #include "terminal.h"
 
+int etat_serial_port;
+Terminal *t_instances = 0;
+
 Terminal::Terminal(QWidget *parent)
     : QPlainTextEdit(parent)
     , localEchoEnabled(false)
 {
     document()->setMaximumBlockCount(100);
-    QPalette p = palette();
+    p = palette();
     p.setColor(QPalette::Base, Qt::black);
     p.setColor(QPalette::Text, Qt::green);
     setPalette(p);
-    etat_connexion_serial = false;
+    //etat_connexion_serial = 0; //serial port not open
 }
 
-void Terminal::putData(const QByteArray &data)
+void Terminal::putData(const QByteArray &data,int dir)
 {
-    insertPlainText(QString(data));
+    switch (dir){
+        case 0 :
+            p.setColor(QPalette::Highlight, Qt::red);
+            setPalette(p);
+            appendPlainText(QString(data));
 
+            break;
+        case 1 :
+            p.setColor(QPalette::HighlightedText, Qt::red);
+            setPalette(p);
+            insertPlainText(QString(data));
+            break;
+    }
     QScrollBar *bar = verticalScrollBar();
     bar->setValue(bar->maximum());
 }
@@ -65,18 +79,30 @@ void Terminal::terminalInitialisation(){
 
 }
 
-void Terminal::on_bouton_serial_connexion_clicked(){
-    if (etat_connexion_serial == false)
-    {
-        emit openSerialPortTerminal();
-        etat_connexion_serial = true;
-    }
-    else{
-        emit closeSerialPortTerminal();
-        etat_connexion_serial = false;
-    }
+Terminal *Terminal::instances()
+{
+    if(!t_instances) t_instances = new Terminal();
+    return t_instances;
 }
 
+int Terminal::getEtatConnexionSerial(){
+    return etat_connexion_serial;
+}
+
+void Terminal::setEtatConnexionSerial(int etat){
+    etat_connexion_serial = etat;
+
+}
+
+
+void Terminal::on_bouton_serial_connexion_clicked(){
+    switch (etat_serial_port){
+        case 0 : emit openSerialPortTerminal();break;
+        case 1 : emit closeSerialPortTerminal();break;
+        case -1 : emit openSerialPortTerminal();break;
+        default : break;
+    }
+}
 
 Terminal::Settings Terminal::settings() const
 {

@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Server_t {
     QByteArrayData data[16];
-    char stringdata[226];
+    char stringdata[230];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,21 +34,21 @@ QT_MOC_LITERAL(1, 7, 10), // "on_connect"
 QT_MOC_LITERAL(2, 18, 0), // ""
 QT_MOC_LITERAL(3, 19, 5), // "char*"
 QT_MOC_LITERAL(4, 25, 8), // "mess_con"
-QT_MOC_LITERAL(5, 34, 14), // "etat_connexion"
-QT_MOC_LITERAL(6, 49, 16), // "on_error_connect"
-QT_MOC_LITERAL(7, 66, 26), // "on_boutonConnexion_clicked"
-QT_MOC_LITERAL(8, 93, 24), // "on_boutonEnvoyer_clicked"
-QT_MOC_LITERAL(9, 118, 24), // "on_message_returnPressed"
-QT_MOC_LITERAL(10, 143, 13), // "donneesRecues"
-QT_MOC_LITERAL(11, 157, 8), // "connecte"
-QT_MOC_LITERAL(12, 166, 10), // "deconnecte"
-QT_MOC_LITERAL(13, 177, 12), // "erreurSocket"
-QT_MOC_LITERAL(14, 190, 28), // "QAbstractSocket::SocketError"
-QT_MOC_LITERAL(15, 219, 6) // "erreur"
+QT_MOC_LITERAL(5, 34, 16), // "on_error_connect"
+QT_MOC_LITERAL(6, 51, 18), // "dataServerReceived"
+QT_MOC_LITERAL(7, 70, 26), // "on_boutonConnexion_clicked"
+QT_MOC_LITERAL(8, 97, 24), // "on_boutonEnvoyer_clicked"
+QT_MOC_LITERAL(9, 122, 24), // "on_message_returnPressed"
+QT_MOC_LITERAL(10, 147, 13), // "donneesRecues"
+QT_MOC_LITERAL(11, 161, 8), // "connecte"
+QT_MOC_LITERAL(12, 170, 10), // "deconnecte"
+QT_MOC_LITERAL(13, 181, 12), // "erreurSocket"
+QT_MOC_LITERAL(14, 194, 28), // "QAbstractSocket::SocketError"
+QT_MOC_LITERAL(15, 223, 6) // "erreur"
 
     },
     "Server\0on_connect\0\0char*\0mess_con\0"
-    "etat_connexion\0on_error_connect\0"
+    "on_error_connect\0dataServerReceived\0"
     "on_boutonConnexion_clicked\0"
     "on_boutonEnvoyer_clicked\0"
     "on_message_returnPressed\0donneesRecues\0"
@@ -63,28 +63,30 @@ static const uint qt_meta_data_Server[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   59,    2, 0x06 /* Public */,
-       6,    0,   64,    2, 0x06 /* Public */,
+       1,    1,   64,    2, 0x06 /* Public */,
+       5,    0,   67,    2, 0x06 /* Public */,
+       6,    0,   68,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       7,    0,   65,    2, 0x08 /* Private */,
-       8,    0,   66,    2, 0x08 /* Private */,
-       9,    0,   67,    2, 0x08 /* Private */,
-      10,    0,   68,    2, 0x08 /* Private */,
-      11,    0,   69,    2, 0x08 /* Private */,
-      12,    0,   70,    2, 0x08 /* Private */,
-      13,    1,   71,    2, 0x08 /* Private */,
+       7,    0,   69,    2, 0x08 /* Private */,
+       8,    0,   70,    2, 0x08 /* Private */,
+       9,    0,   71,    2, 0x08 /* Private */,
+      10,    0,   72,    2, 0x08 /* Private */,
+      11,    0,   73,    2, 0x08 /* Private */,
+      12,    0,   74,    2, 0x08 /* Private */,
+      13,    1,   75,    2, 0x08 /* Private */,
 
  // signals: parameters
-    QMetaType::Void, 0x80000000 | 3, QMetaType::Bool,    4,    5,
+    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void,
     QMetaType::Void,
 
  // slots: parameters
@@ -104,21 +106,22 @@ void Server::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
     if (_c == QMetaObject::InvokeMetaMethod) {
         Server *_t = static_cast<Server *>(_o);
         switch (_id) {
-        case 0: _t->on_connect((*reinterpret_cast< char*(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 0: _t->on_connect((*reinterpret_cast< char*(*)>(_a[1]))); break;
         case 1: _t->on_error_connect(); break;
-        case 2: _t->on_boutonConnexion_clicked(); break;
-        case 3: _t->on_boutonEnvoyer_clicked(); break;
-        case 4: _t->on_message_returnPressed(); break;
-        case 5: _t->donneesRecues(); break;
-        case 6: _t->connecte(); break;
-        case 7: _t->deconnecte(); break;
-        case 8: _t->erreurSocket((*reinterpret_cast< QAbstractSocket::SocketError(*)>(_a[1]))); break;
+        case 2: _t->dataServerReceived(); break;
+        case 3: _t->on_boutonConnexion_clicked(); break;
+        case 4: _t->on_boutonEnvoyer_clicked(); break;
+        case 5: _t->on_message_returnPressed(); break;
+        case 6: _t->donneesRecues(); break;
+        case 7: _t->connecte(); break;
+        case 8: _t->deconnecte(); break;
+        case 9: _t->erreurSocket((*reinterpret_cast< QAbstractSocket::SocketError(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 8:
+        case 9:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -130,7 +133,7 @@ void Server::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (Server::*_t)(char * , bool );
+            typedef void (Server::*_t)(char * );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Server::on_connect)) {
                 *result = 0;
             }
@@ -139,6 +142,12 @@ void Server::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
             typedef void (Server::*_t)();
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Server::on_error_connect)) {
                 *result = 1;
+            }
+        }
+        {
+            typedef void (Server::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Server::dataServerReceived)) {
+                *result = 2;
             }
         }
     }
@@ -169,21 +178,21 @@ int Server::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }
 
 // SIGNAL 0
-void Server::on_connect(char * _t1, bool _t2)
+void Server::on_connect(char * _t1)
 {
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
@@ -191,5 +200,11 @@ void Server::on_connect(char * _t1, bool _t2)
 void Server::on_error_connect()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, Q_NULLPTR);
+}
+
+// SIGNAL 2
+void Server::dataServerReceived()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

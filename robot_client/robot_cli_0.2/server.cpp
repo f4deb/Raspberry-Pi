@@ -5,6 +5,10 @@
 #include "singleton.h"
 #include "mainwindow.h"
 
+int etat_serveur_port;
+
+QByteArray message_from_server;
+
 Server *p_instances = 0;
 
 Server::Server(QWidget *parent) : QWidget(parent){
@@ -13,7 +17,8 @@ Server::Server(QWidget *parent) : QWidget(parent){
     connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(deconnecte()));
     connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(erreurSocket(QAbstractSocket::SocketError)));
-    etat_connexion  = false;
+    //etat_connexion  = false;
+    etat_serveur_port = 0;
     tailleMessage = 0;
 }
 
@@ -24,7 +29,7 @@ void Server::serverInitialisation(){
 // Tentative de connexion/deconnexion au serveur
 void Server::on_boutonConnexion_clicked(){
 
-    if (etat_connexion == false)
+    if (etat_serveur_port == 0)
     {
         socket->abort(); // On désactive les connexions précédentes s'il y en a
         socket->connectToHost(getServeurIP(), getServeurPort()); // On se connecte au serveur demandé
@@ -32,6 +37,28 @@ void Server::on_boutonConnexion_clicked(){
     else{
         socket->disconnectFromHost();
     }
+}
+
+// envoi d'un message au serveur
+
+//void Server::writes(QByteArray message){
+
+//}
+
+void Server::write(QByteArray paquet){
+
+    QDataStream out(&paquet, QIODevice::WriteOnly);
+    // On prépare le paquet à envoyer
+    QString messageAEnvoyer = paquet;
+
+    out << (quint16) 0;
+    out << messageAEnvoyer;
+    out.device()->seek(0);
+    out << (quint16) (paquet.size() - sizeof(quint16));
+
+    socket->write(paquet); // On envoie le paquet
+
+
 }
 
 // Envoi d'un message au serveur
@@ -83,31 +110,27 @@ void Server::donneesRecues()
     // Si on arrive jusqu'à cette ligne, on peut récupérer le message entier
     QString messageRecu;
     in >> messageRecu;
-
-    // On affiche le message sur la zone de Chat
-//    listeMessages->append(messageRecu);
+    message_from_server = messageRecu.toUtf8();
 
     // On remet la taille du message à 0 pour pouvoir recevoir de futurs messages
     tailleMessage = 0;
+    emit dataServerReceived();
 }
 
 // Ce slot est appelé lorsque la connexion au serveur a réussi
-void Server::connecte()
-{
-    etat_connexion = true;
-    emit on_connect("Connexion réussie !", etat_connexion);
+void Server::connecte(){
+    etat_serveur_port = 1;
+    emit on_connect("Connexion réussie !");
 }
 
 // Ce slot est appelé lorsqu'on est déconnecté du serveur
-void Server::deconnecte()
-{
-    etat_connexion = false;
-    emit on_connect("Déconnexion réussie !", etat_connexion);
+void Server::deconnecte(){
+    etat_serveur_port = 0;
+    emit on_connect("Déconnexion réussie !");
 }
 
 // Ce slot est appelé lorsqu'il y a une erreur
-void Server::erreurSocket(QAbstractSocket::SocketError erreur)
-{
+void Server::erreurSocket(QAbstractSocket::SocketError erreur){
     switch(erreur) // On affiche un message différent selon l'erreur qu'on nous indique
     {
         case QAbstractSocket::HostNotFoundError:
@@ -122,13 +145,9 @@ void Server::erreurSocket(QAbstractSocket::SocketError erreur)
         default:
             listeMessages->append(tr("<em>ERREUR : ") + socket->errorString() + tr("</em>"));
     }
-
-  //  boutonConnexion->setEnabled(true);
 }
 
  const char *Server::getServeurIP(void){
-     //serveurIP->text() = "127.0.0.1";
-
     return ("127.0.0.1");
 }
 

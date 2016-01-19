@@ -21,13 +21,17 @@ class MainWindow;
 
 QT_END_NAMESPACE
 
-
+#define messageButtonTerminal1 "SN"
+#define messageButtonTerminal2 "mw2020"
+#define messageButtonTerminal3 "mw4040"
+#define messageButtonTerminal4 "mw0000"
+#define textButtonSendTerminal "->send"
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-    public:
+public:
     MainWindow();
 
     QLineEdit *serveurIP;
@@ -46,15 +50,33 @@ class MainWindow : public QMainWindow
     QComboBox *stopBitsBox;
     QComboBox *flowControlBox;
 
-    public slots:
+    bool first;
+
+public slots:
     void aPropos();
     void status_en_cours();
-    void status_connecte(char *toto, bool etat_connection);
+    void status_connecte(char *toto);
     void status_erreur_connection();
     void openSerialPort();
     void closeSerialPort();
 
-    private:
+
+private slots :
+    void writeData(const QByteArray &data);
+    void readData();
+    void buttonTerminalText1();
+    void buttonTerminalText2();
+    void buttonTerminalText3();
+    void buttonTerminalText4();
+    void buttonTerminalText5();
+    void buttonTerminalText6();
+    void buttonTerminalText7();
+    void buttonTerminal1();
+    void buttonTerminal2();
+    void buttonTerminal3();
+    void buttonTerminal4();
+
+private:
     void createActions();
     void createMenus();
     void createCentral();
@@ -65,12 +87,18 @@ class MainWindow : public QMainWindow
     void zoneCentralCenter();
 
     void initServer();
+    void initSerialPort();
+
+    void initTerminalConnections();
 
     void fillPortsParameters();
     void fillPortsInfo();
 
     QPushButton *serveurConnect;
     //Server *servv;
+
+    QGroupBox *serveurGroupBox;
+    QGroupBox *serialGroupBox;
 
     QWidget *zoneCentrale;
     QMenu *menuConfiguration;
@@ -88,16 +116,39 @@ class MainWindow : public QMainWindow
     QPushButton *buttons_mw4040;
     QPushButton *buttons_mw6060;
 
+    //button Terminal tab
+    QLineEdit *terminalText1;
+    QLineEdit *terminalText2;
+    QLineEdit *terminalText3;
+    QLineEdit *terminalText4;
+    QLineEdit *terminalText5;
+    QLineEdit *terminalText6;
+    QLineEdit *terminalText7;
+    QPushButton *button_terminal_text1;
+    QPushButton *button_terminal_text2;
+    QPushButton *button_terminal_text3;
+    QPushButton *button_terminal_text4;
+    QPushButton *button_terminal_text5;
+    QPushButton *button_terminal_text6;
+    QPushButton *button_terminal_text7;
+    QPushButton *button_terminal_1;
+    QPushButton *button_terminal_2;
+    QPushButton *button_terminal_3;
+    QPushButton *button_terminal_4;
+
     QPushButton *SerialConnectButton;
 
     Ui::MainWindow *ui;
     QLabel *status;
     Terminal *terminal;
-    Terminal *settings;
+   // Terminal *settings;
+    Server *servv;
 
     QSerialPort *serial;
     QTimer      m_timer;
     QThread     m_tempo;
+
+
 
 
 

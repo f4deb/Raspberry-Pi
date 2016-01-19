@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[10];
-    char stringdata[120];
+    QByteArrayData data[9];
+    char stringdata[108];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,14 +37,13 @@ QT_MOC_LITERAL(4, 44, 17), // "deconnexionClient"
 QT_MOC_LITERAL(5, 62, 14), // "openSerialPort"
 QT_MOC_LITERAL(6, 77, 15), // "closeSerialPort"
 QT_MOC_LITERAL(7, 93, 5), // "open1"
-QT_MOC_LITERAL(8, 99, 8), // "readData"
-QT_MOC_LITERAL(9, 108, 11) // "reaAlldData"
+QT_MOC_LITERAL(8, 99, 8) // "readData"
 
     },
     "MainWindow\0nouvelleConnexion\0\0"
     "donneesRecues\0deconnexionClient\0"
     "openSerialPort\0closeSerialPort\0open1\0"
-    "readData\0reaAlldData"
+    "readData"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,7 +53,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -62,14 +61,13 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   54,    2, 0x08 /* Private */,
-       3,    0,   55,    2, 0x08 /* Private */,
-       4,    0,   56,    2, 0x08 /* Private */,
-       5,    0,   57,    2, 0x08 /* Private */,
-       6,    0,   58,    2, 0x08 /* Private */,
-       7,    0,   59,    2, 0x08 /* Private */,
-       8,    0,   60,    2, 0x08 /* Private */,
-       9,    0,   61,    2, 0x08 /* Private */,
+       1,    0,   49,    2, 0x08 /* Private */,
+       3,    0,   50,    2, 0x08 /* Private */,
+       4,    0,   51,    2, 0x08 /* Private */,
+       5,    0,   52,    2, 0x08 /* Private */,
+       6,    0,   53,    2, 0x08 /* Private */,
+       7,    0,   54,    2, 0x08 /* Private */,
+       8,    0,   55,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -79,7 +77,6 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::QByteArray,
 
        0        // eod
 };
@@ -96,11 +93,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->closeSerialPort(); break;
         case 5: _t->open1(); break;
         case 6: _t->readData(); break;
-        case 7: { QByteArray _r = _t->reaAlldData();
-            if (_a[0]) *reinterpret_cast< QByteArray*>(_a[0]) = _r; }  break;
         default: ;
         }
     }
+    Q_UNUSED(_a);
 }
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -128,13 +124,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 8;
+        _id -= 7;
     }
     return _id;
 }

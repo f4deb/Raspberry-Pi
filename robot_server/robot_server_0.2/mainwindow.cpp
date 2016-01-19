@@ -40,7 +40,7 @@ MainWindow::MainWindow()
     connect(boutonQuitter, SIGNAL(clicked()), qApp, SLOT(quit()));
     connect(buttonSettings, SIGNAL(clicked()), settings, SLOT(show()));
 
-    connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
+    //connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(etatServeur);
@@ -51,7 +51,7 @@ MainWindow::MainWindow()
     layout->addWidget(boutonQuitter);
     setLayout(layout);
 
-    setWindowTitle(tr("ZeroChat - Serveur"));
+    setWindowTitle(tr("Robot Titan - Serveur Raspberry - V0.2.3"));
 
     // Gestion du serveur
     serveur = new QTcpServer(this);
@@ -109,8 +109,8 @@ void MainWindow::donneesRecues()
     in >> message;
 
     // 2 : on renvoie le message à tous les clients
-    QString mess = message;
-    envoyerATous(mess);
+    //QString mess = message;
+    //envoyerATous(mess);
 
     // Et sur la liaison serie
     QString tmp = message;
@@ -121,11 +121,8 @@ void MainWindow::donneesRecues()
 
     serial->write(text);
 
-
-
     // 3 : remise de la taille du message à 0 pour permettre la réception des futurs messages
     tailleMessage = 0;
-
 }
 
 void MainWindow::deconnexionClient()
@@ -153,7 +150,6 @@ void MainWindow::envoyerATous(const QString &message)
     out << message; // On ajoute le message à la suite
     out.device()->seek(0); // On se replace au début du paquet
     out << (quint16) (paquet.size() - sizeof(quint16)); // On écrase le 0 qu'on avait réservé par la longueur du message
-    while (serial->waitForReadyRead(1));
 
     // Envoi du paquet préparé à tous les clients connectés au serveur
     for (int i = 0; i < clients.size(); i++)
@@ -175,6 +171,7 @@ void MainWindow::openSerialPort()
     serial->setStopBits(p.stopBits);
     serial->setFlowControl(p.flowControl);
     if (serial->open(QIODevice::ReadWrite)) {
+         QObject::connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
 //      console->setEnabled(true);
 //      console->setLocalEchoEnabled(p.localEchoEnabled);
     //  ui->actionConnect->setEnabled(false);
@@ -185,46 +182,31 @@ void MainWindow::openSerialPort()
 //                      .arg(p.stringParity).arg(p.stringStopBits).arg(p.stringFlowControl));
         } else {
 //          QMessageBox::critical(this, tr("Error"), serial->errorString());
-
-            showStatusMessage(tr("Open error"));
+            QObject::disconnect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
+            //showStatusMessage(tr("Open error"));
         }
 }
 
 void MainWindow::closeSerialPort()
 {
-    QByteArray datas = "mw0000";
-    serial->write(datas);
     if (serial->isOpen())
         serial->close();
-
-//    console->setEnabled(false);
-//    ui->actionConnect->setEnabled(true);
-//    ui->actionDisconnect->setEnabled(false);
-//    ui->actionConfigure->setEnabled(true);
-//    showStatusMessage(tr("Disconnected"));
 }
 
-void MainWindow::showStatusMessage(const QString &message)
-{
+/*void MainWindow::showStatusMessage(const QString &message){
     status->setText(message);
-}
+}*/
 
-void MainWindow::open1()
-{
+void MainWindow::open1(){
     QByteArray datas = "SN";
     serial->write(datas);
 }
 
 
-void MainWindow::readData()
-{
-    QByteArray datass = 0;
-    char *data;
-    char *datas;
-    bool ok = false;
+void MainWindow::readData(){
 
-    datass = serial->readAll();
-    //data = datass.data();
+    QByteArray datass = serial->readAll();
+
     if (first){
         messages = strdup(datass.data());
         first = false;
@@ -232,22 +214,16 @@ void MainWindow::readData()
     else {
         strcat(messages, strdup(datass.data()));
     }
-    if (strstr(messages,"aSN")){
+    //if (strstr(messages,"aSN")){
         envoyerATous(messages);
         first = true;
-    }
+    //}
 }
 
-
-
-
-
-
-
-
-QByteArray MainWindow::reaAlldData()
+/*QByteArray MainWindow::reaAlldData()
 {
     QByteArray data = serial->readAll();
     data=data;
     console->putData(data);
 }
+*/

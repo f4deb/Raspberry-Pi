@@ -4,16 +4,18 @@
 #include <QtWidgets>
 #include <QtNetwork>
 
-#include "mainwindow.h"
+//#include "mainwindow.h"
 
 class Server : public QWidget
 {
     Q_OBJECT
 
     public:
-        Server(QWidget *parent = 0);
-        bool etat_connexion;
+        explicit Server(QWidget *parent = 0);
+
+        //bool etat_connexion;
         void serverInitialisation();
+        void write(QByteArray paquet);
 
         //singleton
         static Server *instances();
@@ -21,8 +23,9 @@ class Server : public QWidget
         void SetValue(int value);
 
     signals:
-        void on_connect(char *mess_con, bool etat_connexion);
+        void on_connect(char *mess_con);
         void on_error_connect();
+        void dataServerReceived();
 
     private slots:
         void on_boutonConnexion_clicked();

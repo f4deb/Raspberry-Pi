@@ -30,15 +30,21 @@ public:
         bool localEchoEnabled;
     };
 
+
+
     explicit Terminal(QWidget *parent = 0);
 
     Settings settings() const;
 
-    void putData(const QByteArray &data);
-
+    void putData(const QByteArray &data, int dir);
     void setLocalEchoEnabled(bool set);
-
     void terminalInitialisation();
+
+
+    static Terminal *instances();
+    int getEtatConnexionSerial();
+    void setEtatConnexionSerial(int);
+
 
 protected:
 
@@ -49,11 +55,15 @@ protected:
 
 private:
     bool localEchoEnabled;
-    bool etat_connexion_serial;
+
+    int etat_connexion_serial;
+
+
     void updateSettings();
 
     Settings currentSettings;
 
+    QPalette p;
 
 private slots:
     void on_bouton_serial_connexion_clicked();

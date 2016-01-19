@@ -4,13 +4,17 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QtSerialPort/QSerialPortInfo>
+#include <QLineEdit>
 
-#include "server.h"
+//#include "server.h"
 //#include "settingsdialog.h"
 #include "singleton.h"
 #include "mainwindow.h"
 
+extern int etat_serial_port;
+extern int etat_serveur_port;
 
+extern QByteArray message_from_server;
 
 MainWindow::MainWindow(){
 
@@ -21,10 +25,15 @@ MainWindow::MainWindow(){
     createStatus();
 
     initServer();
+    initSerialPort();
+    initTerminalConnections();
 
     serial = new QSerialPort;
+    //Terminal::instances()->setEtatConnexionSerial (0);
+    etat_serial_port = 0;
+    etat_serveur_port=0;
 
-    setWindowTitle(tr("Titan Control Center"));
+    setWindowTitle(tr("Titan Control Center V 0.2.3"));
 }
 
 void MainWindow::createActions(){
@@ -81,7 +90,7 @@ void MainWindow::createStatus(){
 // *************** SERVER PORT ****************
 
 void MainWindow::initServer(){
-    Server *servv = new Server;
+    servv = new Server;
     servv->serverInitialisation();
 
     serveurPort->setMaximum(1024);
@@ -91,16 +100,8 @@ void MainWindow::initServer(){
     serveurIP->setText("127.0.0.1");
     QObject::connect(serveurConnect, SIGNAL(clicked()), this, SLOT(status_en_cours()));
     QObject::connect(serveurConnect, SIGNAL(clicked()), servv, SLOT(on_boutonConnexion_clicked()));
-    QObject::connect(servv,SIGNAL(on_connect(char *,bool)),this,SLOT(status_connecte(char *,bool)));
+    QObject::connect(servv,SIGNAL(on_connect(char *)),this,SLOT(status_connecte(char *)));
     QObject::connect(servv,SIGNAL(on_error_connect()),this,SLOT(status_erreur_connection()));
-
-    Terminal *serial1 = new Terminal;
-    serial1->terminalInitialisation();
-
-    QObject::connect(SerialConnectButton, SIGNAL(clicked()), serial1, SLOT(on_bouton_serial_connexion_clicked()));
-    QObject::connect(serial1,SIGNAL(openSerialPortTerminal()),this,SLOT(openSerialPort()));
-    QObject::connect(serial1,SIGNAL(closeSerialPortTerminal()),this,SLOT(closeSerialPort()));
-
 }
 
 void MainWindow::status_en_cours(){
@@ -108,13 +109,17 @@ void MainWindow::status_en_cours(){
     getServeurPort();
 }
 
-void MainWindow::status_connecte(char *toto, bool etat_connection){
+void MainWindow::status_connecte(char *toto){
     statusBar()->showMessage(tr(toto));
-    if (etat_connection){
+    if (etat_serveur_port){
         serveurConnect->setText("Connected");
+        serialGroupBox->setTitle("Port série distant");
+        QObject::connect(servv, SIGNAL(readyRead()), servv, SLOT(donneesRecues()));
+        QObject::connect(servv, SIGNAL(dataServerReceived()), this, SLOT(readData()));
         }
     else{
         serveurConnect->setText("Disconnected");
+        serialGroupBox->setTitle("Port série local");
     }
 }
 
@@ -133,42 +138,135 @@ QString MainWindow::getServeurIp(){
 
 //************************ SERIEAL PORT ****************
 
+void MainWindow::initSerialPort(){
+    Terminal *serial1 = new Terminal;
+    serial1->terminalInitialisation();
+
+    QObject::connect(SerialConnectButton, SIGNAL(clicked()), serial1, SLOT(on_bouton_serial_connexion_clicked()));
+    QObject::connect(serial1,SIGNAL(openSerialPortTerminal()),this,SLOT(openSerialPort()));
+    QObject::connect(serial1,SIGNAL(closeSerialPortTerminal()),this,SLOT(closeSerialPort()));
+}
+
 void MainWindow::openSerialPort(){
     if (serial->isOpen()){
         serial->close();
     }
 
     serial->setPortName(serialPortInfoListBox->currentText());
-    serial->setBaudRate(static_cast<QSerialPort::BaudRate>(115200));
-    serial->setDataBits(static_cast<QSerialPort::DataBits>(8));
-    serial->setParity(static_cast<QSerialPort::Parity>(0));
-    serial->setStopBits(static_cast<QSerialPort::StopBits>(1));
-    serial->setFlowControl(static_cast<QSerialPort::FlowControl>(0));
+    serial->setBaudRate(static_cast<QSerialPort::BaudRate>(baudRateBox->itemData(baudRateBox->currentIndex()).toInt()));
+    serial->setDataBits(static_cast<QSerialPort::DataBits>(dataBitsBox->itemData(dataBitsBox->currentIndex()).toInt()));
+    serial->setParity(static_cast<QSerialPort::Parity>(parityBox->itemData(parityBox->currentIndex()).toInt()));
+    serial->setStopBits(static_cast<QSerialPort::StopBits>(stopBitsBox->itemData(stopBitsBox->currentIndex()).toInt()));
+    serial->setFlowControl(static_cast<QSerialPort::FlowControl>(flowControlBox->itemData(flowControlBox->currentIndex()).toInt()));
     if (serial->open(QIODevice::ReadWrite)) {
-//      console->setEnabled(true);
-//      console->setLocalEchoEnabled(p.localEchoEnabled);
-    //  ui->actionConnect->setEnabled(false);
-    //  ui->actionDisconnect->setEnabled(true);
-    //  ui->actionConfigure->setEnabled(false);
-//      showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
-//                      .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
-//                      .arg(p.stringParity).arg(p.stringStopBits).arg(p.stringFlowControl));
-        } else {
-//          QMessageBox::critical(this, tr("Error"), serial->errorString());
-
-            //showStatusMessage(tr("Open error"));
-        }
+        SerialConnectButton->setText("Connected");
+        statusBar()->showMessage(tr("Serial Port Connected"));
+        QObject::connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
+        etat_serial_port = 1;
+    } else {
+        SerialConnectButton->setText("Disconnected");
+        QObject::disconnect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
+        statusBar()->showMessage(tr("Serial Port Error"));
+        etat_serial_port = -1;
+    }
 }
 
 void MainWindow::closeSerialPort(){
-    QByteArray datas = "mw0000";
-    serial->write(datas);
     if (serial->isOpen())
         serial->close();
+    if (!serial->isOpen())
+        SerialConnectButton->setText("Disconnected");
+        statusBar()->showMessage(tr("Serial Port Disconnected"));
+        etat_serial_port = 0;
+}
 
-//    console->setEnabled(false);
-//    ui->actionConnect->setEnabled(true);
-//    ui->actionDisconnect->setEnabled(false);
-//    ui->actionConfigure->setEnabled(true);
-//    showStatusMessage(tr("Disconnected"));
+// ************************* Terminal ********************
+
+void MainWindow::initTerminalConnections(){
+    //QObject::connect(button_terminal_text1, SIGNAL(clicked()), Terminal, SLOT(clear()));
+    QObject::connect(button_terminal_text1,SIGNAL(clicked()),this,SLOT(buttonTerminalText1()));
+    QObject::connect(button_terminal_text2,SIGNAL(clicked()),this,SLOT(buttonTerminalText2()));
+    QObject::connect(button_terminal_text3,SIGNAL(clicked()),this,SLOT(buttonTerminalText3()));
+    QObject::connect(button_terminal_text4,SIGNAL(clicked()),this,SLOT(buttonTerminalText4()));
+    QObject::connect(button_terminal_text5,SIGNAL(clicked()),this,SLOT(buttonTerminalText5()));
+    QObject::connect(button_terminal_text6,SIGNAL(clicked()),this,SLOT(buttonTerminalText6()));
+    QObject::connect(button_terminal_text7,SIGNAL(clicked()),this,SLOT(buttonTerminalText7()));
+
+    QObject::connect(button_terminal_1,SIGNAL(clicked()),this,SLOT(buttonTerminal1()));
+    QObject::connect(button_terminal_2,SIGNAL(clicked()),this,SLOT(buttonTerminal2()));
+    QObject::connect(button_terminal_3,SIGNAL(clicked()),this,SLOT(buttonTerminal3()));
+    QObject::connect(button_terminal_4,SIGNAL(clicked()),this,SLOT(buttonTerminal4()));
+
+}
+
+void MainWindow::buttonTerminalText1 (){
+    writeData (terminalText1->text().toStdString().c_str());
+}
+
+void MainWindow::buttonTerminalText2 (){
+    writeData (terminalText2->text().toStdString().c_str());
+}
+
+void MainWindow::buttonTerminalText3 (){
+    writeData (terminalText3->text().toStdString().c_str());
+}
+
+void MainWindow::buttonTerminalText4 (){
+    writeData (terminalText4->text().toStdString().c_str());
+}
+
+void MainWindow::buttonTerminalText5 (){
+    writeData (terminalText5->text().toStdString().c_str());
+}
+
+void MainWindow::buttonTerminalText6 (){
+    writeData (terminalText6->text().toStdString().c_str());
+}
+
+void MainWindow::buttonTerminalText7 (){
+    writeData (terminalText7->text().toStdString().c_str());
+}
+
+
+void MainWindow::buttonTerminal1 (){
+    writeData (messageButtonTerminal1);
+}
+
+void MainWindow::buttonTerminal2 (){
+    writeData (messageButtonTerminal2);
+}
+
+void MainWindow::buttonTerminal3 (){
+    writeData (messageButtonTerminal3);
+}
+
+void MainWindow::buttonTerminal4 (){
+    writeData (messageButtonTerminal4);
+}
+
+
+// *************************** Transfert data **********
+
+
+void MainWindow::writeData(const QByteArray &data){
+    if (etat_serial_port){
+        serial->write(data);
+        terminal->putData(data,0);
+    }
+    if (etat_serveur_port){
+        servv->write(data);
+        terminal->putData(data,0);
+    }
+}
+
+void MainWindow::readData()
+{
+    if (etat_serial_port){
+        QByteArray data = serial->readAll();
+        terminal->putData(data,1);
+    }
+    if (etat_serveur_port){
+        QByteArray data = message_from_server;
+        terminal->putData(data,1);
+    }
 }
