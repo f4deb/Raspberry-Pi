@@ -40,7 +40,6 @@ class MainWindow : public QWidget
         void closeSerialPort();
         void open1();
         void readData();
-        //QByteArray reaAlldData();
 
     private:
         QLabel *etatServeur;

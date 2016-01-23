@@ -114,7 +114,7 @@ void MainWindow::status_connecte(char *toto){
     if (etat_serveur_port){
         serveurConnect->setText("Connected");
         serialGroupBox->setTitle("Port série distant");
-        QObject::connect(servv, SIGNAL(readyRead()), servv, SLOT(donneesRecues()));
+        QObject::connect(servv, SIGNAL(dataReadyRead()), servv, SLOT(donneesRecues()));
         QObject::connect(servv, SIGNAL(dataServerReceived()), this, SLOT(readData()));
         }
     else{

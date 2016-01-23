@@ -26,6 +26,7 @@ class Server : public QWidget
         void on_connect(char *mess_con);
         void on_error_connect();
         void dataServerReceived();
+        void dataReadyRead();
 
     private slots:
         void on_boutonConnexion_clicked();

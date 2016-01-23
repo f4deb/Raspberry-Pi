@@ -13,6 +13,7 @@ Server *p_instances = 0;
 
 Server::Server(QWidget *parent) : QWidget(parent){
     socket = new QTcpSocket(this);
+
     connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
     connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(deconnecte()));

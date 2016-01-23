@@ -17,7 +17,6 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     apropos.cpp \
     server.cpp \
-    central.cpp \
     terminal.cpp \
     singleton.cpp
 

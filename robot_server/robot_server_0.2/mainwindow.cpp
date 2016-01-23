@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 //#include "ui_mainwindow.h"
-#include "console.h"
+//#include "console.h"
 #include "settingsdialog.h"
 #include "robot_uart.h"
 
@@ -17,8 +17,6 @@ MainWindow::MainWindow()
     //free(messages),messages = NULL;
     //messages[0] = '1';
 
-    first = new bool;
-    first = true;
     serial = new QSerialPort(this);
 
     settings = new SettingsDialog;
@@ -108,21 +106,21 @@ void MainWindow::donneesRecues()
     QString message;
     in >> message;
 
-    // 2 : on renvoie le message à tous les clients
-    //QString mess = message;
-    //envoyerATous(mess);
+    //envoyerATous(message);
 
-    // Et sur la liaison serie
+    // 2 : on renvoie le message sur la liaison serie
     QString tmp = message;
     QByteArray text = tmp.toLocal8Bit();
     char *data = new char[text.size() + 1];
     strcpy(data, text.data());
     delete [] data;
 
-    serial->write(text);
+
 
     // 3 : remise de la taille du message à 0 pour permettre la réception des futurs messages
     tailleMessage = 0;
+
+    serial->write(text);
 }
 
 void MainWindow::deconnexionClient()
@@ -156,11 +154,9 @@ void MainWindow::envoyerATous(const QString &message)
     {
         clients[i]->write(paquet);
     }
-
 }
 
-void MainWindow::openSerialPort()
-{
+void MainWindow::openSerialPort(){
     if (serial->isOpen())
         serial->close();
     SettingsDialog::Settings p = settings->settings();
@@ -172,58 +168,27 @@ void MainWindow::openSerialPort()
     serial->setFlowControl(p.flowControl);
     if (serial->open(QIODevice::ReadWrite)) {
          QObject::connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
-//      console->setEnabled(true);
-//      console->setLocalEchoEnabled(p.localEchoEnabled);
-    //  ui->actionConnect->setEnabled(false);
-    //  ui->actionDisconnect->setEnabled(true);
-    //  ui->actionConfigure->setEnabled(false);
-//      showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
-//                      .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
-//                      .arg(p.stringParity).arg(p.stringStopBits).arg(p.stringFlowControl));
         } else {
-//          QMessageBox::critical(this, tr("Error"), serial->errorString());
             QObject::disconnect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
-            //showStatusMessage(tr("Open error"));
         }
 }
 
-void MainWindow::closeSerialPort()
-{
+void MainWindow::closeSerialPort(){
     if (serial->isOpen())
         serial->close();
 }
-
-/*void MainWindow::showStatusMessage(const QString &message){
-    status->setText(message);
-}*/
 
 void MainWindow::open1(){
     QByteArray datas = "SN";
     serial->write(datas);
 }
 
-
 void MainWindow::readData(){
-
+    while (serial->waitForReadyRead(5));
     QByteArray datass = serial->readAll();
 
-    if (first){
-        messages = strdup(datass.data());
-        first = false;
-    }
-    else {
-        strcat(messages, strdup(datass.data()));
-    }
-    //if (strstr(messages,"aSN")){
-        envoyerATous(messages);
-        first = true;
-    //}
-}
+        serial->write(datass);
 
-/*QByteArray MainWindow::reaAlldData()
-{
-    QByteArray data = serial->readAll();
-    data=data;
-    console->putData(data);
+        envoyerATous(datass);
+
 }
-*/
