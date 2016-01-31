@@ -6,6 +6,7 @@
 #include "mainwindow.h"
 
 int etat_serveur_port;
+QString adresseServeurIp;
 
 QByteArray message_from_server;
 
@@ -40,12 +41,6 @@ void Server::on_boutonConnexion_clicked(){
     }
 }
 
-// envoi d'un message au serveur
-
-//void Server::writes(QByteArray message){
-
-//}
-
 void Server::write(QByteArray paquet){
 
     QDataStream out(&paquet, QIODevice::WriteOnly);
@@ -58,8 +53,6 @@ void Server::write(QByteArray paquet){
     out << (quint16) (paquet.size() - sizeof(quint16));
 
     socket->write(paquet); // On envoie le paquet
-
-
 }
 
 // Envoi d'un message au serveur
@@ -149,11 +142,14 @@ void Server::erreurSocket(QAbstractSocket::SocketError erreur){
 }
 
  const char *Server::getServeurIP(void){
-    return ("192.168.0.25");
+     QString tata = adresseServeurIp;
+     const char *toto;
+     toto = adresseServeurIp.toStdString().c_str();
+    return (toto);
 }
 
 int Server::getServeurPort(void){
-    int value = Server::instances()->GetValue();
+    int value = Server::instances()->GetPortValue();
     return (value);
 }
 
@@ -163,11 +159,11 @@ Server *Server::instances()
     return p_instances;
 }
 
-int Server::GetValue()
+int Server::GetPortValue()
 {
-    return p_value;
+    return port_value;
 }
-void Server::SetValue(int value)
+void Server::SetPortValue(int value)
 {
-    p_value = value;
+    port_value = value;
 }

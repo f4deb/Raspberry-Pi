@@ -1,55 +1,18 @@
-#include "mainwindow.h"
-//#include "ui_mainwindow.h"
-//#include "console.h"
-#include "settingsdialog.h"
-#include "robot_uart.h"
+#include "FenServeur.h"
 
-#include <QMessageBox>
-#include <QLabel>
-#include <QtSerialPort/QSerialPort>
-
-
-MainWindow::MainWindow()
+FenServeur::FenServeur()
 {
-    //QMainWindow(parent),
-
-    messages = new char;
-    //free(messages),messages = NULL;
-    //messages[0] = '1';
-
-    serial = new QSerialPort(this);
-
-    settings = new SettingsDialog;
-
     // Création et disposition des widgets de la fenêtre
     etatServeur = new QLabel;
     boutonQuitter = new QPushButton(tr("Quitter"));
-    buttonUartConnect = new QPushButton(tr("Open Uart"));
-    buttonUartDisconnect = new QPushButton(tr("Close Uart"));
-    buttonSettings = new QPushButton(tr("Uart Settings"));
-    buttona = new QPushButton(tr("1"));
-
-
-    connect(buttona, SIGNAL(clicked()), this, SLOT(open1()));
-
-
-    connect(buttonUartConnect, SIGNAL(clicked()), this, SLOT(openSerialPort()));
-    connect(buttonUartDisconnect, SIGNAL(clicked()), this, SLOT(closeSerialPort()));
     connect(boutonQuitter, SIGNAL(clicked()), qApp, SLOT(quit()));
-    connect(buttonSettings, SIGNAL(clicked()), settings, SLOT(show()));
-
-    //connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(etatServeur);
-    layout->addWidget(buttona);
-    layout->addWidget(buttonSettings);
-    layout->addWidget(buttonUartConnect);
-    layout->addWidget(buttonUartDisconnect);
     layout->addWidget(boutonQuitter);
     setLayout(layout);
 
-    setWindowTitle(tr("Robot Titan - Serveur Raspberry - V0.2.3"));
+    setWindowTitle(tr("ZeroChat - Serveur"));
 
     // Gestion du serveur
     serveur = new QTcpServer(this);
@@ -67,7 +30,7 @@ MainWindow::MainWindow()
     tailleMessage = 0;
 }
 
-void MainWindow::nouvelleConnexion()
+void FenServeur::nouvelleConnexion()
 {
     envoyerATous(tr("<em>Un nouveau client vient de se connecter</em>"));
 
@@ -78,7 +41,7 @@ void MainWindow::nouvelleConnexion()
     connect(nouveauClient, SIGNAL(disconnected()), this, SLOT(deconnexionClient()));
 }
 
-void MainWindow::donneesRecues()
+void FenServeur::donneesRecues()
 {
     // 1 : on reçoit un paquet (ou un sous-paquet) d'un des clients
     // On détermine quel client envoie le message (recherche du QTcpSocket du client)
@@ -106,24 +69,14 @@ void MainWindow::donneesRecues()
     QString message;
     in >> message;
 
-    //envoyerATous(message);
-
-    // 2 : on renvoie le message sur la liaison serie
-    QString tmp = message;
-    QByteArray text = tmp.toLocal8Bit();
-    char *data = new char[text.size() + 1];
-    strcpy(data, text.data());
-    delete [] data;
-
-
+    // 2 : on renvoie le message à tous les clients
+    envoyerATous(message);
 
     // 3 : remise de la taille du message à 0 pour permettre la réception des futurs messages
     tailleMessage = 0;
-
-    serial->write(text);
 }
 
-void MainWindow::deconnexionClient()
+void FenServeur::deconnexionClient()
 {
     envoyerATous(tr("<em>Un client vient de se déconnecter</em>"));
 
@@ -138,7 +91,7 @@ void MainWindow::deconnexionClient()
 }
 
 
-void MainWindow::envoyerATous(const QString &message)
+void FenServeur::envoyerATous(const QString &message)
 {
     // Préparation du paquet
     QByteArray paquet;
@@ -154,41 +107,4 @@ void MainWindow::envoyerATous(const QString &message)
     {
         clients[i]->write(paquet);
     }
-}
-
-void MainWindow::openSerialPort(){
-    if (serial->isOpen())
-        serial->close();
-    SettingsDialog::Settings p = settings->settings();
-    serial->setPortName(p.name);
-    serial->setBaudRate(p.baudRate);
-    serial->setDataBits(p.dataBits);
-    serial->setParity(p.parity);
-    serial->setStopBits(p.stopBits);
-    serial->setFlowControl(p.flowControl);
-    if (serial->open(QIODevice::ReadWrite)) {
-         QObject::connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
-        } else {
-            QObject::disconnect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
-        }
-}
-
-void MainWindow::closeSerialPort(){
-    if (serial->isOpen())
-        serial->close();
-}
-
-void MainWindow::open1(){
-    QByteArray datas = "SN";
-    serial->write(datas);
-}
-
-void MainWindow::readData(){
-    while (serial->waitForReadyRead(10));
-    QByteArray datass = serial->readAll();
-
-        //serial->write(datass);
-
-        envoyerATous(datass);
-
 }

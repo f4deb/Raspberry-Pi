@@ -3,7 +3,7 @@
 //#include "console.h"
 #include "settingsdialog.h"
 #include "robot_uart.h"
-
+#include "/usr/include/wiringPi.h"
 #include <QMessageBox>
 #include <QLabel>
 #include <QtSerialPort/QSerialPort>
@@ -12,10 +12,12 @@
 MainWindow::MainWindow()
 {
     //QMainWindow(parent),
-
     messages = new char;
     //free(messages),messages = NULL;
     //messages[0] = '1';
+    wiringPiSetup ();
+    pinMode(0,OUTPUT);
+    digitalWrite(0,LOW);
 
     serial = new QSerialPort(this);
 
@@ -49,7 +51,7 @@ MainWindow::MainWindow()
     layout->addWidget(boutonQuitter);
     setLayout(layout);
 
-    setWindowTitle(tr("Robot Titan - Serveur Raspberry - V0.2.3"));
+    setWindowTitle(tr("Robot Titan - Serveur Raspberry - V0.3.0"));
 
     // Gestion du serveur
     serveur = new QTcpServer(this);
@@ -69,13 +71,14 @@ MainWindow::MainWindow()
 
 void MainWindow::nouvelleConnexion()
 {
-    envoyerATous(tr("<em>Un nouveau client vient de se connecter</em>"));
+    //envoyerATous(tr("<em>Un nouveau client vient de se connecter</em>"));
 
     QTcpSocket *nouveauClient = serveur->nextPendingConnection();
     clients << nouveauClient;
 
     connect(nouveauClient, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
     connect(nouveauClient, SIGNAL(disconnected()), this, SLOT(deconnexionClient()));
+    digitalWrite(0,HIGH);
 }
 
 void MainWindow::donneesRecues()
@@ -125,7 +128,7 @@ void MainWindow::donneesRecues()
 
 void MainWindow::deconnexionClient()
 {
-    envoyerATous(tr("<em>Un client vient de se déconnecter</em>"));
+    //envoyerATous(tr("<em>Un client vient de se déconnecter</em>"));
 
     // On détermine quel client se déconnecte
     QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
@@ -135,6 +138,7 @@ void MainWindow::deconnexionClient()
     clients.removeOne(socket);
 
     socket->deleteLater();
+    digitalWrite(0,LOW);
 }
 
 
