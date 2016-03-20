@@ -18,7 +18,7 @@ CXXFLAGS      = -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I/home/f4deb/Qt/5.3/gcc_64/mkspecs/linux-g++ -I../robot_server_0.3 -I../robot_server_0.3 -I/home/f4deb/Qt/5.3/gcc_64/include -I/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets -I/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort -I/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork -I/home/f4deb/Qt/5.3/gcc_64/include/QtGui -I/home/f4deb/Qt/5.3/gcc_64/include/QtCore -I. -I. -I.
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/f4deb/Qt/5.3/gcc_64 -Wl,-rpath,/home/f4deb/Qt/5.3/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/home/f4deb/Qt/5.3/gcc_64/lib -lQt5Widgets -lQt5SerialPort -lQt5Network -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/local/lib/ -lwiringPi -L/home/f4deb/Qt/5.3/gcc_64/lib -lQt5Widgets -lQt5SerialPort -lQt5Network -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /home/f4deb/Qt/5.3/gcc_64/bin/qmake
@@ -2263,15 +2263,63 @@ settingsdialog.o: ../robot_server_0.3/settingsdialog.cpp ../robot_server_0.3/set
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/QSerialPort \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialport.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
-		ui_settingsdialog.h \
+		../robot_server_0.3/ui_settingsdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QVariant \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QAction \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qaction.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qicon.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QApplication \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qapplication.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qeventloop.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qguiapplication.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qinputmethod.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QCheckBox \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcheckbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QComboBox \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvalidator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qregularexpression.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qslider.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstyle.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qframe.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QGridLayout \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QGroupBox \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QHeaderView \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QLabel \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlabel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QPushButton \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QSpacerItem \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QVBoxLayout \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/QSerialPortInfo \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportinfo.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QIntValidator \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvalidator.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qregularexpression.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QLineEdit \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlineedit.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qframe.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextcursor.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextformat.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpen.h \

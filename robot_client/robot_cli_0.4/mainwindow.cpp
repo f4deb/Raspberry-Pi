@@ -263,8 +263,7 @@ void MainWindow::writeData(const QByteArray &data){
     }
 }
 
-void MainWindow::readData()
-{
+void MainWindow::readData(){
     if (etat_serial_port){
         QByteArray data = serial->readAll();
         terminal->putData(data,1);
@@ -277,3 +276,10 @@ void MainWindow::readData()
 
 // ***************************** MOTION PROCESSOR UNIT ***************************
 
+void MainWindow::initMPU(){
+    QObject::connect(startMPUButton ,SIGNAL(clicked()),this,SLOT(buttonStartMPU()));
+}
+
+void MainWindow::buttonStartMPU(){
+
+}

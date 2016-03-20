@@ -8,6 +8,8 @@
 #include <QLabel>
 #include <QtSerialPort/QSerialPort>
 
+#define PIN_RESET 7
+#define PIN_CONNECT 0
 
 MainWindow::MainWindow()
 {
@@ -16,8 +18,8 @@ MainWindow::MainWindow()
     //free(messages),messages = NULL;
     //messages[0] = '1';
     wiringPiSetup ();
-    pinMode(0,OUTPUT);
-    digitalWrite(0,LOW);
+    pinMode(PIN_CONNECT,OUTPUT);
+    digitalWrite(PIN_CONNECT,LOW);
 
     serial = new QSerialPort(this);
 
@@ -78,7 +80,7 @@ void MainWindow::nouvelleConnexion()
 
     connect(nouveauClient, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
     connect(nouveauClient, SIGNAL(disconnected()), this, SLOT(deconnexionClient()));
-    digitalWrite(0,HIGH);
+    digitalWrite(PIN_CONNECT,HIGH);
 }
 
 void MainWindow::donneesRecues()
@@ -138,7 +140,7 @@ void MainWindow::deconnexionClient()
     clients.removeOne(socket);
 
     socket->deleteLater();
-    digitalWrite(0,LOW);
+    digitalWrite(PIN_CONNECT,LOW);
 }
 
 
@@ -190,9 +192,5 @@ void MainWindow::open1(){
 void MainWindow::readData(){
     while (serial->waitForReadyRead(10));
     QByteArray datass = serial->readAll();
-
-        //serial->write(datass);
-
-        envoyerATous(datass);
-
+    envoyerATous(datass);
 }

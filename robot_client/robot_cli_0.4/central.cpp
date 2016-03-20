@@ -192,8 +192,9 @@ QWidget *zoneCentrale = new QWidget;
 
             QGroupBox *MPUGroupBox= new QGroupBox(tr("Data Transfer"));
 
-            QHBoxLayout *layoutMPUCentral = new QHBoxLayout;
+            QHBoxLayout *layoutMPUCentral = new QHBoxLayout(MPUGroupBox);
 
+                QGroupBox *boxMPUAcc = new QGroupBox (tr("Accélération Transversale"));
                 QHBoxLayout *layoutMPUAcceleration = new QHBoxLayout;
                     QVBoxLayout *AccX = new QVBoxLayout;
                     QVBoxLayout *AccY = new QVBoxLayout;
@@ -201,11 +202,19 @@ QWidget *zoneCentrale = new QWidget;
 
                     QSlider *sliderAccX = new QSlider(Qt::Horizontal);
                     sliderAccX->setFixedWidth(100);
+                    sliderAccX->setValue(50);
+                    sliderAccX->setEnabled(false);
+
 
                     QSlider *sliderAccY = new QSlider(Qt::Horizontal);
                     sliderAccY->setFixedWidth(100);
+                    sliderAccY->setValue(50);
+                    sliderAccY->setEnabled(false);
+
                     QSlider *sliderAccZ = new QSlider(Qt::Horizontal);
                     sliderAccZ->setFixedWidth(100);
+                    sliderAccZ->setValue(50);
+                    sliderAccZ->setEnabled(false);
 
                     QLabel *textAccX = new QLabel;
                     QLabel *textAccY = new QLabel;
@@ -230,74 +239,70 @@ QWidget *zoneCentrale = new QWidget;
                     layoutMPUAcceleration->addLayout(AccY);
                     layoutMPUAcceleration->addLayout(AccZ);
 
+                boxMPUAcc->setLayout(layoutMPUAcceleration);
 
+                QGroupBox *boxMPUGyro = new QGroupBox (tr("Accélération Angulaire"));
                 QHBoxLayout *layoutMPUGyro = new QHBoxLayout;
+                    QVBoxLayout *GyroX = new QVBoxLayout;
+                    QVBoxLayout *GyroY = new QVBoxLayout;
+                    QVBoxLayout *GyroZ = new QVBoxLayout;
 
+                    QDial *sliderGyroX = new QDial;
+                    sliderGyroX->setValue(50);
+                    sliderGyroX->setFixedWidth(100);
+                    sliderGyroX->setEnabled(false);
 
-                                    QVBoxLayout *GyroX = new QVBoxLayout;
-                                    QVBoxLayout *GyroY = new QVBoxLayout;
-                                    QVBoxLayout *GyroZ = new QVBoxLayout;
+                    QDial *sliderGyroY = new QDial;
+                    sliderGyroY->setFixedWidth(100);
+                    sliderGyroY->setValue(50);
+                    sliderGyroY->setEnabled(false);
 
-                                    QSlider *sliderGyroX = new QSlider(Qt::Horizontal);
-                                    sliderGyroX->setFixedWidth(100);
+                    QDial *sliderGyroZ = new QDial;
+                    sliderGyroZ->setFixedWidth(100);
+                    sliderGyroZ->setValue(50);
+                    sliderGyroZ->setEnabled(false);
 
-                                    QSlider *sliderGyroY = new QSlider(Qt::Horizontal);
-                                    sliderGyroY->setFixedWidth(100);
-                                    QSlider *sliderGyroZ = new QSlider(Qt::Horizontal);
-                                    sliderGyroZ->setFixedWidth(100);
+                    QLabel *textGyroX = new QLabel;
+                    QLabel *textGyroY = new QLabel;
+                    QLabel *textGyroZ = new QLabel;
 
-                                    QLabel *textGyroX = new QLabel;
-                                    QLabel *textGyroY = new QLabel;
-                                    QLabel *textGyroZ = new QLabel;
+                    textGyroX->setText("X");
+                    textGyroX->setAlignment(Qt::AlignCenter);
+                    GyroX->addWidget(textGyroX);
+                    GyroX->addWidget(sliderGyroX);
 
-                                    textGyroX->setText("X");
-                                    textGyroX->setAlignment(Qt::AlignCenter);
-                                    GyroX->addWidget(textGyroX);
-                                    GyroX->addWidget(sliderGyroX);
+                    textGyroY->setText("Y");
+                    textGyroY->setAlignment(Qt::AlignCenter);
+                    GyroY->addWidget(textGyroY);
+                    GyroY->addWidget(sliderGyroY);
 
-                                    textGyroY->setText("Y");
-                                    textGyroY->setAlignment(Qt::AlignCenter);
-                                    GyroY->addWidget(textGyroY);
-                                    GyroY->addWidget(sliderGyroY);
+                    textGyroZ->setText("Z");
+                    textGyroZ->setAlignment(Qt::AlignCenter);
+                    GyroZ->addWidget(textGyroZ);
+                    GyroZ->addWidget(sliderGyroZ);
 
-                                    textGyroZ->setText("Z");
-                                    textGyroZ->setAlignment(Qt::AlignCenter);
-                                    GyroZ->addWidget(textGyroZ);
-                                    GyroZ->addWidget(sliderGyroZ);
+                    layoutMPUGyro->addLayout(GyroX);
+                    layoutMPUGyro->addLayout(GyroY);
+                    layoutMPUGyro->addLayout(GyroZ);
 
-                                    layoutMPUGyro->addLayout(GyroX);
-                                    layoutMPUGyro->addLayout(GyroY);
-                                    layoutMPUGyro->addLayout(GyroZ);
+                boxMPUGyro->setLayout(layoutMPUGyro);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            layoutMPUCentral->addLayout(layoutMPUAcceleration);
-            layoutMPUCentral->addLayout(layoutMPUGyro);
+            layoutMPUCentral->addWidget(boxMPUAcc);
+            layoutMPUCentral->addWidget(boxMPUGyro);
+            //boxMPUAcc->setStyleSheet("border: 1px solid red;");
 
             MPUGroupBox->setLayout(layoutMPUCentral);
-            MPUGroupBox->setMaximumWidth(180);
+            MPUGroupBox->setMaximumWidth(800);
+            MPUGroupBox->setMaximumHeight(150);
 
-            QHBoxLayout *MPUBox = new QHBoxLayout;
+
+            startMPUButton = new QPushButton (tr("Start MPU"));
+            startMPUButton->setMaximumWidth(100);
+
+            QVBoxLayout *MPUBox = new QVBoxLayout;
             MPUBox->addWidget(MPUGroupBox);
-
+            MPUBox->addWidget(startMPUButton);
             layoutMPU->setLayout(MPUBox);
-
-
-
-
 
             // Page 3 (je ne vais afficher qu'une image ici, pas besoin de layout)
 
