@@ -11,7 +11,9 @@ HEADERS += \
     server.h \
     central.h \
     terminal.h \
-    singleton.h
+    singleton.h \
+    mpu.h \
+    ../../Qt-custom-gauge-widget-master/source/qcgaugewidget.h
 
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -19,6 +21,8 @@ SOURCES += main.cpp \
     server.cpp \
     terminal.cpp \
     singleton.cpp \
-    central.cpp
+    central.cpp \
+    mpu.cpp \
+    ../../Qt-custom-gauge-widget-master/source/qcgaugewidget.cpp
 
 FORMS +=

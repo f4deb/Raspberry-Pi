@@ -2,10 +2,11 @@
 #define TERMINAL
 
 #include <QPlainTextEdit>
+#include <QTextEdit>
 #include <QDialog>
 #include <QtSerialPort/QSerialPort>
 
-class Terminal : public QPlainTextEdit
+class Terminal : public QPlainTextEdit//QPlainTextEdit
 {
     Q_OBJECT
 

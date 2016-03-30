@@ -6,6 +6,9 @@
 #include <QtWidgets>
 #include <QWidget>
 
+
+#include "../../Qt-custom-gauge-widget-master/source/qcgaugewidget.h"
+
 #include "apropos.h"
 #include "central.h"
 #include "server.h"
@@ -32,6 +35,20 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    struct mpuValue{
+        short AX;
+        short AY;
+        short AZ;
+        short GX;
+        short GY;
+        short GZ;
+        int compassValue;
+        short rollValue;
+        short pitchValue;
+        short speedValue;
+        int temp;
+    };
+
     MainWindow();
 
     QLineEdit *serveurIP;
@@ -78,8 +95,11 @@ private slots :
     void buttonTerminal4();
 
     void buttonStartMPU();
+    void buttonStopMPU();
 
 private:
+
+    void mpuCalculate();
     void createActions();
     void createMenus();
     void createCentral();
@@ -146,23 +166,60 @@ private:
 
 
     //MPU
-    QPushButton *startMPUButton ;
+    QSlider *sliderAccX;
+    QSlider *sliderAccY;
+    QSlider *sliderAccZ;
 
-    Ui::MainWindow *ui;
+    QLabel *textAccXValue;
+    QLabel *textAccYValue;
+    QLabel *textAccZValue;
+
+    QDial *sliderGyroX;
+    QDial *sliderGyroY;
+    QDial *sliderGyroZ;
+
+
+    mpuValue mpuaccess;
+
+    QcGaugeWidget * mSpeedGauge;
+    QcNeedleItem *mSpeedNeedle;
+
+    QcGaugeWidget * mAttitudeGauge;
+    QcNeedleItem * mAttitudeNeedle;
+    QcAttitudeMeter *mAttMeter;
+
+    QcGaugeWidget * mCompassGauge;
+    QcNeedleItem *mCompassNeedle;
+
+    QLabel *mTempGauge;
+
+    QPushButton *startMPUButton;
+    QPushButton *stopMPUButton ;
+
     QLabel *status;
     Terminal *terminal;
    // Terminal *settings;
     Server *servv;
 
     QSerialPort *serial;
-    QTimer      m_timer;
-    QThread     m_tempo;
+    //QTimer      m_timer;
+    //QThread     m_tempo;
 
 
 
 
 
 
+
+};
+
+class SleeperThread : public QThread
+{
+public:
+    static void msleep(unsigned long msecs)
+    {
+        QThread::msleep(msecs);
+    }
 };
 
 #endif // MAINWINDOW_H

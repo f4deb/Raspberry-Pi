@@ -4,12 +4,16 @@
 #include "mainwindow.h"
 #include "terminal.h"
 
+QString serialCommandSend;
+QString serialCommandReceived;
+
+
 int etat_serial_port;
 Terminal *t_instances = 0;
 
 Terminal::Terminal(QWidget *parent)
     : QPlainTextEdit(parent)
-    , localEchoEnabled(false)
+    , localEchoEnabled(false)//QPlainTextEdit
 {
     document()->setMaximumBlockCount(100);
     p = palette();
@@ -23,15 +27,18 @@ void Terminal::putData(const QByteArray &data,int dir)
 {
     switch (dir){
         case 0 :
-            p.setColor(QPalette::Highlight, Qt::red);
+            p.setColor(QPalette::Text, Qt::green);
             setPalette(p);
-            appendPlainText(QString(data));
-
+            appendPlainText(QString(data));//appendPlainText
+            // memorise la commande
+            serialCommandSend = "a"+data.left(2) ;
+            //serialCommandReceived = data;
             break;
         case 1 :
-            p.setColor(QPalette::HighlightedText, Qt::red);
+            p.setColor(QPalette::Text, Qt::green);
             setPalette(p);
             insertPlainText(QString(data));
+            serialCommandReceived = serialCommandReceived+data;
             break;
     }
     QScrollBar *bar = verticalScrollBar();
@@ -55,7 +62,7 @@ void Terminal::keyPressEvent(QKeyEvent *e)
     default:
         if (localEchoEnabled)
             QPlainTextEdit::keyPressEvent(e);
-        emit getData(e->text().toLocal8Bit());
+        emit getData(e->text().toLocal8Bit());//QPlainTextEdit
     }
 }
 
@@ -91,9 +98,7 @@ int Terminal::getEtatConnexionSerial(){
 
 void Terminal::setEtatConnexionSerial(int etat){
     etat_connexion_serial = etat;
-
 }
-
 
 void Terminal::on_bouton_serial_connexion_clicked(){
     switch (etat_serial_port){

@@ -5,9 +5,12 @@
 #include <QWidget>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QLineEdit>
+#include <QCoreApplication>
+#include <QtConcurrent/qtconcurrentrun.h>
+#include <QThread>
 
-//#include "server.h"
-//#include "settingsdialog.h"
+#include "../../Qt-custom-gauge-widget-master/source/qcgaugewidget.h"
+
 #include "singleton.h"
 #include "mainwindow.h"
 
@@ -17,6 +20,11 @@ extern int etat_serveur_port;
 extern QString adresseServeurIp;
 
 extern QByteArray message_from_server;
+
+extern QString serialCommandSend;
+extern QString serialCommandReceived;
+
+bool mpuGo;
 
 MainWindow::MainWindow(){
 
@@ -29,6 +37,7 @@ MainWindow::MainWindow(){
     initServer();
     initSerialPort();
     initTerminalConnections();
+    initMPU();
 
     serial = new QSerialPort;
     //Terminal::instances()->setEtatConnexionSerial (0);
@@ -187,7 +196,6 @@ void MainWindow::closeSerialPort(){
 // ************************* Terminal ********************
 
 void MainWindow::initTerminalConnections(){
-    //QObject::connect(button_terminal_text1, SIGNAL(clicked()), Terminal, SLOT(clear()));
     QObject::connect(button_terminal_text1,SIGNAL(clicked()),this,SLOT(buttonTerminalText1()));
     QObject::connect(button_terminal_text2,SIGNAL(clicked()),this,SLOT(buttonTerminalText2()));
     QObject::connect(button_terminal_text3,SIGNAL(clicked()),this,SLOT(buttonTerminalText3()));
@@ -276,10 +284,108 @@ void MainWindow::readData(){
 
 // ***************************** MOTION PROCESSOR UNIT ***************************
 
-void MainWindow::initMPU(){
-    QObject::connect(startMPUButton ,SIGNAL(clicked()),this,SLOT(buttonStartMPU()));
+void MainWindow::mpuCalculate(){
+    while (mpuGo){
+        writeData ("JA");
+        SleeperThread::msleep(20);
+
+
+        // calcul de la temperature
+        serialCommandReceived = serialCommandReceived.remove(serialCommandReceived.length()-3,3);
+        QString temp = serialCommandReceived.right(4);
+        bool ok;
+        mpuaccess.temp = temp.toInt(&ok, 16);
+        // enregistre la valeur
+        mTempGauge->setText(QString::number(mpuaccess.temp));
+
+        // calcul gyro Z
+        serialCommandReceived = serialCommandReceived.remove(serialCommandReceived.length()-5,5);
+        QString GZ = serialCommandReceived.right(4);
+        mpuaccess.GZ=GZ.toInt(&ok, 16);
+        sliderGyroZ->setValue(mpuaccess.GZ);
+
+        // calcul gyro Y
+        serialCommandReceived = serialCommandReceived.remove(serialCommandReceived.length()-5,5);
+        QString GY = serialCommandReceived.right(4);
+        mpuaccess.GY=GY.toInt(&ok, 16);
+        sliderGyroY->setValue(mpuaccess.GY);
+
+        // calcul gyro X
+        serialCommandReceived = serialCommandReceived.remove(serialCommandReceived.length()-5,5);
+        QString GX = serialCommandReceived.right(4);
+        mpuaccess.GX=GX.toInt(&ok, 16);
+        sliderGyroX->setValue(mpuaccess.GX);
+
+        // calcul gravité Z
+        serialCommandReceived = serialCommandReceived.remove(serialCommandReceived.length()-5,5);
+        QString AZ = serialCommandReceived.right(4);
+        mpuaccess.AZ=AZ.toInt(&ok, 16);
+        sliderAccZ->setValue(mpuaccess.AZ);
+
+        textAccZValue->setText(QString::number(mpuaccess.AZ));
+
+
+        // calcul gravité Y
+        serialCommandReceived = serialCommandReceived.remove(serialCommandReceived.length()-5,5);
+        QString AY = serialCommandReceived.right(4);
+        mpuaccess.AY=AY.toInt(&ok, 16);
+        sliderAccY->setValue(mpuaccess.AY);
+
+        textAccYValue->setText(QString::number(mpuaccess.AY));
+
+
+        // calcul gravité X
+        serialCommandReceived = serialCommandReceived.remove(serialCommandReceived.length()-5,5);
+        QString AX = serialCommandReceived.right(4);
+        mpuaccess.AX=AX.toInt(&ok, 16);
+
+        sliderAccX->setValue(mpuaccess.AX);
+
+        textAccXValue->setText(QString::number(mpuaccess.AX));
+
+
+
+
+        mpuaccess.compassValue = 10;
+
+        mpuaccess.rollValue = 10;
+        mpuaccess.pitchValue = 10;
+
+        mpuaccess.speedValue = 1;
+
+
+        if (mpuaccess.compassValue < 270) {
+            mpuaccess.compassValue = mpuaccess.compassValue + 90;
+        }
+        else {
+            mpuaccess.compassValue = mpuaccess.compassValue - 270;
+        }
+        SleeperThread::msleep(10);
+
+        mCompassNeedle->setCurrentValue(mpuaccess.compassValue);
+        mAttMeter->setCurrentRoll(mpuaccess.rollValue);
+        mAttMeter->setCurrentPitch(mpuaccess.pitchValue);
+
+
+        mSpeedNeedle->setCurrentValue(0.55);
+
+
+        QThread::msleep(10);
+    }
 }
 
-void MainWindow::buttonStartMPU(){
 
+void MainWindow::buttonStartMPU(){
+    QFuture<void> t1 = QtConcurrent::run(this,&MainWindow::mpuCalculate);
+    mpuGo = true;
+}
+
+void MainWindow::buttonStopMPU(){
+    mpuGo = false;
+}
+
+void MainWindow::initMPU(){
+    QObject::connect(startMPUButton ,SIGNAL(clicked()),this,SLOT(buttonStartMPU()));
+    QObject::connect(stopMPUButton ,SIGNAL(clicked()),this,SLOT(buttonStopMPU()));
+    mpuGo = true;
 }

@@ -3,6 +3,9 @@
 #include <QIntValidator>
 #include <QLineEdit>
 #include <QLabel>
+#include <QString>
+
+#include "../../Qt-custom-gauge-widget-master/source/qcgaugewidget.h"
 
 #include "central.h"
 #include "server.h"
@@ -200,39 +203,44 @@ QWidget *zoneCentrale = new QWidget;
                     QVBoxLayout *AccY = new QVBoxLayout;
                     QVBoxLayout *AccZ = new QVBoxLayout;
 
-                    QSlider *sliderAccX = new QSlider(Qt::Horizontal);
+                    sliderAccX = new QSlider(Qt::Horizontal);
                     sliderAccX->setFixedWidth(100);
                     sliderAccX->setValue(50);
                     sliderAccX->setEnabled(false);
 
-
-                    QSlider *sliderAccY = new QSlider(Qt::Horizontal);
+                    sliderAccY = new QSlider(Qt::Horizontal);
                     sliderAccY->setFixedWidth(100);
                     sliderAccY->setValue(50);
                     sliderAccY->setEnabled(false);
 
-                    QSlider *sliderAccZ = new QSlider(Qt::Horizontal);
+                    sliderAccZ = new QSlider(Qt::Horizontal);
                     sliderAccZ->setFixedWidth(100);
                     sliderAccZ->setValue(50);
                     sliderAccZ->setEnabled(false);
 
                     QLabel *textAccX = new QLabel;
+                    textAccXValue = new QLabel;
                     QLabel *textAccY = new QLabel;
+                    textAccYValue = new QLabel;
                     QLabel *textAccZ = new QLabel;
+                    textAccZValue = new QLabel;
 
                     textAccX->setText("X");
                     textAccX->setAlignment(Qt::AlignCenter);
                     AccX->addWidget(textAccX);
+                    AccX->addWidget(textAccXValue);
                     AccX->addWidget(sliderAccX);
 
                     textAccY->setText("Y");
                     textAccY->setAlignment(Qt::AlignCenter);
                     AccY->addWidget(textAccY);
+                    AccY->addWidget(textAccYValue);
                     AccY->addWidget(sliderAccY);
 
                     textAccZ->setText("Z");
                     textAccZ->setAlignment(Qt::AlignCenter);
                     AccZ->addWidget(textAccZ);
+                    AccZ->addWidget(textAccZValue);
                     AccZ->addWidget(sliderAccZ);
 
                     layoutMPUAcceleration->addLayout(AccX);
@@ -247,17 +255,17 @@ QWidget *zoneCentrale = new QWidget;
                     QVBoxLayout *GyroY = new QVBoxLayout;
                     QVBoxLayout *GyroZ = new QVBoxLayout;
 
-                    QDial *sliderGyroX = new QDial;
+                    sliderGyroX = new QDial;
                     sliderGyroX->setValue(50);
                     sliderGyroX->setFixedWidth(100);
                     sliderGyroX->setEnabled(false);
 
-                    QDial *sliderGyroY = new QDial;
+                    sliderGyroY = new QDial;
                     sliderGyroY->setFixedWidth(100);
                     sliderGyroY->setValue(50);
                     sliderGyroY->setEnabled(false);
 
-                    QDial *sliderGyroZ = new QDial;
+                    sliderGyroZ = new QDial;
                     sliderGyroZ->setFixedWidth(100);
                     sliderGyroZ->setValue(50);
                     sliderGyroZ->setEnabled(false);
@@ -296,12 +304,138 @@ QWidget *zoneCentrale = new QWidget;
             MPUGroupBox->setMaximumHeight(150);
 
 
+            //*****************************************//
+            QGroupBox *GaugeGroupBox= new QGroupBox(tr("Graphique"));
+            QHBoxLayout *layoutGaugeCentral = new QHBoxLayout(GaugeGroupBox);
+
+
+            //************ SPEED DESIGN *************//
+
+            mSpeedGauge = new QcGaugeWidget;
+            mSpeedGauge->addBackground(99);
+
+            QcBackgroundItem *bkg1 = mSpeedGauge->addBackground(92);
+            bkg1->clearrColors();
+            bkg1->addColor(0.1,Qt::black);
+            bkg1->addColor(1.0,Qt::white);
+
+            QcBackgroundItem *bkg2 = mSpeedGauge->addBackground(88);
+            bkg2->clearrColors();
+            bkg2->addColor(0.1,Qt::gray);
+            bkg2->addColor(1.0,Qt::darkGray);
+
+            mSpeedGauge->addArc(55);
+            mSpeedGauge->addDegrees(65)->setValueRange(0,1);// position de la bande noire
+            mSpeedGauge->addColorBand(50);//position des bandes de couleur
+
+            mSpeedGauge->addValues(80)->setValueRange(0,1);// position des echelles /// valeur max
+
+            mSpeedGauge->addLabel(60)->setText("m/s"); // position //unité
+            QcLabelItem *lab = mSpeedGauge->addLabel(40); //position du texte de la vitesse
+            lab->setText("0");
+            mSpeedNeedle = mSpeedGauge->addNeedle(60);//longueure de l'aiguille
+            mSpeedNeedle->setLabel(lab);//valeur d'init
+            mSpeedNeedle->setColor(Qt::white);//couleur de l'aiguille
+            mSpeedNeedle->setValueRange(0,1);//min et max de l'aiguille
+            mSpeedGauge->addBackground(7);
+            mSpeedGauge->addGlass(88); //reflet
+            mSpeedGauge->setFixedHeight(130);//dimension
+
+            //************** ATTITUDE DESIGN **************//
+            mAttitudeGauge = new QcGaugeWidget;
+            mAttitudeGauge->addBackground(99);
+            QcBackgroundItem *bkg = mAttitudeGauge->addBackground(92);
+            bkg->clearrColors();
+            bkg->addColor(0.1,Qt::black);
+            bkg->addColor(1.0,Qt::white);
+            mAttMeter = mAttitudeGauge->addAttitudeMeter(88);
+
+            mAttitudeNeedle = mAttitudeGauge->addNeedle(70);
+            mAttitudeNeedle->setMinDegree(0);
+            mAttitudeNeedle->setMaxDegree(180);
+            mAttitudeNeedle->setValueRange(0,180);
+            mAttitudeNeedle->setCurrentValue(90);
+            mAttitudeNeedle->setColor(Qt::white);
+            mAttitudeNeedle->setNeedle(QcNeedleItem::AttitudeMeterNeedle);
+            mAttitudeGauge->addGlass(80);
+            mAttitudeGauge->setFixedHeight(130);
+
+
+            //************** COMPASS DESIGN *********************//
+            mCompassGauge = new QcGaugeWidget;
+
+            mCompassGauge->addBackground(99);
+            QcBackgroundItem *bkg3 = mCompassGauge->addBackground(92);
+            bkg3->clearrColors();
+            bkg3->addColor(0.1,Qt::black);
+            bkg3->addColor(1.0,Qt::white);
+
+            QcBackgroundItem *bkg4 = mCompassGauge->addBackground(88);
+            bkg4->clearrColors();
+            bkg4->addColor(0.1,Qt::white);
+            bkg4->addColor(1.0,Qt::black);
+
+            QcLabelItem *w = mCompassGauge->addLabel(80);
+            w->setText("W");
+            w->setAngle(0);
+            w->setColor(Qt::white);
+
+            QcLabelItem *n = mCompassGauge->addLabel(80);
+            n->setText("N");
+            n->setAngle(90);
+            n->setColor(Qt::white);
+
+            QcLabelItem *e = mCompassGauge->addLabel(80);
+            e->setText("E");
+            e->setAngle(180);
+            e->setColor(Qt::white);
+
+            QcLabelItem *s = mCompassGauge->addLabel(80);
+            s->setText("S");
+            s->setAngle(270);
+            s->setColor(Qt::white);
+
+            QcDegreesItem *deg = mCompassGauge->addDegrees(70);
+            deg->setStep(5);
+            deg->setMaxDegree(360);
+            deg->setMinDegree(0);
+            deg->setColor(Qt::white);
+            mCompassNeedle = mCompassGauge->addNeedle(60);
+            mCompassNeedle->setNeedle(QcNeedleItem::CompassNeedle);
+            mCompassNeedle->setValueRange(0,360);
+            mCompassNeedle->setMaxDegree(360);
+            mCompassNeedle->setMinDegree(0);
+            mCompassGauge->addBackground(7);
+            mCompassGauge->addGlass(88);
+            mCompassGauge->setFixedHeight(130);
+
+
+            mTempGauge = new QLabel;
+            mTempGauge->setText("0°C");
+
+
+            //************************//
+
+            layoutGaugeCentral->addWidget(mSpeedGauge);
+            layoutGaugeCentral->addWidget(mAttitudeGauge);
+            layoutGaugeCentral->addWidget(mCompassGauge);
+            layoutGaugeCentral->addWidget(mTempGauge);
+
+            GaugeGroupBox->setLayout(layoutGaugeCentral);
+
             startMPUButton = new QPushButton (tr("Start MPU"));
             startMPUButton->setMaximumWidth(100);
 
+            stopMPUButton = new QPushButton (tr("Stop MPU"));
+            stopMPUButton->setMaximumWidth(100);
+
             QVBoxLayout *MPUBox = new QVBoxLayout;
             MPUBox->addWidget(MPUGroupBox);
+
+            MPUBox->addWidget(GaugeGroupBox);
+
             MPUBox->addWidget(startMPUButton);
+            MPUBox->addWidget(stopMPUButton);
             layoutMPU->setLayout(MPUBox);
 
             // Page 3 (je ne vais afficher qu'une image ici, pas besoin de layout)
@@ -335,7 +469,6 @@ QWidget *zoneCentrale = new QWidget;
 
     zoneCentrale->setLayout(layoutPrincipal);
     setCentralWidget(zoneCentrale);
-
 }
 
 
