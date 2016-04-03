@@ -8,6 +8,7 @@
 
 
 #include "../../Qt-custom-gauge-widget-master/source/qcgaugewidget.h"
+#include "../../qcustomplot/qcustomplot.h"
 
 #include "apropos.h"
 #include "central.h"
@@ -47,9 +48,20 @@ public:
         short pitchValue;
         short speedValue;
         int temp;
+        int time_mpu;
     };
 
     MainWindow();
+
+    QCustomPlot *customPlotAccXValue;
+    QCustomPlot *customPlotAccYValue;
+    QCustomPlot *customPlotAccZValue;
+
+    void setupRealtimeDataDemo(QCustomPlot *customPlot);
+
+    QTimer dataTimer;
+
+
 
     QLineEdit *serveurIP;
     QSpinBox *serveurPort;
@@ -96,6 +108,9 @@ private slots :
 
     void buttonStartMPU();
     void buttonStopMPU();
+
+    void realtimeDataSlot();
+
 
 private:
 

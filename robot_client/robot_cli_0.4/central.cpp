@@ -225,23 +225,37 @@ QWidget *zoneCentrale = new QWidget;
                     QLabel *textAccZ = new QLabel;
                     textAccZValue = new QLabel;
 
+                    customPlotAccXValue = new QCustomPlot;
+                    customPlotAccYValue = new QCustomPlot;
+                    customPlotAccZValue = new QCustomPlot;
+
+                    customPlotAccXValue->setFixedHeight(150);
+                    customPlotAccXValue->setFixedWidth(150);
+                    customPlotAccYValue->setFixedHeight(150);
+                    customPlotAccYValue->setFixedWidth(150);
+                    customPlotAccZValue->setFixedHeight(150);
+                    customPlotAccZValue->setFixedWidth(150);
+
                     textAccX->setText("X");
                     textAccX->setAlignment(Qt::AlignCenter);
                     AccX->addWidget(textAccX);
                     AccX->addWidget(textAccXValue);
-                    AccX->addWidget(sliderAccX);
+                    //AccX->addWidget(sliderAccX);
+                    AccX->addWidget(customPlotAccXValue);
 
                     textAccY->setText("Y");
                     textAccY->setAlignment(Qt::AlignCenter);
                     AccY->addWidget(textAccY);
                     AccY->addWidget(textAccYValue);
-                    AccY->addWidget(sliderAccY);
+                    //AccY->addWidget(sliderAccY);
+                    AccY->addWidget(customPlotAccYValue);
 
                     textAccZ->setText("Z");
                     textAccZ->setAlignment(Qt::AlignCenter);
                     AccZ->addWidget(textAccZ);
                     AccZ->addWidget(textAccZValue);
-                    AccZ->addWidget(sliderAccZ);
+                    //AccZ->addWidget(sliderAccZ);
+                    AccZ->addWidget(customPlotAccZValue);
 
                     layoutMPUAcceleration->addLayout(AccX);
                     layoutMPUAcceleration->addLayout(AccY);
@@ -257,16 +271,16 @@ QWidget *zoneCentrale = new QWidget;
 
                     sliderGyroX = new QDial;
                     sliderGyroX->setValue(50);
-                    sliderGyroX->setFixedWidth(100);
+                    sliderGyroX->setFixedWidth(60);
                     sliderGyroX->setEnabled(false);
 
                     sliderGyroY = new QDial;
-                    sliderGyroY->setFixedWidth(100);
+                    sliderGyroY->setFixedWidth(60);
                     sliderGyroY->setValue(50);
                     sliderGyroY->setEnabled(false);
 
                     sliderGyroZ = new QDial;
-                    sliderGyroZ->setFixedWidth(100);
+                    sliderGyroZ->setFixedWidth(60);
                     sliderGyroZ->setValue(50);
                     sliderGyroZ->setEnabled(false);
 
@@ -301,7 +315,7 @@ QWidget *zoneCentrale = new QWidget;
 
             MPUGroupBox->setLayout(layoutMPUCentral);
             MPUGroupBox->setMaximumWidth(800);
-            MPUGroupBox->setMaximumHeight(150);
+            MPUGroupBox->setMaximumHeight(350);
 
 
             //*****************************************//
