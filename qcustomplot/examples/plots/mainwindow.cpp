@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);
   setGeometry(400, 250, 542, 390);
   
-  setupDemo(17);
+  setupDemo(10);
   //setupPlayground(ui->customPlot);
   // 0:  setupQuadraticDemo(ui->customPlot);
   // 1:  setupSimpleDemo(ui->customPlot);
@@ -1293,9 +1293,9 @@ void MainWindow::setupAdvancedAxesDemo(QCustomPlot *customPlot)
   // rescale axes according to graph's data:
   mainGraph1->rescaleAxes();
   mainGraph2->rescaleAxes();
-  graph2->rescaleAxes();
-  bars1->rescaleAxes();
-  wideAxisRect->axis(QCPAxis::atLeft, 1)->setRangeLower(0);
+  //graph2->rescaleAxes();
+  //bars1->rescaleAxes();
+  //wideAxisRect->axis(QCPAxis::atLeft, 1)->setRangeLower(0);
 }
 
 void MainWindow::setupColorMapDemo(QCustomPlot *customPlot)

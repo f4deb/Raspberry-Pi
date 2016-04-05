@@ -229,8 +229,8 @@ QWidget *zoneCentrale = new QWidget;
                     customPlotAccYValue = new QCustomPlot;
                     customPlotAccZValue = new QCustomPlot;
 
-                    customPlotAccXValue->setFixedHeight(150);
-                    customPlotAccXValue->setFixedWidth(150);
+                    customPlotAccXValue->setFixedHeight(250);
+                    customPlotAccXValue->setFixedWidth(750);
                     customPlotAccYValue->setFixedHeight(150);
                     customPlotAccYValue->setFixedWidth(150);
                     customPlotAccZValue->setFixedHeight(150);
@@ -243,20 +243,20 @@ QWidget *zoneCentrale = new QWidget;
                     //AccX->addWidget(sliderAccX);
                     AccX->addWidget(customPlotAccXValue);
 
-                    textAccY->setText("Y");
+                    /*textAccY->setText("Y");
                     textAccY->setAlignment(Qt::AlignCenter);
                     AccY->addWidget(textAccY);
                     AccY->addWidget(textAccYValue);
                     //AccY->addWidget(sliderAccY);
                     AccY->addWidget(customPlotAccYValue);
-
-                    textAccZ->setText("Z");
+*/
+/*                  textAccZ->setText("Z");
                     textAccZ->setAlignment(Qt::AlignCenter);
                     AccZ->addWidget(textAccZ);
                     AccZ->addWidget(textAccZValue);
                     //AccZ->addWidget(sliderAccZ);
                     AccZ->addWidget(customPlotAccZValue);
-
+*/
                     layoutMPUAcceleration->addLayout(AccX);
                     layoutMPUAcceleration->addLayout(AccY);
                     layoutMPUAcceleration->addLayout(AccZ);
@@ -310,7 +310,7 @@ QWidget *zoneCentrale = new QWidget;
                 boxMPUGyro->setLayout(layoutMPUGyro);
 
             layoutMPUCentral->addWidget(boxMPUAcc);
-            layoutMPUCentral->addWidget(boxMPUGyro);
+            //layoutMPUCentral->addWidget(boxMPUGyro);
             //boxMPUAcc->setStyleSheet("border: 1px solid red;");
 
             MPUGroupBox->setLayout(layoutMPUCentral);
