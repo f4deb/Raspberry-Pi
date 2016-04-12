@@ -55,7 +55,7 @@ public:
     };
 
     MainWindow();
-    void ssetupAdvancedAxesDemo(QCustomPlot *customPlot);
+    //void ssetupAdvancedAxesDemo(QCustomPlot *customPlot);
     //void realtimeDataSlot();
 
     QCPMarginGroup *marginGroup;
@@ -77,21 +77,12 @@ public:
     QCPGraph *mainGraph6;
 
     QTimer dataTimer;
-    QCustomPlot *customPlotAccXValue;
+    //QCustomPlot *customPlotAccXValue;
     QCustomPlot *customPlotAccYValue;
     QCustomPlot *customPlotAccZValue;
 
     void setupRealtimeDataDemo(QCustomPlot *customPlot);
     void setupAdvancedAxesDemo(QCustomPlot *customPlot);
-
-
-
-
-
-
-
-
-
 
     QLineEdit *serveurIP;
     QSpinBox *serveurPort;
@@ -111,7 +102,6 @@ public:
 
     bool first;
 
-    mpuValue mpuaccess;
 
     QcGaugeWidget * mSpeedGauge;
     QcNeedleItem *mSpeedNeedle;
@@ -135,7 +125,7 @@ public:
 
     QSerialPort *serial;
 
-    Mpus *test;
+    Mpu *mpu;
 
 public slots:
     void aPropos();
@@ -165,7 +155,7 @@ private slots :
     void buttonStartMPU();
     void buttonStopMPU();
 
-    void realtimeDataSlot();
+    //void realtimeDataSlot();
 
 
 private:

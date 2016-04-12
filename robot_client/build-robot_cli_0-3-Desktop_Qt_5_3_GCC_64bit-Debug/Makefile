@@ -2035,6 +2035,38 @@ moc_mpu.cpp: /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QtWidgets \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbox.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbutton.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtwidgetsversion.h \
+		../../qcustomplot/qcustomplot.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QPointer \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWidget \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QPainter \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QPaintEvent \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QMouseEvent \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QPixmap \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QVector \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QString \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QDateTime \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QMultiMap \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QFlags \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QDebug \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QVector2D \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QStack \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QCache \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/QPrinter \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprinter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qtprintsupportglobal.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/QPrintEngine \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprintengine.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QtNumeric \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/QtPrintSupport \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/QtPrintSupportDepends \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qabstractprintdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qpagesetupdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprintdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprintpreviewdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprinterinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QPair \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprintpreviewwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		../robot_cli_0.4/mpu.h
 	/home/f4deb/Qt/5.3/gcc_64/bin/moc $(DEFINES) -I/home/f4deb/Qt/5.3/gcc_64/mkspecs/linux-g++ -I/media/f4deb/travail/electronique/git-f4deb/Raspberry-Robot/robot_client/robot_cli_0.4 -I/media/f4deb/travail/electronique/git-f4deb/Raspberry-Robot/robot_client/robot_cli_0.4 -I/home/f4deb/Qt/5.3/gcc_64/include -I/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport -I/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets -I/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort -I/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork -I/home/f4deb/Qt/5.3/gcc_64/include/QtGui -I/home/f4deb/Qt/5.3/gcc_64/include/QtCore -I. ../robot_cli_0.4/mpu.h -o moc_mpu.cpp
 
@@ -5883,9 +5915,41 @@ mpu.o: ../robot_cli_0.4/mpu.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWid
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QTimer \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtimer.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbasictimer.h \
-		../robot_cli_0.4/mpu.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QtWidgets \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QtWidgetsDepends \
+		../../qcustomplot/qcustomplot.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QPointer \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpointer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QPainter \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpainter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextoption.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpen.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QPaintEvent \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QMouseEvent \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QPixmap \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QVector \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QString \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QDateTime \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdatetime.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QMultiMap \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QFlags \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QDebug \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QVector2D \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QStack \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstack.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QCache \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcache.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QMargins \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmath.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/QPrinter \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprinter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagedpaintdevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagelayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagesize.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qtprintsupportglobal.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/QPrintEngine \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprintengine.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QtNumeric \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/QtPrintSupport \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/QtPrintSupportDepends \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QtCore \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QtCoreDepends \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractanimation.h \
@@ -5899,7 +5963,6 @@ mpu.o: ../robot_cli_0.4/mpu.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWid
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtextcodec.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qendian.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlibraryinfo.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdatetime.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbuffer.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdir.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfileinfo.h \
@@ -5931,11 +5994,9 @@ mpu.o: ../robot_cli_0.4/mpu.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWid
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qeventloop.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcoreapplication.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmath.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmetaobject.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmimedata.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobjectcleanuphandler.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpointer.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsharedmemory.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsignalmapper.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsocketnotifier.h \
@@ -5974,7 +6035,6 @@ mpu.o: ../robot_cli_0.4/mpu.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWid
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qarraydatapointer.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbitarray.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbytearraymatcher.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcache.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcollator.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcommandlineoption.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcommandlineparser.h \
@@ -5985,7 +6045,6 @@ mpu.o: ../robot_cli_0.4/mpu.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWid
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qqueue.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qregularexpression.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qscopedvaluerollback.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstack.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtextboundaryfinder.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtimeline.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtimezone.h \
@@ -6035,7 +6094,6 @@ mpu.o: ../robot_cli_0.4/mpu.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWid
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qstylehints.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qwindow.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QEvent \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QMargins \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qgenericmatrix.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qmatrix4x4.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvector3d.h \
@@ -6053,13 +6111,7 @@ mpu.o: ../robot_cli_0.4/mpu.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWid
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengltimerquery.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglvertexarrayobject.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qbackingstore.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagedpaintdevice.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagelayout.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagesize.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpaintengine.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpainter.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextoption.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpen.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpdfwriter.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextlayout.h \
@@ -6079,6 +6131,8 @@ mpu.o: ../robot_cli_0.4/mpu.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWid
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qdesktopservices.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvalidator.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtguiversion.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QtWidgets \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QtWidgetsDepends \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qaccessiblewidget.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcolordialog.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdialog.h \
@@ -6210,7 +6264,73 @@ mpu.o: ../robot_cli_0.4/mpu.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWid
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbar.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbox.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbutton.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtwidgetsversion.h
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtwidgetsversion.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qabstractprintdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qpagesetupdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprintdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprintpreviewdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprinterinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QPair \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprintpreviewwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
+		../robot_cli_0.4/mpu.h \
+		../robot_cli_0.4/mainwindow.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QIcon \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QMessageBox \
+		../../Qt-custom-gauge-widget-master/source/qcgaugewidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QRectF \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QtMath \
+		../robot_cli_0.4/apropos.h \
+		../robot_cli_0.4/central.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QTableWidget \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QPlainTextEdit \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QTextEdit \
+		../robot_cli_0.4/server.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/QtNetwork \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/QtNetworkDepends \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qabstractnetworkcache.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworkrequest.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QUrl \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qhttpmultipart.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QByteArray \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QIODevice \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/QNetworkRequest \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworkaccessmanager.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/QSslConfiguration \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qsslconfiguration.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qsslsocket.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qsslerror.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qsslcertificate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qssl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworkcookie.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworkcookiejar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworkdiskcache.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworkreply.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/QNetworkAccessManager \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworkconfigmanager.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworksession.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworkinterface.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qhostaddress.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qauthenticator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qdnslookup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qhostinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qnetworkproxy.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qlocalserver.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qlocalsocket.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qtcpserver.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qudpsocket.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qsslcertificateextension.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qsslcipher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qsslkey.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/qtnetworkversion.h \
+		../robot_cli_0.4/terminal.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/QSerialPort \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialport.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mpu.o ../robot_cli_0.4/mpu.cpp
 
 qcgaugewidget.o: ../../Qt-custom-gauge-widget-master/source/qcgaugewidget.cpp ../../Qt-custom-gauge-widget-master/source/qcgaugewidget.h \
