@@ -13,7 +13,10 @@
 #include "../../qcustomplot/qcustomplot.h"
 
 #include "singleton.h"
+//#include "mpu.h"
 #include "mainwindow.h"
+
+
 
 extern int etat_serial_port;
 extern int etat_serveur_port;
@@ -43,6 +46,8 @@ MainWindow::MainWindow(){
     initMPU();
 
     serial = new QSerialPort;
+
+
     //Terminal::instances()->setEtatConnexionSerial (0);
     etat_serial_port = 0;
     etat_serveur_port=0;
@@ -51,7 +56,7 @@ MainWindow::MainWindow(){
 
 
     //setupRealtimeDataDemo(customPlotAccYValue);
-    setupAdvancedAxesDemo(customPlotAccXValue);
+    ssetupAdvancedAxesDemo(customPlotAccXValue);
     //setupRealtimeDataDemo(customPlotAccZValue);
 
 
@@ -114,6 +119,8 @@ void MainWindow::createStatus(){
 
 void MainWindow::initServer(){
     servv = new Server;
+    test = new Mpus;
+    test->toto();
     servv->serverInitialisation();
 
     serveurPort->setMaximum(1024);
@@ -299,7 +306,7 @@ void MainWindow::readData(){
 void MainWindow::mpuCalculate(){
     while (mpuGo){
         writeData ("JA");
-        SleeperThread::msleep(20);
+        SleeperThread::msleep(30);
 
 
         // calcul de la temperature
@@ -372,7 +379,7 @@ void MainWindow::mpuCalculate(){
         else {
             mpuaccess.compassValue = mpuaccess.compassValue - 270;
         }
-        SleeperThread::msleep(10);
+        //SleeperThread::msleep(10);
 
         mCompassNeedle->setCurrentValue(mpuaccess.compassValue);
         mAttMeter->setCurrentRoll(mpuaccess.rollValue);
@@ -383,7 +390,7 @@ void MainWindow::mpuCalculate(){
         mpuaccess.time_mpu++;
 
 
-        QThread::msleep(100);
+        QThread::msleep(50);
     }
 }
 
@@ -404,63 +411,111 @@ void MainWindow::initMPU(){
     mpuGo = true;
 }
 
-void MainWindow::setupAdvancedAxesDemo(QCustomPlot *customPlot){
+void MainWindow::ssetupAdvancedAxesDemo(QCustomPlot *customPlot){
   // configure axis rect:
   customPlot->plotLayout()->clear(); // clear default axis rect so we can start from scratch
 
   // X Gravity
   wideAxisRect1 = new QCPAxisRect(customPlot);
   wideAxisRect1->setupFullAxesBox(true);
+  wideAxisRect1->axis(QCPAxis::atTop,0)->setLabel(labelXG);
+  wideAxisRect1->axis(QCPAxis::atTop,0)->setLabelColor(QColor(230,230,230,240));
   //wideAxisRect1->axis(QCPAxis::atRight, 0)->setTickLabels(true);
   wideAxisRect1->axis(QCPAxis::atBottom,0)->setTickLabelType(QCPAxis::ltDateTime);
   wideAxisRect1->axis(QCPAxis::atBottom,0)->setDateTimeFormat("hh:mm:ss");
   wideAxisRect1->axis(QCPAxis::atBottom,0)->setAutoTickStep(false);
   wideAxisRect1->axis(QCPAxis::atBottom,0)->setTickStep(2);
+  wideAxisRect1->axis(QCPAxis::atTop,0)->setAutoTickStep(false);
+  wideAxisRect1->axis(QCPAxis::atTop,0)->setTickStep(2);
+  wideAxisRect1->axis(QCPAxis::atLeft,0)->setRange(-210,210);
+  wideAxisRect1->setBackground(QColor(230,230,230,240));
+  wideAxisRect1->axis(QCPAxis::atBottom, 0)->setTickLabelColor((QColor(230,230,230,240) ));
+  wideAxisRect1->axis(QCPAxis::atLeft, 0)->setTickLabelColor((QColor(230,230,230,240) ));
 
   // Y GRAVITY
   wideAxisRect2 = new QCPAxisRect(customPlot);
   wideAxisRect2->setupFullAxesBox(true);
+  wideAxisRect2->axis(QCPAxis::atTop,0)->setLabel(labelYG);
+  wideAxisRect2->axis(QCPAxis::atTop,0)->setLabelColor(QColor(230,230,230,240));
+  wideAxisRect2->setBackground(QColor(230,230,230,240));
   //wideAxisRect1->axis(QCPAxis::atRight, 0)->setTickLabels(true);
   wideAxisRect2->axis(QCPAxis::atBottom,0)->setTickLabelType(QCPAxis::ltDateTime);
   wideAxisRect2->axis(QCPAxis::atBottom,0)->setDateTimeFormat("hh:mm:ss");
   wideAxisRect2->axis(QCPAxis::atBottom,0)->setAutoTickStep(false);
   wideAxisRect2->axis(QCPAxis::atBottom,0)->setTickStep(2);
+  wideAxisRect2->axis(QCPAxis::atTop,0)->setAutoTickStep(false);
+  wideAxisRect2->axis(QCPAxis::atTop,0)->setTickStep(2);
+  wideAxisRect2->axis(QCPAxis::atLeft,0)->setRange(-210,210);
+  wideAxisRect2->axis(QCPAxis::atBottom, 0)->setTickLabelColor((QColor(230,230,230,240) ));
+  wideAxisRect2->axis(QCPAxis::atLeft, 0)->setTickLabelColor((QColor(230,230,230,240) ));
 
   // Z GRAVITY
   wideAxisRect3 = new QCPAxisRect(customPlot);
   wideAxisRect3->setupFullAxesBox(true);
+  wideAxisRect3->axis(QCPAxis::atTop,0)->setLabel(labelZG);
+  wideAxisRect3->axis(QCPAxis::atTop,0)->setLabelColor(QColor(230,230,230,240));
+  wideAxisRect3->setBackground(QColor(230,230,230,240));
   //wideAxisRect3->axis(QCPAxis::atRight, 0)->setTickLabels(true);
   wideAxisRect3->axis(QCPAxis::atBottom,0)->setTickLabelType(QCPAxis::ltDateTime);
   wideAxisRect3->axis(QCPAxis::atBottom,0)->setDateTimeFormat("hh:mm:ss");
   wideAxisRect3->axis(QCPAxis::atBottom,0)->setAutoTickStep(false);
   wideAxisRect3->axis(QCPAxis::atBottom,0)->setTickStep(2);
+  wideAxisRect3->axis(QCPAxis::atTop,0)->setAutoTickStep(false);
+  wideAxisRect3->axis(QCPAxis::atTop,0)->setTickStep(2);
+  wideAxisRect3->axis(QCPAxis::atLeft,0)->setRange(-210,210);
+  wideAxisRect3->axis(QCPAxis::atBottom, 0)->setTickLabelColor((QColor(230,230,230,240) ));
+  wideAxisRect3->axis(QCPAxis::atLeft, 0)->setTickLabelColor((QColor(230,230,230,240) ));
 
   // X ACCELERATION
   wideAxisRect4 = new QCPAxisRect(customPlot);
   wideAxisRect4->setupFullAxesBox(true);
+  wideAxisRect4->axis(QCPAxis::atTop,0)->setLabel(labelXA);
+  wideAxisRect4->axis(QCPAxis::atTop,0)->setLabelColor(QColor(230,230,230,240));
+  wideAxisRect4->setBackground(QColor(230,230,230,240));
   //wideAxisRect4->axis(QCPAxis::atRight, 0)->setTickLabels(true);
   wideAxisRect4->axis(QCPAxis::atBottom,0)->setTickLabelType(QCPAxis::ltDateTime);
   wideAxisRect4->axis(QCPAxis::atBottom,0)->setDateTimeFormat("hh:mm:ss");
   wideAxisRect4->axis(QCPAxis::atBottom,0)->setAutoTickStep(false);
   wideAxisRect4->axis(QCPAxis::atBottom,0)->setTickStep(2);
+  wideAxisRect4->axis(QCPAxis::atTop,0)->setAutoTickStep(false);
+  wideAxisRect4->axis(QCPAxis::atTop,0)->setTickStep(2);
+  wideAxisRect4->axis(QCPAxis::atLeft,0)->setRange(-210,210);
+  wideAxisRect4->axis(QCPAxis::atBottom, 0)->setTickLabelColor((QColor(230,230,230,240) ));
+  wideAxisRect4->axis(QCPAxis::atLeft, 0)->setTickLabelColor((QColor(230,230,230,240) ));
 
   // Y ACCELERATION
   wideAxisRect5 = new QCPAxisRect(customPlot);
   wideAxisRect5->setupFullAxesBox(true);
+  wideAxisRect5->axis(QCPAxis::atTop,0)->setLabel(labelYA);
+  wideAxisRect5->axis(QCPAxis::atTop,0)->setLabelColor(QColor(230,230,230,240));
+  wideAxisRect5->setBackground(QColor(230,230,230,240));
   //wideAxisRect5->axis(QCPAxis::atRight, 0)->setTickLabels(true);
   wideAxisRect5->axis(QCPAxis::atBottom,0)->setTickLabelType(QCPAxis::ltDateTime);
   wideAxisRect5->axis(QCPAxis::atBottom,0)->setDateTimeFormat("hh:mm:ss");
   wideAxisRect5->axis(QCPAxis::atBottom,0)->setAutoTickStep(false);
   wideAxisRect5->axis(QCPAxis::atBottom,0)->setTickStep(2);
+  wideAxisRect5->axis(QCPAxis::atTop,0)->setAutoTickStep(false);
+  wideAxisRect5->axis(QCPAxis::atTop,0)->setTickStep(2);
+  wideAxisRect5->axis(QCPAxis::atLeft,0)->setRange(-210,210);
+  wideAxisRect5->axis(QCPAxis::atBottom, 0)->setTickLabelColor((QColor(230,230,230,240) ));
+  wideAxisRect5->axis(QCPAxis::atLeft, 0)->setTickLabelColor((QColor(230,230,230,240) ));
 
   // Z ACCELERATION
   wideAxisRect6 = new QCPAxisRect(customPlot);
   wideAxisRect6->setupFullAxesBox(true);
+  wideAxisRect6->axis(QCPAxis::atTop,0)->setLabel(labelZA);
+  wideAxisRect6->axis(QCPAxis::atTop,0)->setLabelColor(labelColor);
+  wideAxisRect6->setBackground(QColor(230,230,230,240));
   //wideAxisRect6->axis(QCPAxis::atRight, 0)->setTickLabels(true);
   wideAxisRect6->axis(QCPAxis::atBottom,0)->setTickLabelType(QCPAxis::ltDateTime);
   wideAxisRect6->axis(QCPAxis::atBottom,0)->setDateTimeFormat("hh:mm:ss");
   wideAxisRect6->axis(QCPAxis::atBottom,0)->setAutoTickStep(false);
   wideAxisRect6->axis(QCPAxis::atBottom,0)->setTickStep(2);
+  wideAxisRect6->axis(QCPAxis::atTop,0)->setAutoTickStep(false);
+  wideAxisRect6->axis(QCPAxis::atTop,0)->setTickStep(2);
+  wideAxisRect6->axis(QCPAxis::atLeft,0)->setRange(-210,210);
+  wideAxisRect6->axis(QCPAxis::atBottom, 0)->setTickLabelColor((QColor(230,230,230,240) ));
+  wideAxisRect6->axis(QCPAxis::atLeft, 0)->setTickLabelColor((QColor(230,230,230,240) ));
 
   //QCPLayoutGrid *subLayout = new QCPLayoutGrid;
   customPlot->plotLayout()->addElement(0, 0, wideAxisRect1); // insert axis rect in first row
@@ -481,31 +536,25 @@ void MainWindow::setupAdvancedAxesDemo(QCustomPlot *customPlot){
 
   // create and configure plottables:
   mainGraph1 = customPlot->addGraph(wideAxisRect1->axis(QCPAxis::atBottom), wideAxisRect1->axis(QCPAxis::atLeft));
-  mainGraph1->setPen(QPen(QColor("#8070B8"), 2));
-  mainGraph1->setBrush(QColor(110, 170, 110, 30));
+  mainGraph1->setPen(QPen(penColor, penSize));// Axe zero
 
   mainGraph2 = customPlot->addGraph(wideAxisRect2->axis(QCPAxis::atBottom), wideAxisRect2->axis(QCPAxis::atLeft));
-  mainGraph2->setPen(QPen(QColor("#8070B8"), 2));
-  mainGraph2->setBrush(QColor(110, 170, 110, 30));
+  mainGraph2->setPen(QPen(penColor, penSize));
 
   mainGraph3 = customPlot->addGraph(wideAxisRect3->axis(QCPAxis::atBottom), wideAxisRect3->axis(QCPAxis::atLeft));
-  mainGraph3->setPen(QPen(QColor("#8070B8"), 2));
-  mainGraph3->setBrush(QColor(110, 170, 110, 30));
+  mainGraph3->setPen(QPen(penColor, penSize));
 
   mainGraph4 = customPlot->addGraph(wideAxisRect4->axis(QCPAxis::atBottom), wideAxisRect4->axis(QCPAxis::atLeft));
-  mainGraph4->setPen(QPen(QColor("#8070B8"), 2));
-  mainGraph4->setBrush(QColor(110, 170, 110, 30));
+  mainGraph4->setPen(QPen(penColor, penSize));
 
   mainGraph5 = customPlot->addGraph(wideAxisRect5->axis(QCPAxis::atBottom), wideAxisRect5->axis(QCPAxis::atLeft));
-  mainGraph5->setPen(QPen(QColor("#8070B8"), 2));
-  mainGraph5->setBrush(QColor(110, 170, 110, 30));
+  mainGraph5->setPen(QPen(penColor, penSize));
 
   mainGraph6 = customPlot->addGraph(wideAxisRect6->axis(QCPAxis::atBottom), wideAxisRect6->axis(QCPAxis::atLeft));
-  mainGraph6->setPen(QPen(QColor("#8070B8"), 2));
-  mainGraph6->setBrush(QColor(110, 170, 110, 30));
+  mainGraph6->setPen(QPen(penColor, penSize));
 
   // rescale axes according to graph's data:
-  mainGraph1->rescaleAxes();
+  mainGraph1->rescaleAxes(false);
   mainGraph2->rescaleAxes();
   mainGraph3->rescaleAxes();
   mainGraph4->rescaleAxes();
@@ -514,7 +563,7 @@ void MainWindow::setupAdvancedAxesDemo(QCustomPlot *customPlot){
 
   // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
   connect(&dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
-  dataTimer.start(0); // Interval 0 means to refresh as fast as possible
+  dataTimer.start(1); // 1ms  Interval 0 means to refresh as fast as possible
 }
 
 void MainWindow::realtimeDataSlot(){
@@ -535,7 +584,6 @@ void MainWindow::realtimeDataSlot(){
     double value5 = mpuaccess.AY/163.84;
     double value6 = mpuaccess.AZ/163.84;
 
-
     // add data to lines:
     mainGraph1->addData(key, value1);
     mainGraph2->addData(key, value2);
@@ -552,13 +600,8 @@ void MainWindow::realtimeDataSlot(){
     mainGraph4->removeDataBefore(key-8);
     mainGraph5->removeDataBefore(key-8);
     mainGraph6->removeDataBefore(key-8);
+
     // rescale value (vertical) axis to fit the current data:
-    mainGraph1->rescaleValueAxis();
-    mainGraph2->rescaleValueAxis();
-    mainGraph3->rescaleValueAxis();
-    mainGraph4->rescaleValueAxis();
-    mainGraph5->rescaleValueAxis();
-    mainGraph6->rescaleValueAxis();
     lastPointKey = key;
   }
   // make key axis range scroll with the data (at a constant range size of 8):
@@ -569,27 +612,22 @@ void MainWindow::realtimeDataSlot(){
     wideAxisRect5->axis(QCPAxis::atBottom, 0)->setRange(key+0.25, 4, Qt::AlignRight);
     wideAxisRect6->axis(QCPAxis::atBottom, 0)->setRange(key+0.25, 4, Qt::AlignRight);
 
-    mainGraph1->rescaleKeyAxis(true);
-    mainGraph2->rescaleKeyAxis(true);
-    mainGraph3->rescaleKeyAxis(true);
-    mainGraph4->rescaleKeyAxis(true);
-    mainGraph5->rescaleKeyAxis(true);
-    mainGraph6->rescaleKeyAxis(true);
-
     customPlotAccXValue->replot();
 
   // calculate frames per second:
   static double lastFpsKey;
   static int frameCount;
   ++frameCount;
-  if (key-lastFpsKey > 2) // average fps over 2 seconds
+  if (key-lastFpsKey > 2 ) // average fps over 2 seconds
   {
     statusBar()->showMessage(
           QString("%1 FPS, Total Data points: %2")
           .arg(frameCount/(key-lastFpsKey), 0, 'f', 0)
           .arg(mainGraph2->data()->count()+mainGraph3->data()->count())
           , 0);
+
     lastFpsKey = key;
     frameCount = 0;
   }
 }
+

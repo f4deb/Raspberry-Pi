@@ -197,7 +197,7 @@ QWidget *zoneCentrale = new QWidget;
 
             QHBoxLayout *layoutMPUCentral = new QHBoxLayout(MPUGroupBox);
 
-                QGroupBox *boxMPUAcc = new QGroupBox (tr("Accélération Transversale"));
+                QGroupBox *boxMPUAcc = new QGroupBox;// (tr("Accélération Transversale"));
                 QHBoxLayout *layoutMPUAcceleration = new QHBoxLayout;
                     QVBoxLayout *AccX = new QVBoxLayout;
                     QVBoxLayout *AccY = new QVBoxLayout;
@@ -229,20 +229,21 @@ QWidget *zoneCentrale = new QWidget;
                     customPlotAccYValue = new QCustomPlot;
                     customPlotAccZValue = new QCustomPlot;
 
-                    customPlotAccXValue->setFixedHeight(250);
+                    customPlotAccXValue->setFixedHeight(270);
                     customPlotAccXValue->setFixedWidth(750);
                     customPlotAccYValue->setFixedHeight(150);
                     customPlotAccYValue->setFixedWidth(150);
                     customPlotAccZValue->setFixedHeight(150);
                     customPlotAccZValue->setFixedWidth(150);
 
+                    customPlotAccXValue->setBackground(QColor(29, 11, 57, 240));
+
                     textAccX->setText("X");
                     textAccX->setAlignment(Qt::AlignCenter);
-                    AccX->addWidget(textAccX);
-                    AccX->addWidget(textAccXValue);
+                    //AccX->addWidget(textAccX);
+                    //AccX->addWidget(textAccXValue);
                     //AccX->addWidget(sliderAccX);
                     AccX->addWidget(customPlotAccXValue);
-
                     /*textAccY->setText("Y");
                     textAccY->setAlignment(Qt::AlignCenter);
                     AccY->addWidget(textAccY);

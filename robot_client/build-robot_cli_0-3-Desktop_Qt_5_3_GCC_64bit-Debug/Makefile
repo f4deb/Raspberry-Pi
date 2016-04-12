@@ -57,6 +57,7 @@ SOURCES       = ../robot_cli_0.4/main.cpp \
 		../../qcustomplot/qcustomplot.cpp moc_mainwindow.cpp \
 		moc_server.cpp \
 		moc_terminal.cpp \
+		moc_mpu.cpp \
 		moc_qcgaugewidget.cpp \
 		moc_qcustomplot.cpp
 OBJECTS       = main.o \
@@ -72,6 +73,7 @@ OBJECTS       = main.o \
 		moc_mainwindow.o \
 		moc_server.o \
 		moc_terminal.o \
+		moc_mpu.o \
 		moc_qcgaugewidget.o \
 		moc_qcustomplot.o
 DIST          = /home/f4deb/Qt/5.3/gcc_64/mkspecs/features/spec_pre.prf \
@@ -482,9 +484,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_server.cpp moc_terminal.cpp moc_qcgaugewidget.cpp moc_qcustomplot.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_server.cpp moc_terminal.cpp moc_mpu.cpp moc_qcgaugewidget.cpp moc_qcustomplot.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_server.cpp moc_terminal.cpp moc_qcgaugewidget.cpp moc_qcustomplot.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_server.cpp moc_terminal.cpp moc_mpu.cpp moc_qcgaugewidget.cpp moc_qcustomplot.cpp
 moc_mainwindow.cpp: /home/f4deb/Qt/5.3/gcc_64/include/QtGui/QIcon \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qicon.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qglobal.h \
@@ -1003,6 +1005,7 @@ moc_mainwindow.cpp: /home/f4deb/Qt/5.3/gcc_64/include/QtGui/QIcon \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/QSerialPort \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialport.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
+		../robot_cli_0.4/mpu.h \
 		../robot_cli_0.4/mainwindow.h
 	/home/f4deb/Qt/5.3/gcc_64/bin/moc $(DEFINES) -I/home/f4deb/Qt/5.3/gcc_64/mkspecs/linux-g++ -I/media/f4deb/travail/electronique/git-f4deb/Raspberry-Robot/robot_client/robot_cli_0.4 -I/media/f4deb/travail/electronique/git-f4deb/Raspberry-Robot/robot_client/robot_cli_0.4 -I/home/f4deb/Qt/5.3/gcc_64/include -I/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport -I/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets -I/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort -I/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork -I/home/f4deb/Qt/5.3/gcc_64/include/QtGui -I/home/f4deb/Qt/5.3/gcc_64/include/QtCore -I. ../robot_cli_0.4/mainwindow.h -o moc_mainwindow.cpp
 
@@ -1602,6 +1605,438 @@ moc_terminal.cpp: /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QPlainTextEdit \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
 		../robot_cli_0.4/terminal.h
 	/home/f4deb/Qt/5.3/gcc_64/bin/moc $(DEFINES) -I/home/f4deb/Qt/5.3/gcc_64/mkspecs/linux-g++ -I/media/f4deb/travail/electronique/git-f4deb/Raspberry-Robot/robot_client/robot_cli_0.4 -I/media/f4deb/travail/electronique/git-f4deb/Raspberry-Robot/robot_client/robot_cli_0.4 -I/home/f4deb/Qt/5.3/gcc_64/include -I/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport -I/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets -I/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort -I/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork -I/home/f4deb/Qt/5.3/gcc_64/include/QtGui -I/home/f4deb/Qt/5.3/gcc_64/include/QtCore -I. ../robot_cli_0.4/terminal.h -o moc_terminal.cpp
+
+moc_mpu.cpp: /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QtWidgets \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QtWidgetsDepends \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QtCore \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QtCoreDepends \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractanimation.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qnamespace.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qglobal.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qconfig.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfeatures.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtypetraits.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsysinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlogging.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qflags.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmutex.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qnumeric.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstring.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qchar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbytearray.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qrefcount.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qarraydata.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlist.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qalgorithms.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qiterator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcoreevent.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmetatype.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qisenum.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobject_impl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qanimationgroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpauseanimation.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qvector.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpoint.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qvariant.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmap.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpair.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdebug.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qhash.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtextstream.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qiodevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlocale.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qshareddata.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qset.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstringlist.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdatastream.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qregexp.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtextcodec.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qendian.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlibraryinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdatetime.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbuffer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdir.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfileinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfile.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfiledevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdiriterator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfileselector.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QObject \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QStringList \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlockfile.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qloggingcategory.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qprocess.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qresource.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsavefile.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsettings.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstandardpaths.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtemporarydir.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QScopedPointer \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtemporaryfile.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qurl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qurlquery.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractproxymodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qidentityproxymodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstringlistmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qjsonarray.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qjsondocument.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qjsonobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qeventloop.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbasictimer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmath.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmetaobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmimedata.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpointer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsharedmemory.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsocketnotifier.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsystemsemaphore.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtimer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtranslator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qwineventnotifier.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmimedatabase.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmimetype.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfactoryinterface.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlibrary.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpluginloader.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/quuid.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractstate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstracttransition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qeventtransition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfinalstate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qhistorystate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsignaltransition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstatemachine.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qexception.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfuture.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qrunnable.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qresultstore.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfuturewatcher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qreadwritelock.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsemaphore.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qthread.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qthreadpool.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qthreadstorage.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qwaitcondition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qarraydataops.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbitarray.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbytearraymatcher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcache.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcollator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcommandlineoption.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcommandlineparser.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qline.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlinkedlist.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmargins.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qqueue.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qrect.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsize.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qregularexpression.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstack.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtimeline.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtimezone.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qxmlstream.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtcoreversion.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QtGui \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QtGuiDepends \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qaccessible.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qcolor.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qrgb.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qevent.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qregion.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qkeysequence.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvector2d.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qaccessiblebridge.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qaccessibleobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qaccessibleplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qbitmap.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpixmap.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qimage.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtransform.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qmatrix.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpolygon.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpainterpath.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qicon.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qiconengine.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qiconengineplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qimageiohandler.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qimagereader.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qimagewriter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qmovie.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpicture.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpictureformatplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpixmapcache.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qstandarditemmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qbrush.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qfont.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qclipboard.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qcursor.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qdrag.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qgenericplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qgenericpluginfactory.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qguiapplication.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qinputmethod.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qoffscreensurface.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qsurface.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qsurfaceformat.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglcontext.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QSurfaceFormat \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qt_windows.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengles2ext.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglext.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglversionfunctions.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpalette.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qscreen.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QList \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QRect \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QSize \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QSizeF \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QTransform \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qsessionmanager.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qstylehints.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qwindow.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QEvent \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QMargins \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qgenericmatrix.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qmatrix4x4.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvector3d.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvector4d.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qquaternion.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglbuffer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengldebug.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglframebufferobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglfunctions.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglpaintdevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglpixeltransferoptions.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QSharedDataPointer \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglshaderprogram.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengltexture.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengltimerquery.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglvertexarrayobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qbackingstore.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagedpaintdevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagelayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagesize.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpaintengine.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpainter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextoption.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpen.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qfontinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpdfwriter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextformat.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qglyphrun.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qrawfont.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qfontdatabase.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextcursor.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextdocument.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qstatictext.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qsyntaxhighlighter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextdocumentfragment.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextdocumentwriter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextlist.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtexttable.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qdesktopservices.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvalidator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtguiversion.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qaccessiblewidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcolordialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qerrormessage.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfilesystemmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfontdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qinputdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qframe.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qprogressdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qwizard.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicseffect.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsanchorlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicslayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicslayoutitem.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsgridlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsitemanimation.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicslinearlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsproxywidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicswidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicssceneevent.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicstransform.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QVector3D \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QMatrix4x4 \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qscrollarea.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qslider.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstyle.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcolumnview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdatawidgetmapper.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdirmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfileiconprovider.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qitemdelegate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qitemeditorfactory.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlistview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlistwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstyleditemdelegate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtableview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtablewidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtreeview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtreewidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtreewidgetitemiterator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qaction.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qapplication.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qformlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QLayout \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgesture.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgesturerecognizer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qshortcut.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstackedlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtooltip.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qwhatsthis.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qwidgetaction.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qkeyeventtransition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmouseeventtransition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcommonstyle.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdrawutil.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qproxystyle.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QCommonStyle \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstylefactory.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstylepainter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstyleplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcolormap.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcompleter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qscroller.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QPointF \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QScrollerProperties \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qscrollerproperties.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QMetaType \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QVariant \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qsystemtrayicon.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qundogroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qundostack.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qundoview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcalendarwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcheckbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcommandlinkbutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdial.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdockwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfocusframe.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfontcombobox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qkeysequenceedit.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlabel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlcdnumber.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmainwindow.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmdiarea.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmdisubwindow.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmenu.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmenubar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qplaintextedit.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qprogressbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qradiobutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qscrollbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qsizegrip.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qspinbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qsplashscreen.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qsplitter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstackedwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstatusbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtextbrowser.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtwidgetsversion.h \
+		../robot_cli_0.4/mpu.h
+	/home/f4deb/Qt/5.3/gcc_64/bin/moc $(DEFINES) -I/home/f4deb/Qt/5.3/gcc_64/mkspecs/linux-g++ -I/media/f4deb/travail/electronique/git-f4deb/Raspberry-Robot/robot_client/robot_cli_0.4 -I/media/f4deb/travail/electronique/git-f4deb/Raspberry-Robot/robot_client/robot_cli_0.4 -I/home/f4deb/Qt/5.3/gcc_64/include -I/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport -I/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets -I/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort -I/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork -I/home/f4deb/Qt/5.3/gcc_64/include/QtGui -I/home/f4deb/Qt/5.3/gcc_64/include/QtCore -I. ../robot_cli_0.4/mpu.h -o moc_mpu.cpp
 
 moc_qcgaugewidget.cpp: /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWidget \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qwidget.h \
@@ -2709,7 +3144,8 @@ main.o: ../robot_cli_0.4/main.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QA
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/QSerialPort \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialport.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h
+		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
+		../robot_cli_0.4/mpu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../robot_cli_0.4/main.cpp
 
 mainwindow.o: ../robot_cli_0.4/mainwindow.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QtWidgets \
@@ -3242,7 +3678,8 @@ mainwindow.o: ../robot_cli_0.4/mainwindow.cpp /home/f4deb/Qt/5.3/gcc_64/include/
 		../robot_cli_0.4/terminal.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/QSerialPort \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialport.h
+		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialport.h \
+		../robot_cli_0.4/mpu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../robot_cli_0.4/mainwindow.cpp
 
 apropos.o: ../robot_cli_0.4/apropos.cpp ../robot_cli_0.4/apropos.h \
@@ -3763,6 +4200,7 @@ apropos.o: ../robot_cli_0.4/apropos.cpp ../robot_cli_0.4/apropos.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/QSerialPort \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialport.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
+		../robot_cli_0.4/mpu.h \
 		../robot_cli_0.4/setup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o apropos.o ../robot_cli_0.4/apropos.cpp
 
@@ -4285,7 +4723,8 @@ server.o: ../robot_cli_0.4/server.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidget
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/QSerialPort \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialport.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h
+		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
+		../robot_cli_0.4/mpu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o ../robot_cli_0.4/server.cpp
 
 terminal.o: ../robot_cli_0.4/terminal.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QScrollBar \
@@ -4806,7 +5245,8 @@ terminal.o: ../robot_cli_0.4/terminal.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWi
 		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QDialog \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/QSerialPort \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialport.h \
-		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h
+		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialportglobal.h \
+		../robot_cli_0.4/mpu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o terminal.o ../robot_cli_0.4/terminal.cpp
 
 singleton.o: ../robot_cli_0.4/singleton.cpp ../robot_cli_0.4/singleton.h
@@ -5291,6 +5731,7 @@ central.o: ../robot_cli_0.4/central.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidg
 		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qprintpreviewwidget.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		../robot_cli_0.4/apropos.h \
+		../robot_cli_0.4/mpu.h \
 		../robot_cli_0.4/server.h \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/QtNetwork \
 		/home/f4deb/Qt/5.3/gcc_64/include/QtNetwork/QtNetworkDepends \
@@ -5338,7 +5779,438 @@ central.o: ../robot_cli_0.4/central.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidg
 		/home/f4deb/Qt/5.3/gcc_64/include/QtSerialPort/qserialport.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o central.o ../robot_cli_0.4/central.cpp
 
-mpu.o: ../robot_cli_0.4/mpu.cpp ../robot_cli_0.4/mpu.h
+mpu.o: ../robot_cli_0.4/mpu.cpp /home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QWidget \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qglobal.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qconfig.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfeatures.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtypetraits.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsysinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlogging.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qflags.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_mips.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmutex.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qnumeric.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qnamespace.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstring.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qchar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbytearray.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qrefcount.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qarraydata.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlist.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qalgorithms.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qiterator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcoreevent.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmetatype.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qisenum.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobject_impl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmargins.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qrect.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsize.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpoint.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpalette.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qcolor.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qrgb.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstringlist.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdatastream.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qiodevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpair.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qregexp.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qbrush.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qvector.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qmatrix.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpolygon.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qregion.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qline.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtransform.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpainterpath.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qimage.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpixmap.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qshareddata.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qhash.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qfont.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qfontinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qcursor.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qkeysequence.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qevent.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qvariant.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmap.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdebug.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtextstream.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlocale.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qset.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qurl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qurlquery.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfile.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfiledevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvector2d.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QObject \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QTimer \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtimer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbasictimer.h \
+		../robot_cli_0.4/mpu.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QtWidgets \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QtWidgetsDepends \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QtCore \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QtCoreDepends \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractanimation.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qanimationgroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpauseanimation.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtextcodec.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qendian.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlibraryinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdatetime.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbuffer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdir.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfileinfo.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qdiriterator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfileselector.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QStringList \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlockfile.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qloggingcategory.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qprocess.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qresource.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsavefile.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsettings.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstandardpaths.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtemporarydir.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QScopedPointer \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtemporaryfile.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractproxymodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qidentityproxymodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstringlistmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qjsonarray.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qjsondocument.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qjsonobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qeventloop.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmath.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmetaobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmimedata.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpointer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsharedmemory.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsocketnotifier.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsystemsemaphore.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtranslator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qwineventnotifier.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmimedatabase.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmimetype.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfactoryinterface.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlibrary.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qpluginloader.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/quuid.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstractstate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qabstracttransition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qeventtransition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfinalstate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qhistorystate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsignaltransition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstatemachine.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qexception.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfuture.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qrunnable.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qresultstore.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qfuturewatcher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qreadwritelock.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qsemaphore.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qthread.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qthreadpool.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qthreadstorage.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qwaitcondition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qarraydataops.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbitarray.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qbytearraymatcher.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcache.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcollator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcommandlineoption.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcommandlineparser.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qlinkedlist.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qqueue.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qregularexpression.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qstack.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtimeline.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtimezone.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qxmlstream.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qtcoreversion.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QtGui \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QtGuiDepends \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qaccessible.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qaccessiblebridge.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qaccessibleobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qaccessibleplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qbitmap.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qicon.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qiconengine.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qiconengineplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qimageiohandler.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qimagereader.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qimagewriter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qmovie.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpicture.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpictureformatplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpixmapcache.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qstandarditemmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qclipboard.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qdrag.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qgenericplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qgenericpluginfactory.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qguiapplication.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qinputmethod.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qoffscreensurface.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qsurface.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qsurfaceformat.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglcontext.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QSurfaceFormat \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengl.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/qt_windows.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengles2ext.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglext.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglversionfunctions.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qscreen.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QList \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QRect \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QSize \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QSizeF \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QTransform \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qsessionmanager.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qstylehints.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qwindow.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QEvent \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QMargins \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qgenericmatrix.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qmatrix4x4.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvector3d.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvector4d.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qquaternion.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglbuffer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengldebug.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglframebufferobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglfunctions.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglpaintdevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglpixeltransferoptions.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QSharedDataPointer \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglshaderprogram.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengltexture.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopengltimerquery.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qopenglvertexarrayobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qbackingstore.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagedpaintdevice.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagelayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpagesize.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpaintengine.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpainter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextoption.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpen.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qpdfwriter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextformat.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qglyphrun.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qrawfont.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qfontdatabase.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextcursor.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextdocument.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qstatictext.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qsyntaxhighlighter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextobject.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextdocumentfragment.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextdocumentwriter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtextlist.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtexttable.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qdesktopservices.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qvalidator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/qtguiversion.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qaccessiblewidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcolordialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qerrormessage.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfiledialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfilesystemmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfontdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qinputdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlineedit.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qframe.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qprogressdialog.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qwizard.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicseffect.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsanchorlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicslayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicslayoutitem.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsgridlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsitemanimation.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicslinearlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsproxywidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicswidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicssceneevent.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicstransform.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QVector3D \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtGui/QMatrix4x4 \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qscrollarea.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qslider.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstyle.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcolumnview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdatawidgetmapper.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdirmodel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfileiconprovider.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qitemdelegate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qitemeditorfactory.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlistview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlistwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstyleditemdelegate.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtableview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtablewidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtreeview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtreewidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtreewidgetitemiterator.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qaction.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qapplication.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qformlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QLayout \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgesture.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgesturerecognizer.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qshortcut.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstackedlayout.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtooltip.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qwhatsthis.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qwidgetaction.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qkeyeventtransition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmouseeventtransition.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcommonstyle.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdrawutil.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qproxystyle.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QCommonStyle \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstylefactory.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstylepainter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstyleplugin.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcolormap.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcompleter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qscroller.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QPointF \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/QScrollerProperties \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qscrollerproperties.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QMetaType \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtCore/QVariant \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qsystemtrayicon.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qundogroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qundostack.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qundoview.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcalendarwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcheckbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcombobox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qcommandlinkbutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdial.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qdockwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfocusframe.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qfontcombobox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qkeysequenceedit.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlabel.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qlcdnumber.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmainwindow.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmdiarea.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmdisubwindow.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmenu.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qmenubar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qplaintextedit.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtextedit.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qprogressbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qradiobutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qscrollbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qsizegrip.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qspinbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qsplashscreen.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qsplitter.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstackedwidget.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qstatusbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtextbrowser.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbar.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbox.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtoolbutton.h \
+		/home/f4deb/Qt/5.3/gcc_64/include/QtWidgets/qtwidgetsversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mpu.o ../robot_cli_0.4/mpu.cpp
 
 qcgaugewidget.o: ../../Qt-custom-gauge-widget-master/source/qcgaugewidget.cpp ../../Qt-custom-gauge-widget-master/source/qcgaugewidget.h \
@@ -5923,6 +6795,9 @@ moc_server.o: moc_server.cpp
 
 moc_terminal.o: moc_terminal.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_terminal.o moc_terminal.cpp
+
+moc_mpu.o: moc_mpu.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mpu.o moc_mpu.cpp
 
 moc_qcgaugewidget.o: moc_qcgaugewidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qcgaugewidget.o moc_qcgaugewidget.cpp

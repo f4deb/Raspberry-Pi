@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);
   setGeometry(400, 250, 542, 390);
   
-  setupDemo(10);
+  setupDemo(0);
   //setupPlayground(ui->customPlot);
   // 0:  setupQuadraticDemo(ui->customPlot);
   // 1:  setupSimpleDemo(ui->customPlot);
@@ -1128,7 +1128,7 @@ void MainWindow::setupStyledDemo(QCustomPlot *customPlot)
   QCPGraph *graph1 = customPlot->addGraph();
   graph1->setData(x1, y1);
   graph1->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1.5), QBrush(Qt::white), 9));
-  graph1->setPen(QPen(QColor(120, 120, 120), 2));
+  graph1->setPen(QPen(QColor(0, 120, 120), 2));
 
   QCPGraph *graph2 = customPlot->addGraph();
   graph2->setData(x2, y2);

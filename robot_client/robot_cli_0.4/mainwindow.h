@@ -12,12 +12,15 @@
 
 #include "apropos.h"
 #include "central.h"
+#include "mpu.h"
 #include "server.h"
 #include "terminal.h"
+
 
 QT_BEGIN_NAMESPACE
 
 class QLabel;
+
 
 namespace Ui {
 class MainWindow;
@@ -52,7 +55,28 @@ public:
     };
 
     MainWindow();
+    void ssetupAdvancedAxesDemo(QCustomPlot *customPlot);
+    //void realtimeDataSlot();
 
+    QCPMarginGroup *marginGroup;
+    QCPAxisRect *wideAxisRect;
+
+
+    QCPAxisRect *wideAxisRect1;
+    QCPAxisRect *wideAxisRect2;
+    QCPAxisRect *wideAxisRect3;
+    QCPAxisRect *wideAxisRect4;
+    QCPAxisRect *wideAxisRect5;
+    QCPAxisRect *wideAxisRect6;
+
+    QCPGraph *mainGraph1;
+    QCPGraph *mainGraph2;
+    QCPGraph *mainGraph3;
+    QCPGraph *mainGraph4;
+    QCPGraph *mainGraph5;
+    QCPGraph *mainGraph6;
+
+    QTimer dataTimer;
     QCustomPlot *customPlotAccXValue;
     QCustomPlot *customPlotAccYValue;
     QCustomPlot *customPlotAccZValue;
@@ -61,24 +85,13 @@ public:
     void setupAdvancedAxesDemo(QCustomPlot *customPlot);
 
 
-    QCPMarginGroup *marginGroup;
-    QCPAxisRect *wideAxisRect;
-    QCPAxisRect *wideAxisRect1;
-    QCPAxisRect *wideAxisRect2;
-    QCPAxisRect *wideAxisRect3;
-    QCPAxisRect *wideAxisRect4;
-    QCPAxisRect *wideAxisRect5;
-    QCPAxisRect *wideAxisRect6;
 
 
-    QCPGraph *mainGraph1;
-    QCPGraph *mainGraph2;    
-    QCPGraph *mainGraph3;
-    QCPGraph *mainGraph4;
-    QCPGraph *mainGraph5;
-    QCPGraph *mainGraph6;
 
-    QTimer dataTimer;
+
+
+
+
 
     QLineEdit *serveurIP;
     QSpinBox *serveurPort;
@@ -97,6 +110,32 @@ public:
     QComboBox *flowControlBox;
 
     bool first;
+
+    mpuValue mpuaccess;
+
+    QcGaugeWidget * mSpeedGauge;
+    QcNeedleItem *mSpeedNeedle;
+
+    QcGaugeWidget * mAttitudeGauge;
+    QcNeedleItem * mAttitudeNeedle;
+    QcAttitudeMeter *mAttMeter;
+
+    QcGaugeWidget * mCompassGauge;
+    QcNeedleItem *mCompassNeedle;
+
+    QLabel *mTempGauge;
+
+    QPushButton *startMPUButton;
+    QPushButton *stopMPUButton ;
+
+    QLabel *status;
+    Terminal *terminal;
+
+    Server *servv;
+
+    QSerialPort *serial;
+
+    Mpus *test;
 
 public slots:
     void aPropos();
@@ -209,37 +248,6 @@ private:
     QDial *sliderGyroX;
     QDial *sliderGyroY;
     QDial *sliderGyroZ;
-
-
-    mpuValue mpuaccess;
-
-    QcGaugeWidget * mSpeedGauge;
-    QcNeedleItem *mSpeedNeedle;
-
-    QcGaugeWidget * mAttitudeGauge;
-    QcNeedleItem * mAttitudeNeedle;
-    QcAttitudeMeter *mAttMeter;
-
-    QcGaugeWidget * mCompassGauge;
-    QcNeedleItem *mCompassNeedle;
-
-    QLabel *mTempGauge;
-
-    QPushButton *startMPUButton;
-    QPushButton *stopMPUButton ;
-
-    QLabel *status;
-    Terminal *terminal;
-   // Terminal *settings;
-    Server *servv;
-
-    QSerialPort *serial;
-    //QTimer      m_timer;
-    //QThread     m_tempo;
-
-
-
-
 
 
 
