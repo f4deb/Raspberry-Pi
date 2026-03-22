@@ -8,7 +8,7 @@ dtoverlay=gpio-shutdown,gpio_pin=25,active_low=1,gpio_pull=up
 
 ## Creer le fichier infoscreen.sh
 	nano infoscreen.sh
-.
+###
 
 	#!/bin/bash
 	cd env
