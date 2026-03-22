@@ -1,0 +1,30 @@
+# créer le fichier crontab pour autostart terminal
+	crontab-e
+
+## Ajouter le texte à la fin
+
+	@reboot python3 /home/f4deb/clignote.py
+	@reboot ./infoscreen.sh
+
+## Enregistrer
+	CTRL+o
+	CTRL+x
+
+#Créer le scritpt de lancement
+	nano infoscreen.sh
+
+## Ajouter le texte suivant 
+
+	#!/bin/bash
+	cd env
+	source ~/env/bin/activate
+	nohup python infoscreen.py
+
+## Enregistrer
+	CTRL+o
+	CTRL+x
+	
+## Rendre le fichier infoscreen.sh executable
+	sudo chmod +x infoscreen.sh
+
+
