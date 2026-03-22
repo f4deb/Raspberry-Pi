@@ -1,6 +1,5 @@
 # 1 Configurer le PORT Gpio pour l'arret du Raspberry Pi
 ## Ouvrir le fichier de config boot
-
 	cd /boot/firmware/
 	sudo nano config.txt
 
