@@ -1,4 +1,5 @@
 # Ouvrir le fichier de config boot
+###
 cd /boot/firmware/
 sudo nano config.txt
 
