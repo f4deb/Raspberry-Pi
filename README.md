@@ -8,10 +8,10 @@
 	dtoverlay=gpio-shutdown,gpio_pin=25,active_low=1,gpio_pull=up
 
 
+# 2 Configurer l'afficheur OLED
 ## Creer le fichier infoscreen.sh
 	nano infoscreen.sh
-###
-
+##
 	#!/bin/bash
 	cd env
 	source ~/env/bin/activate
