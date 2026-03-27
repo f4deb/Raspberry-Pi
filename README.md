@@ -7,6 +7,11 @@
 	dtoverlay=gpio-shutdown,gpio_pin=25,active_low=1,gpio_pull=up
 
 # 2 Configurer l'afficheur OLED
+## Installer Adafruit_Blinka
+	sudo apt-get update
+	sudo apt-get upgrade
+##
+	
 ## Creer le fichier infoscreen.sh
 	nano infoscreen.sh
 ##
