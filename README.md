@@ -11,6 +11,8 @@
 	sudo apt-get update
 	sudo apt-get upgrade
 ##
+	cd ~
+	python -m venv env --system-site-packages
 	
 ## Creer le fichier infoscreen.sh
 	nano infoscreen.sh
