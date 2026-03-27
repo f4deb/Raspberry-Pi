@@ -13,6 +13,14 @@
 ##
 	cd ~
 	python -m venv env --system-site-packages
+##
+	source env/bin/activate
+##
+	pip3 install --upgrade adafruit-python-shell
+	pip3 install rpi-lgpio
+	wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/raspi-blinka.py
+	sudo -E env PATH=$PATH python3 raspi-blinka.py
+
 	
 ## Creer le fichier infoscreen.sh
 	nano infoscreen.sh
