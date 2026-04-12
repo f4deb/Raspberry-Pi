@@ -41,7 +41,7 @@
 	pip3 install adafruit-circuitpython-ssd1306
 
 # créer le fichier crontab pour autostart terminal
-	crontab-e
+	crontab -e
 
 ## Ajouter le texte à la fin
 
