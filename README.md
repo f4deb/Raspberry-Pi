@@ -21,6 +21,12 @@
 	wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/raspi-blinka.py
 	sudo -E env PATH=$PATH python3 raspi-blinka.py
 
+## Bibliotheque adafruit !!!!
+
+##	source env/bin/activate
+	
+	pip3 install adafruit-circuitpython-ssd1306
+
 	
 ## Creer le fichier infoscreen.sh
 	nano infoscreen.sh
@@ -36,9 +42,6 @@
 	
 ## Rendre le fichier infoscreen.sh executable
 	sudo chmod +x infoscreen.sh
-
-## Bibliotheque adafruit !!!!
-	pip3 install adafruit-circuitpython-ssd1306
 
 # créer le fichier crontab pour autostart terminal
 	crontab -e
