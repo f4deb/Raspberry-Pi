@@ -37,6 +37,9 @@
 ## Rendre le fichier infoscreen.sh executable
 	sudo chmod +x infoscreen.sh
 
+## Bibliotheque adafruit !!!!
+	pip3 install adafruit-circuitpython-ssd1306
+
 # créer le fichier crontab pour autostart terminal
 	crontab-e
 
