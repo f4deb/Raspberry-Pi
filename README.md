@@ -12,7 +12,7 @@
 	sudo apt-get upgrade
 ##
 	cd ~
-	python -m venv env --system-site-packages
+	python3 -m venv env --system-site-packages
 ##
 	source env/bin/activate
 ##
