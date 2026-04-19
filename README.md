@@ -30,8 +30,7 @@
 	nano infoscreen.sh
 ##
 	#!/bin/bash
-	cd env
-	source ~/env/bin/activate
+	source env/bin/activate
 	nohup python3 infoscreen.py
 
 ## Enregistrer
