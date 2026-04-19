@@ -32,7 +32,7 @@
 	#!/bin/bash
 	cd env
 	source ~/env/bin/activate
-	nohup python infoscreen.py
+	nohup python3 infoscreen.py
 
 ## Enregistrer
 	CTRL+o
