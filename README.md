@@ -18,9 +18,6 @@
 
 ## Bibliotheque adafruit !!!!
 
-	source env/bin/activate
-##	
-
 	pip3 install adafruit-circuitpython-ssd1306
 	
 ##
