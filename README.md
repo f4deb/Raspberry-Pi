@@ -25,6 +25,8 @@
 	pip3 install rpi-lgpio
 	wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/raspi-blinka.py
 	sudo -E env PATH=$PATH python3 raspi-blinka.py
+	pip install pillow
+	pip install psutil
 
 ## Creer le fichier infoscreen.sh
 	nano infoscreen.sh
