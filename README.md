@@ -51,6 +51,26 @@
 	@reboot ./infoscreen.sh
 
 #Serveur Web
-	## Installer le serveur Apache2
+## Installer le serveur Apache2
+	
 	sudo apt install apache2
+	sudo chown -R f4deb:www-data /var/www/html/
+	sudo chmod -R 770 /var/www/html/
+
+## Test
+
+	http://Serveur-IP/index.html
+
+## Installer PHP
+
+	sudo apt install php php-mbstring
+	sudo rm /var/www/html/index.html
+	echo "<?php phpinfo(); ?>" > /var/www/html/index.php
+
+## Test
+	http://Serveur-IP/index.php
+
+
+	
+
 
