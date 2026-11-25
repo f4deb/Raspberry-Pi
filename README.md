@@ -68,7 +68,25 @@
 	echo "<?php phpinfo(); ?>" > /var/www/html/index.php
 
 ## Test
+
 	http://Serveur-IP/index.php
+
+## Installer MySql
+
+	sudo apt install mariadb-server php-mysql
+
+## Se connecter à la base
+	sudo mysql --user=root
+
+## modifier l'utilisateur principal
+	DROP USER 'root'@'localhost';
+	CREATE USER 'root'@'localhost' IDENTIFIED BY 'password';
+	GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+
+# PHPMyAdmin
+
+	sudo apt install phpmyadmin
+
 
 
 	
