@@ -49,3 +49,8 @@
 
 	@reboot python3 /home/f4deb/clignote.py
 	@reboot ./infoscreen.sh
+
+#Serveur Web
+	## Installer le serveur Apache2
+	sudo apt install apache2
+
