@@ -87,6 +87,12 @@
 
 	sudo apt install phpmyadmin
 
+	PHPMyAdmin vous posera plusieurs questions concernant ses réglages.
+
+	Comme nous avons déjà configurez la base de données, choisissez no à la question concernant l’utilisation de dbconfig-common. Choisissez d’utiliser PHPMyAdmin pour un serveur Apache. Pour le mot de passe root, il s’agit de celui que vous aviez utilisé pour MySQL.
+	sudo phpenmod mysqli
+	sudo /etc/init.d/apache2 restart
+	http://Serveur-IP/phpmyadmin
 
 
 	
