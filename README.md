@@ -84,7 +84,7 @@
 	GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 
 # PHPMyAdmin
-## Instalation	
+## Installation	
 	sudo apt install phpmyadmin
 
 	PHPMyAdmin vous posera plusieurs questions concernant ses réglages.
@@ -104,9 +104,22 @@
 	sudo reboot
 
 	Nouvelle Connexion : ssh -p xxxx id@address
+
+# Connexion par cle public	
+
+## Générer la clé public sur le Terminal
 	
+	ssh-keygen -t ed25519
 
+## Sur le serveur
+	Protéger les clés
+	sudo chmod 700 ~/.ssh
+	sudo chmod 600 ~/.ssh/authorized_keys
 
+	Transferer la cle publique dans
+	cd ~/.ssh
+	nano authorized_keys
+	Ajouter la clé publique
 	
 
 
