@@ -97,7 +97,7 @@
 
 	http://Serveur-IP/phpmyadmin
 
-#Changement de port SSH
+# Changement de port SSH
 
 	sudo nano /etc/ssh/sshd_config
 	modifier #Port 22
